@@ -21,15 +21,13 @@ def kaze_matcher(desc1, desc2):
 def find_closes_human(target, myPeople, config: "config file"):
     key_target, description_target = SurfDetectKeyPoints(target["frame"])
     if key_target is None or description_target is None:
-        return None, None, None  # dont have key points for this human
+        return None  # dont have key points for this human
     max_match = []
     for p in myPeople:
         # remove trace frames
         if len(p.frames) > config["max_length_frames"]:
             p.history.extend(p.frames[0:len(p.frames) - config["max_length_frames"]])
             p.frames = p.frames[-config["max_length_frames"]:]
-            p.keys = p.keys[-config["max_length_frames"]:]
-            p.des = p.des[-config["max_length_frames"]:]
 
         match_p = []
         for index, frame in enumerate(p.frames):

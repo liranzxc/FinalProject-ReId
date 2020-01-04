@@ -1,17 +1,17 @@
 {
   "source" :{
-    "inputVideo" : "dataset/re-id/videos/How People Walk.mp4",
+    "inputVideo" : "dataset/re-id/videos/liran_head2.mp4",
     "isVideo" : true,
-    "skipRateFrameFromBeginning" : 30,
-    "videoFrameLength" : 20,
-    "frameRate" : 1,
+    "skipRateFrameFromBeginning" : 1,
+    "videoFrameLength" : 100,
+    "frameRate" : 5,
     "WaitKeySecond" : 10
   },
   "target" : {
-      "inputVideo" : "dataset/re-id/videos/How People Walk.mp4",
+      "inputVideo" : "dataset/re-id/videos/liran_head1.mp4",
       "isVideo" : true,
-      "skipRateFrameFromBeginning" : 30,
-      "videoFrameLength" : 20,
+      "skipRateFrameFromBeginning" : 1,
+      "videoFrameLength" : 30,
       "frameRate" : 1,
       "thresholdAppendToHuman" : 0.1,
       "thresholdAppendNewHumanStart" : 0.1,

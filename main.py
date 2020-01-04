@@ -33,7 +33,7 @@ if __name__ == "__main__":
             exit(0)
 
         # pre processing reduce noise background
-        frameSource = reduceNoise(frameSource)
+       # frameSource = reduceNoise(frameSource)
         if not framesExists(frameSource):
             print("problem with reduce noise source video input")
             exit(0)
@@ -61,7 +61,7 @@ if __name__ == "__main__":
             exit(0)
 
         # pre processing reduce noise background
-        frameTarget = reduceNoise(frameTarget)
+       # frameTarget = reduceNoise(frameTarget)
 
         if not framesExists(frameTarget):
             print("problem with target video input -reduce noise")

@@ -41,7 +41,7 @@ def find_closes_human(target, myPeople, config: "config file"):
             if len(key_target) == 0:
                 acc = 0
             else:
-                acc = len(good_match) / (len(dp) + len(description_target))
+                acc = len(good_match) / (len(dp))
             match_p.append(min(acc, 1))
         if len(match_p) > 0:
             mean_acc = np.amax(match_p)
@@ -98,7 +98,8 @@ def compare_between_two_frames_object(sourceFrame, targetFrame):
             results.append(0)
         else:
             matches = kaze_matcher(des_s, des_t)
-            acc = len(matches) / (len(des_s) + len(des_t))
+            acc = len(matches) / (len(des_s))
+            print(acc)
             results.append(min(acc, 1))
 
     for algo in float_algo:
@@ -108,10 +109,12 @@ def compare_between_two_frames_object(sourceFrame, targetFrame):
             results.append(0)
         else:
             matches = flannmatcher(des_s, des_t)
-            acc = len(matches) / (len(des_s) + len(des_t))
+            acc = len(matches) / (len(des_s))
+            print(acc)
+
             results.append(min(acc, 1))
 
-    return np.amax(results)
+    return np.mean(results)
 
 
 def compare_between_two_description(sourceDescriptor, targetDescriptor):

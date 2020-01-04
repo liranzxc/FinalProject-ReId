@@ -2,7 +2,7 @@
   "source" :{
     "inputVideo" : "dataset/re-id/videos/How People Walk.mp4",
     "isVideo" : true,
-    "skipRateFrameFromBeginning" : 20,
+    "skipRateFrameFromBeginning" : 30,
     "videoFrameLength" : 20,
     "frameRate" : 1,
     "WaitKeySecond" : 10
@@ -10,7 +10,7 @@
   "target" : {
       "inputVideo" : "dataset/re-id/videos/How People Walk.mp4",
       "isVideo" : true,
-      "skipRateFrameFromBeginning" : 20,
+      "skipRateFrameFromBeginning" : 30,
       "videoFrameLength" : 20,
       "frameRate" : 1,
       "thresholdAppendToHuman" : 0.1,

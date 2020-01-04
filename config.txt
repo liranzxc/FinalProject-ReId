@@ -1,25 +1,25 @@
 {
   "source" :{
-    "inputVideo" : "dataset/re-id/videos/people_walk.mp4",
+    "inputVideo" : "dataset/re-id/videos/How People Walk.mp4",
     "isVideo" : true,
-    "skipRateFrameFromBeginning" : 1,
-    "videoFrameLength" : 10,
+    "skipRateFrameFromBeginning" : 20,
+    "videoFrameLength" : 20,
     "frameRate" : 1,
     "WaitKeySecond" : 10
   },
   "target" : {
-      "inputVideo" : "dataset/re-id/videos/people_walk.mp4",
+      "inputVideo" : "dataset/re-id/videos/How People Walk.mp4",
       "isVideo" : true,
-      "skipRateFrameFromBeginning" : 1,
-      "videoFrameLength" : 10,
+      "skipRateFrameFromBeginning" : 20,
+      "videoFrameLength" : 20,
       "frameRate" : 1,
-      "thresholdAppendToHuman" : 0.2,
+      "thresholdAppendToHuman" : 0.1,
       "thresholdAppendNewHumanStart" : 0.1,
       "thresholdAppendNewHumanEnd" : 0.2,
       "WaitKeySecond" : 10,
       "showHistory" : false,
       "FlannMatcherThreshold" : 0.9,
-      "max_length_frames" : 5
+      "max_length_frames" : 20
   }
 
 

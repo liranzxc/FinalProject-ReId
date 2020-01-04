@@ -32,8 +32,8 @@ def find_closes_human(target, myPeople, config: "config file"):
             p.des = p.des[-config["max_length_frames"]:]
 
         match_p = []
-        for index, frame in enumrate(p.frames):
-            kp, dp = p.keys[index], p.des[index]
+        for index, frame in enumerate(p.frames):
+            kp, dp = SurfDetectKeyPoints(frame)
             if kp is None or dp is None:
                 continue
             else:
@@ -41,15 +41,15 @@ def find_closes_human(target, myPeople, config: "config file"):
             if len(key_target) == 0:
                 acc = 0
             else:
-                acc = len(good_match) / len(key_target)
-            match_p.append(acc)
+                acc = len(good_match) / (len(dp) + len(description_target))
+            match_p.append(min(acc, 1))
         if len(match_p) > 0:
-            mean_acc = np.mean(match_p)
+            mean_acc = np.amax(match_p)
         else:
             mean_acc = 0
         max_match.append((p, mean_acc))
 
-    return max_match, key_target, description_target
+    return max_match
 
 
 def bf_matcher(des1, des2, threshold):
@@ -98,7 +98,8 @@ def compare_between_two_frames_object(sourceFrame, targetFrame):
             results.append(0)
         else:
             matches = kaze_matcher(des_s, des_t)
-            results.append(len(matches))
+            acc = len(matches) / (len(des_s) + len(des_t))
+            results.append(min(acc, 1))
 
     for algo in float_algo:
         des_s = sourceFrame[algo]["des"]
@@ -107,9 +108,10 @@ def compare_between_two_frames_object(sourceFrame, targetFrame):
             results.append(0)
         else:
             matches = flannmatcher(des_s, des_t)
-            results.append(len(matches))
+            acc = len(matches) / (len(des_s) + len(des_t))
+            results.append(min(acc, 1))
 
-    return np.mean(results)
+    return np.amax(results)
 
 
 def compare_between_two_description(sourceDescriptor, targetDescriptor):
@@ -120,9 +122,10 @@ def compare_between_two_description(sourceDescriptor, targetDescriptor):
             for index_s, frame_s in enumerate(sourceDescriptor[0]):
                 table_acc[index_t, index_s] = compare_between_two_frames_object(frame_s, frame_t)
 
-        max_matches = np.amax(table_acc)
+        print(table_acc)
+        max_acc = np.amax(table_acc)
         ind = np.unravel_index(np.argmax(table_acc, axis=None), table_acc.shape)
-        acc_target[_id] = {"maxAcc": max_matches,
+        acc_target[_id] = {"maxAcc": max_acc,
                            "target": target,
                            "frameTarget": target[ind[0]],
                            "frameSource": sourceDescriptor[0][ind[1]]}

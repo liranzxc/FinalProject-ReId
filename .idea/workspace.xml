@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
+    <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="add images">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/finalProject/classes/human.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/classes/human.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/finalProject/utils/matchers/Matchers.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/utils/matchers/Matchers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/finalProject/utils/tracking/TrackingByYolo.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/utils/tracking/TrackingByYolo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,16 +42,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1UKb0FznrGWJU8wKWZNuCxODG2S" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent">
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
@@ -59,16 +52,15 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/dataset/re-id/videos" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/dataset/re-id/videos" />
+      <recent name="$PROJECT_DIR$/classes" />
+      <recent name="$PROJECT_DIR$/re-id/videos" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/screenshots" />
       <recent name="$PROJECT_DIR$/dataset/images/liran" />
@@ -76,14 +68,20 @@
       <recent name="$PROJECT_DIR$/datasets" />
       <recent name="$PROJECT_DIR$/utils/keyPoints" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/dataset/re-id/videos" />
-      <recent name="$PROJECT_DIR$/classes" />
-      <recent name="$PROJECT_DIR$/re-id/videos" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.yoloTrackerMain">
     <configuration name="kalmanYolo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Final Project Afeka" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -106,28 +104,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Final Project Afeka" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/tensorflow/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="mainKalman" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Final Project Afeka" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -142,6 +118,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mainKalman.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="testAcc" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Final Project Afeka" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testAcc.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -185,7 +183,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/yoloTrackerMain.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -194,27 +192,22 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.kalmanYolo" />
+      <item itemvalue="Python.mainKalman" />
+      <item itemvalue="Python.tracker" />
+      <item itemvalue="Python.yoloTrackerMain" />
+      <item itemvalue="Python.testAcc" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.yoloTrackerMain" />
+        <item itemvalue="Python.testAcc" />
         <item itemvalue="Python.tracker" />
         <item itemvalue="Python.mainKalman" />
         <item itemvalue="Python.kalmanYolo" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -249,8 +242,14 @@
       <workItem from="1575820076445" duration="826000" />
       <workItem from="1575821195588" duration="1449000" />
       <workItem from="1575881976574" duration="8881000" />
-      <workItem from="1575892498097" duration="575000" />
-      <workItem from="1578132926298" duration="4542000" />
+      <workItem from="1575892498097" duration="613000" />
+      <workItem from="1575896755950" duration="8000" />
+      <workItem from="1576948304160" duration="4974000" />
+      <workItem from="1576996845706" duration="8603000" />
+      <workItem from="1577088395671" duration="69000" />
+      <workItem from="1577113263386" duration="1541000" />
+      <workItem from="1577119798127" duration="117000" />
+      <workItem from="1578139398710" duration="6241000" />
     </task>
     <task id="LOCAL-00001" summary="optical flow">
       <created>1575112722454</created>
@@ -525,42 +524,63 @@
       <option name="project" value="LOCAL" />
       <updated>1575890613437</updated>
     </task>
-    <task id="LOCAL-00040" summary="master 1 branch">
-      <created>1578133052836</created>
+    <task id="LOCAL-00040" summary="draw only key points length greater then zero">
+      <created>1575893094520</created>
       <option name="number" value="00040" />
       <option name="presentableId" value="LOCAL-00040" />
       <option name="project" value="LOCAL" />
-      <updated>1578133052836</updated>
+      <updated>1575893094520</updated>
     </task>
-    <task id="LOCAL-00041" summary="master 1 branch">
-      <created>1578133175806</created>
+    <task id="LOCAL-00041" summary="add main source target">
+      <created>1576932077960</created>
       <option name="number" value="00041" />
       <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1578133175806</updated>
+      <updated>1576932077960</updated>
     </task>
-    <task id="LOCAL-00042" summary="master 1 branch">
-      <created>1578133231673</created>
+    <task id="LOCAL-00042" summary="create a visual table acc">
+      <created>1576945628039</created>
       <option name="number" value="00042" />
       <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1578133231673</updated>
+      <updated>1576945628039</updated>
     </task>
-    <task id="LOCAL-00043" summary="delete unused files">
-      <created>1578133576168</created>
+    <task id="LOCAL-00043" summary="create a visual table acc">
+      <created>1576948041685</created>
       <option name="number" value="00043" />
       <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1578133576168</updated>
+      <updated>1576948041685</updated>
     </task>
-    <task id="LOCAL-00044" summary="delete unused files">
-      <created>1578133588776</created>
+    <task id="LOCAL-00044" summary="create a visual table acc">
+      <created>1576951654163</created>
       <option name="number" value="00044" />
       <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1578133588776</updated>
+      <updated>1576951654163</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="need to improve acc">
+      <created>1576953269160</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1576953269160</updated>
+    </task>
+    <task id="LOCAL-00046" summary="add optical flow crop">
+      <created>1577003149354</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1577003149354</updated>
+    </task>
+    <task id="LOCAL-00047" summary="add images">
+      <created>1577114524026</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1577114524026</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -592,67 +612,39 @@
     <MESSAGE value="add config file" />
     <MESSAGE value="add color boxes and remove unused boxes" />
     <MESSAGE value="add plot keypoints for all algo" />
-    <MESSAGE value="master 1 branch" />
-    <MESSAGE value="delete unused files" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete unused files" />
+    <MESSAGE value="draw only key points length greater then zero" />
+    <MESSAGE value="add main source target" />
+    <MESSAGE value="create a visual table acc" />
+    <MESSAGE value="need to improve acc" />
+    <MESSAGE value="add optical flow crop" />
+    <MESSAGE value="add images" />
+    <option name="LAST_COMMIT_MESSAGE" value="add images" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="671" y="145" key="#main" timestamp="1578138756184">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state x="671" y="145" key="#main/65.24.1855.1056@65.24.1855.1056" timestamp="1578138756184" />
-    <state x="548" y="127" key="CommitChangelistDialog2" timestamp="1578133588688">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state x="548" y="127" key="CommitChangelistDialog2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133588688" />
-    <state width="1809" height="296" key="GridCell.Tab.0.bottom" timestamp="1578139018712">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state width="1809" height="296" key="GridCell.Tab.0.bottom/65.24.1855.1056@65.24.1855.1056" timestamp="1578139018712" />
-    <state width="1809" height="296" key="GridCell.Tab.0.center" timestamp="1578139018712">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state width="1809" height="296" key="GridCell.Tab.0.center/65.24.1855.1056@65.24.1855.1056" timestamp="1578139018712" />
-    <state width="1809" height="296" key="GridCell.Tab.0.left" timestamp="1578139018712">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state width="1809" height="296" key="GridCell.Tab.0.left/65.24.1855.1056@65.24.1855.1056" timestamp="1578139018712" />
-    <state width="1809" height="296" key="GridCell.Tab.0.right" timestamp="1578139018712">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state width="1809" height="296" key="GridCell.Tab.0.right/65.24.1855.1056@65.24.1855.1056" timestamp="1578139018712" />
-    <state x="702" y="257" key="MultipleFileMergeDialog" timestamp="1578133037380">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state x="702" y="257" key="MultipleFileMergeDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1578133037380" />
-    <state x="486" y="174" key="SettingsEditor" timestamp="1578135678068">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state x="486" y="174" key="SettingsEditor/65.24.1855.1056@65.24.1855.1056" timestamp="1578135678068" />
-    <state x="592" y="275" key="Vcs.Push.Dialog.v2" timestamp="1578133589843">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state x="592" y="275" key="Vcs.Push.Dialog.v2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133589843" />
-    <state x="765" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578132938748">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state x="765" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/65.24.1855.1056@65.24.1855.1056" timestamp="1578132938748" />
-    <state x="724" y="253" key="git4idea.branch.GitSmartOperationDialog" timestamp="1578133035079">
-      <screen x="65" y="24" width="1855" height="1056" />
-    </state>
-    <state x="724" y="253" key="git4idea.branch.GitSmartOperationDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1578133035079" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/finalProject/utils/keyPoints/AlgoritamKeyPoints.py</url>
+          <line>52</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$bg_sub.coverage" NAME="bg_sub Coverage Results" MODIFIED="1577001115912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$KalmanFilter.coverage" NAME="KalmanFilter Coverage Results" MODIFIED="1575295812179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$kalman.coverage" NAME="kalman Coverage Results" MODIFIED="1575190906662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Final_Project_Afeka$TrackingByYolo.coverage" NAME="TrackingByYolo Coverage Results" MODIFIED="1575638011946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finalProject/utils/tracking" />
-    <SUITE FILE_PATH="coverage/Final_Project_Afeka$kalmanYolo.coverage" NAME="kalmanYolo Coverage Results" MODIFIED="1575193149002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$MainProcess.coverage" NAME="MainProcess Coverage Results" MODIFIED="1577005833504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$lk_track.coverage" NAME="lk_track Coverage Results" MODIFIED="1575305862132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/opticalFlowLiran" />
-    <SUITE FILE_PATH="coverage/Final_Project_Afeka$tracker.coverage" NAME="tracker Coverage Results" MODIFIED="1575147480887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kalmanproject" />
-    <SUITE FILE_PATH="coverage/Final_Project_Afeka$test_color.coverage" NAME="test_color Coverage Results" MODIFIED="1575641365260" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/FinalProject_ReId$main.coverage" NAME="main Coverage Results" MODIFIED="1578139018702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Final_Project_Afeka$opticalFlowMainTest.coverage" NAME="opticalFlowMainTest Coverage Results" MODIFIED="1575140837232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$yoloTrackerMain.coverage" NAME="yoloTrackerMain Coverage Results" MODIFIED="1578146083609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$TrackingByYolo.coverage" NAME="TrackingByYolo Coverage Results" MODIFIED="1575638011946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finalProject/utils/tracking" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$mainKalman.coverage" NAME="mainKalman Coverage Results" MODIFIED="1575189474826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Final_Project_Afeka$yoloTrackerMain.coverage" NAME="yoloTrackerMain Coverage Results" MODIFIED="1575892962743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$tracker.coverage" NAME="tracker Coverage Results" MODIFIED="1575147480887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kalmanproject" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$kalmanYolo.coverage" NAME="kalmanYolo Coverage Results" MODIFIED="1575193149002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$first_level.coverage" NAME="first_level Coverage Results" MODIFIED="1576930460518" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$testAcc.coverage" NAME="testAcc Coverage Results" MODIFIED="1578145673606" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$test_color.coverage" NAME="test_color Coverage Results" MODIFIED="1575641365260" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$opticalFlowMainTest.coverage" NAME="opticalFlowMainTest Coverage Results" MODIFIED="1575140837232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -8,8 +8,6 @@ class Human:
     def __init__(self, index_count):
         self.indexCount = index_count
         self.frames = []
-        self.keys = []
-        self.des = []
         self.missingFrames = 0
         self.locations = []
         self.history = []

@@ -2,6 +2,7 @@ import cv2
 
 from finalProject.classes.human import Human
 from finalProject.utils.drawing.draw import DrawHumans, ShowPeopleTable, DrawSource
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints
 from finalProject.utils.matchers.Matchers import find_closes_human
 
 import copy
@@ -37,8 +38,9 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
                 cropped_image = yolo.forward(frame2)
                 cropped_image = list(filter(lambda crop: crop["frame"].size, cropped_image))
                 for c in cropped_image:
-                    key, des = SurfDetectKeyPoints(c["frame"])
-                    append_human_to_people(my_people, affected_people, counter_id, c, key, des)
+                    #key, des = SurfDetectKeyPoints(c["frame"])
+                    append_human_to_people(my_people, affected_people, counter_id, c)
+                    counter_id += 1
 
             elif index > 0:
                 cropped_image = yolo.forward(frame2)
@@ -46,8 +48,8 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
                 # print("list of detection", len(cropped_image))
                 for c in cropped_image:
                     if len(my_people) > 0:
-                        max_match, keys_target, des_target = find_closes_human(c, my_people, config=config)
-                        if max_match is None or keys_target is None or des_target is None:
+                        max_match = find_closes_human(c, my_people, config=config)
+                        if max_match is None:
                             continue
 
                         max_maximum = max(max_match, key=lambda item: item[1])
@@ -59,14 +61,14 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
                             affected_people.append(indexer)
                             my_people[indexer].frames.append(c["frame"])
                             my_people[indexer].locations.append(c["location"])
-                            my_people[indexer].keys.append(keys_target)
-                            my_people[indexer].des.append(des_target)
 
                         elif config["thresholdAppendNewHumanStart"] < max_maximum[1] \
                                 < config["thresholdAppendNewHumanEnd"]:
-                            append_human_to_people(my_people, affected_people, counter_id, c, keys_target, des_target)
+                            append_human_to_people(my_people, affected_people, counter_id, c)
+                            counter_id += 1
                     else:
-                        append_human_to_people(my_people, affected_people, counter_id, c, keys_target, des_target)
+                        append_human_to_people(my_people, affected_people, counter_id, c)
+                        counter_id += 1
 
             DrawHumans(my_people, drawFrame, affected_people)
             # find ids from previous frame
@@ -78,13 +80,10 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
     return my_people
 
 
-def append_human_to_people(myPeople, affectedPeople, counterId, c, keysTarget, desTarget):
+def append_human_to_people(myPeople, affectedPeople, counterId, c):
     human = Human(counterId)
     affectedPeople.append(counterId)
-    counterId += 1
     human.frames.append(c["frame"])
-    human.keys.append(keysTarget)
-    human.des.append(desTarget)
     human.locations.append(c["location"])
     myPeople.append(human)
 

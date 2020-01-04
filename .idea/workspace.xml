@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bg_sub.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debugger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/editor.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/find.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui.lnf.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vcs.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +62,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -238,7 +246,7 @@
       <workItem from="1575821195588" duration="1449000" />
       <workItem from="1575881976574" duration="8881000" />
       <workItem from="1575892498097" duration="575000" />
-      <workItem from="1578132926298" duration="244000" />
+      <workItem from="1578132926298" duration="590000" />
     </task>
     <task id="LOCAL-00001" summary="optical flow">
       <created>1575112722454</created>
@@ -520,7 +528,21 @@
       <option name="project" value="LOCAL" />
       <updated>1578133052836</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="master 1 branch">
+      <created>1578133175806</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1578133175806</updated>
+    </task>
+    <task id="LOCAL-00042" summary="master 1 branch">
+      <created>1578133231673</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1578133231673</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,18 +578,22 @@
     <option name="LAST_COMMIT_MESSAGE" value="master 1 branch" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="548" y="127" key="CommitChangelistDialog2" timestamp="1578133175701">
+    <state x="548" y="127" key="CommitChangelistDialog2" timestamp="1578133231603">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="548" y="127" key="CommitChangelistDialog2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133175701" />
+    <state x="548" y="127" key="CommitChangelistDialog2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133231603" />
     <state x="702" y="257" key="MultipleFileMergeDialog" timestamp="1578133037380">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="702" y="257" key="MultipleFileMergeDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1578133037380" />
-    <state x="592" y="275" key="Vcs.Push.Dialog.v2" timestamp="1578133176826">
+    <state x="486" y="174" key="SettingsEditor" timestamp="1578133517505">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="592" y="275" key="Vcs.Push.Dialog.v2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133176826" />
+    <state x="486" y="174" key="SettingsEditor/65.24.1855.1056@65.24.1855.1056" timestamp="1578133517505" />
+    <state x="592" y="275" key="Vcs.Push.Dialog.v2" timestamp="1578133233206">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="592" y="275" key="Vcs.Push.Dialog.v2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133233206" />
     <state x="765" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578132938748">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>

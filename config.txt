@@ -1,18 +1,18 @@
 {
   "source" :{
-    "inputVideo" : "dataset/re-id/videos/liran.mp4",
+    "inputVideo" : "dataset/re-id/videos/people_walk.mp4",
     "isVideo" : true,
     "skipRateFrameFromBeginning" : 1,
-    "videoFrameLength" : 3,
+    "videoFrameLength" : 10,
     "frameRate" : 1,
     "WaitKeySecond" : 10
   },
   "target" : {
-      "inputVideo" : "dataset/re-id/videos/camera_Street.mp4",
+      "inputVideo" : "dataset/re-id/videos/people_walk.mp4",
       "isVideo" : true,
       "skipRateFrameFromBeginning" : 1,
-      "videoFrameLength" : 800,
-      "frameRate" : 5,
+      "videoFrameLength" : 10,
+      "frameRate" : 1,
       "thresholdAppendToHuman" : 0.2,
       "thresholdAppendNewHumanStart" : 0.1,
       "thresholdAppendNewHumanEnd" : 0.2,

@@ -1,15 +1,19 @@
+"""
+pip install opencv-contrib-python==3.4.2.16
+"""
+
 import json
 import pprint
-
 import cv2
-
 from finalProject.classes.yolo import Yolo
 from finalProject.utils.drawing.draw import drawFrameObject, drawTargetFinal
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import createDescriptorTarget
-from finalProject.utils.matchers.Matchers import CompareBetweenTwoDescription
+from finalProject.utils.matchers.Matchers import compare_between_two_description
 from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise
-from finalProject.utils.tracking.TrackingByYolo import SourceDetectionByYolo, TrackingByYolo
+from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
 import matplotlib.pyplot as plt
+
+
 
 if __name__ == "__main__":
     """# import images"""
@@ -40,9 +44,9 @@ if __name__ == "__main__":
         #     if keyboard == 'q' or keyboard == 27:
         #         break
 
-        mySource = SourceDetectionByYolo(frameSource, yolo,
-                                         isVideo=config["source"]["isVideo"],
-                                         config=config["source"])
+        mySource = source_detection_by_yolo(frameSource, yolo,
+                                            isVideo=config["source"]["isVideo"],
+                                            config=config["source"])
         if mySource is None:
             print("fail to detect human on source video")
             exit(0)
@@ -63,7 +67,7 @@ if __name__ == "__main__":
             print("problem with target video input -reduce noise")
             exit(0)
 
-        myTargets = TrackingByYolo(frameTarget, yolo, isVideo=config["target"]["isVideo"], config=config["target"])
+        myTargets = tracking_by_yolo(frameTarget, yolo, isVideo=config["target"]["isVideo"], config=config["target"])
 
         if not framesExists(myTargets):
             print("fail to detect humans on target video")
@@ -78,7 +82,7 @@ if __name__ == "__main__":
         # drawFrameObject(frameExampleSource)
         # drawFrameObject(frameExampleTarget)
 
-        acc_targets = CompareBetweenTwoDescription(descriptorSource, descriptorTarget)
+        acc_targets = compare_between_two_description(descriptorSource, descriptorTarget)
         """
         acc_target look like :
          {

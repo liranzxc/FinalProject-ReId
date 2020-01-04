@@ -3,13 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bg_sub.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/debugger.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/editor.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/find.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui.lnf.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finalProject/classes/human.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/classes/human.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finalProject/utils/matchers/Matchers.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/utils/matchers/Matchers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finalProject/utils/tracking/TrackingByYolo.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/utils/tracking/TrackingByYolo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,16 +59,16 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/dataset/re-id/videos" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/dataset/re-id/videos" />
-      <recent name="$PROJECT_DIR$/classes" />
-      <recent name="$PROJECT_DIR$/re-id/videos" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/screenshots" />
       <recent name="$PROJECT_DIR$/dataset/images/liran" />
@@ -78,30 +76,14 @@
       <recent name="$PROJECT_DIR$/datasets" />
       <recent name="$PROJECT_DIR$/utils/keyPoints" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dataset/re-id/videos" />
+      <recent name="$PROJECT_DIR$/classes" />
+      <recent name="$PROJECT_DIR$/re-id/videos" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python.yoloTrackerMain">
-    <configuration name="KalmanFilter" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Final Project Afeka" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/KalmanFilter.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.main">
     <configuration name="kalmanYolo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Final Project Afeka" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -116,6 +98,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/kalmanYolo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Final Project Afeka" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/tensorflow/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -192,11 +196,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.yoloTrackerMain" />
         <item itemvalue="Python.tracker" />
         <item itemvalue="Python.mainKalman" />
         <item itemvalue="Python.kalmanYolo" />
-        <item itemvalue="Python.KalmanFilter" />
       </list>
     </recent_temporary>
   </component>
@@ -246,7 +250,7 @@
       <workItem from="1575821195588" duration="1449000" />
       <workItem from="1575881976574" duration="8881000" />
       <workItem from="1575892498097" duration="575000" />
-      <workItem from="1578132926298" duration="590000" />
+      <workItem from="1578132926298" duration="4542000" />
     </task>
     <task id="LOCAL-00001" summary="optical flow">
       <created>1575112722454</created>
@@ -542,7 +546,21 @@
       <option name="project" value="LOCAL" />
       <updated>1578133231673</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="delete unused files">
+      <created>1578133576168</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1578133576168</updated>
+    </task>
+    <task id="LOCAL-00044" summary="delete unused files">
+      <created>1578133588776</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1578133588776</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -575,25 +593,46 @@
     <MESSAGE value="add color boxes and remove unused boxes" />
     <MESSAGE value="add plot keypoints for all algo" />
     <MESSAGE value="master 1 branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="master 1 branch" />
+    <MESSAGE value="delete unused files" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete unused files" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="548" y="127" key="CommitChangelistDialog2" timestamp="1578133576083">
+    <state x="671" y="145" key="#main" timestamp="1578138756184">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="548" y="127" key="CommitChangelistDialog2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133576083" />
+    <state x="671" y="145" key="#main/65.24.1855.1056@65.24.1855.1056" timestamp="1578138756184" />
+    <state x="548" y="127" key="CommitChangelistDialog2" timestamp="1578133588688">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="548" y="127" key="CommitChangelistDialog2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133588688" />
+    <state width="1809" height="296" key="GridCell.Tab.0.bottom" timestamp="1578139018712">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state width="1809" height="296" key="GridCell.Tab.0.bottom/65.24.1855.1056@65.24.1855.1056" timestamp="1578139018712" />
+    <state width="1809" height="296" key="GridCell.Tab.0.center" timestamp="1578139018712">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state width="1809" height="296" key="GridCell.Tab.0.center/65.24.1855.1056@65.24.1855.1056" timestamp="1578139018712" />
+    <state width="1809" height="296" key="GridCell.Tab.0.left" timestamp="1578139018712">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state width="1809" height="296" key="GridCell.Tab.0.left/65.24.1855.1056@65.24.1855.1056" timestamp="1578139018712" />
+    <state width="1809" height="296" key="GridCell.Tab.0.right" timestamp="1578139018712">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state width="1809" height="296" key="GridCell.Tab.0.right/65.24.1855.1056@65.24.1855.1056" timestamp="1578139018712" />
     <state x="702" y="257" key="MultipleFileMergeDialog" timestamp="1578133037380">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="702" y="257" key="MultipleFileMergeDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1578133037380" />
-    <state x="486" y="174" key="SettingsEditor" timestamp="1578133517505">
+    <state x="486" y="174" key="SettingsEditor" timestamp="1578135678068">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="486" y="174" key="SettingsEditor/65.24.1855.1056@65.24.1855.1056" timestamp="1578133517505" />
-    <state x="592" y="275" key="Vcs.Push.Dialog.v2" timestamp="1578133577185">
+    <state x="486" y="174" key="SettingsEditor/65.24.1855.1056@65.24.1855.1056" timestamp="1578135678068" />
+    <state x="592" y="275" key="Vcs.Push.Dialog.v2" timestamp="1578133589843">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="592" y="275" key="Vcs.Push.Dialog.v2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133577185" />
+    <state x="592" y="275" key="Vcs.Push.Dialog.v2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133589843" />
     <state x="765" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578132938748">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
@@ -603,17 +642,6 @@
     </state>
     <state x="724" y="253" key="git4idea.branch.GitSmartOperationDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1578133035079" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/finalProject/utils/keyPoints/AlgoritamKeyPoints.py</url>
-          <line>62</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$KalmanFilter.coverage" NAME="KalmanFilter Coverage Results" MODIFIED="1575295812179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$kalman.coverage" NAME="kalman Coverage Results" MODIFIED="1575190906662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -622,6 +650,7 @@
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$lk_track.coverage" NAME="lk_track Coverage Results" MODIFIED="1575305862132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/opticalFlowLiran" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$tracker.coverage" NAME="tracker Coverage Results" MODIFIED="1575147480887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kalmanproject" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$test_color.coverage" NAME="test_color Coverage Results" MODIFIED="1575641365260" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FinalProject_ReId$main.coverage" NAME="main Coverage Results" MODIFIED="1578139018702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$opticalFlowMainTest.coverage" NAME="opticalFlowMainTest Coverage Results" MODIFIED="1575140837232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$mainKalman.coverage" NAME="mainKalman Coverage Results" MODIFIED="1575189474826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$yoloTrackerMain.coverage" NAME="yoloTrackerMain Coverage Results" MODIFIED="1575892962743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

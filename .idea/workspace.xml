@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/finalProject/utils/tracking/TrackingByYolo.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/utils/tracking/TrackingByYolo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yoloTrackerMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/yoloTrackerMain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,6 +40,11 @@
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1UKb0FznrGWJU8wKWZNuCxODG2S" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -69,18 +70,6 @@
       <recent name="$PROJECT_DIR$/datasets" />
       <recent name="$PROJECT_DIR$/utils/keyPoints" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Python.yoloTrackerMain">
     <configuration name="KalmanFilter" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -203,6 +192,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -237,6 +238,7 @@
       <workItem from="1575821195588" duration="1449000" />
       <workItem from="1575881976574" duration="8881000" />
       <workItem from="1575892498097" duration="575000" />
+      <workItem from="1578132926298" duration="244000" />
     </task>
     <task id="LOCAL-00001" summary="optical flow">
       <created>1575112722454</created>
@@ -511,7 +513,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575890613437</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="master 1 branch">
+      <created>1578133052836</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1578133052836</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,13 +552,22 @@
     <MESSAGE value="add config file" />
     <MESSAGE value="add color boxes and remove unused boxes" />
     <MESSAGE value="add plot keypoints for all algo" />
-    <option name="LAST_COMMIT_MESSAGE" value="add plot keypoints for all algo" />
+    <MESSAGE value="master 1 branch" />
+    <option name="LAST_COMMIT_MESSAGE" value="master 1 branch" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="548" y="127" key="CommitChangelistDialog2" timestamp="1578133052708">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="548" y="127" key="CommitChangelistDialog2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133052708" />
     <state x="702" y="257" key="MultipleFileMergeDialog" timestamp="1578133037380">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="702" y="257" key="MultipleFileMergeDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1578133037380" />
+    <state x="592" y="275" key="Vcs.Push.Dialog.v2" timestamp="1578133054155">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="592" y="275" key="Vcs.Push.Dialog.v2/65.24.1855.1056@65.24.1855.1056" timestamp="1578133054155" />
     <state x="765" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578132938748">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
@@ -564,7 +582,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/finalProject/utils/keyPoints/AlgoritamKeyPoints.py</url>
-          <line>63</line>
+          <line>62</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

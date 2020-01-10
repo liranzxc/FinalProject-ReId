@@ -4,7 +4,6 @@
     <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/finalProject/utils/preprocessing/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/utils/preprocessing/preprocess.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -250,14 +249,7 @@
       <workItem from="1577119798127" duration="117000" />
       <workItem from="1578139398710" duration="10406000" />
       <workItem from="1578646229477" duration="17000" />
-      <workItem from="1578665004228" duration="4516000" />
-    </task>
-    <task id="LOCAL-00002" summary="optical flow">
-      <created>1575118699125</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1575118699125</updated>
+      <workItem from="1578665004228" duration="5086000" />
     </task>
     <task id="LOCAL-00003" summary="optical flow">
       <created>1575119191878</created>
@@ -595,7 +587,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578152812654</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="add green color filter">
+      <created>1578669577620</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1578669577621</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,7 +633,8 @@
     <MESSAGE value="add optical flow crop" />
     <MESSAGE value="add images" />
     <MESSAGE value="acc formula" />
-    <option name="LAST_COMMIT_MESSAGE" value="acc formula" />
+    <MESSAGE value="add green color filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="add green color filter" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -653,7 +653,7 @@
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$kalman.coverage" NAME="kalman Coverage Results" MODIFIED="1575190906662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$MainProcess.coverage" NAME="MainProcess Coverage Results" MODIFIED="1577005833504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$lk_track.coverage" NAME="lk_track Coverage Results" MODIFIED="1575305862132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/opticalFlowLiran" />
-    <SUITE FILE_PATH="coverage/Final_Project_Afeka$yoloTrackerMain.coverage" NAME="yoloTrackerMain Coverage Results" MODIFIED="1578669563315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$yoloTrackerMain.coverage" NAME="yoloTrackerMain Coverage Results" MODIFIED="1578670132257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$TrackingByYolo.coverage" NAME="TrackingByYolo Coverage Results" MODIFIED="1575638011946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finalProject/utils/tracking" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$mainKalman.coverage" NAME="mainKalman Coverage Results" MODIFIED="1575189474826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$tracker.coverage" NAME="tracker Coverage Results" MODIFIED="1575147480887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kalmanproject" />

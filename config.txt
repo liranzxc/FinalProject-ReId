@@ -1,6 +1,6 @@
 {
   "source" :{
-    "inputVideo" : "dataset/re-id/videos/liran_head2.mp4",
+    "inputVideo" : "dataset/re-id/videos/green_test.mp4",
     "isVideo" : true,
     "skipRateFrameFromBeginning" : 1,
     "videoFrameLength" : 100,

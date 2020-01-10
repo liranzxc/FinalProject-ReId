@@ -45,3 +45,20 @@ def reduceNoise(frames):
         framesMask.append(extracted)
 
     return framesMask
+
+
+def removeRemovalColor(frames):
+    newFrames = []
+    sensitivity = 15
+    lower_green = np.array([60 - sensitivity, 100, 50])
+    upper_green = np.array([60 + sensitivity, 255, 255])
+
+    for frame in frames:
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        mask = cv2.inRange(hsv, lower_green, upper_green)
+        mask = cv2.bitwise_not(mask,mask)
+        blacksIndex = np.where(mask == 0)
+        frame[blacksIndex] = 0
+        newFrames.append(frame)
+
+    return newFrames

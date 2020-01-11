@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -249,14 +247,8 @@
       <workItem from="1577119798127" duration="117000" />
       <workItem from="1578139398710" duration="10406000" />
       <workItem from="1578646229477" duration="17000" />
-      <workItem from="1578665004228" duration="5086000" />
-    </task>
-    <task id="LOCAL-00003" summary="optical flow">
-      <created>1575119191878</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1575119191878</updated>
+      <workItem from="1578665004228" duration="5180000" />
+      <workItem from="1578676531801" duration="3000" />
     </task>
     <task id="LOCAL-00004" summary="optical flow- yolo">
       <created>1575129010073</created>
@@ -594,7 +586,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578669577621</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="add green color filter">
+      <created>1578670205515</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1578670205515</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -32,12 +32,14 @@ if __name__ == "__main__":
             exit(0)
 
         # pre processing reduce noise background
-        frameSource = reduceNoise(frameSource)
+        if config["source"]["reduceNoise"]:
+            frameSource = reduceNoise(frameSource)
         if not framesExists(frameSource):
             print("problem with reduce noise source video input")
             exit(0)
 
-        #  frameSource = removeRemovalColor(frameSource)
+        if config["source"]["removeRemovalColor"]:
+            frameSource = removeRemovalColor(frameSource)
 
         # for frame in frameSource:
         #     cv2.imshow('removeRemovalColor frame', frame)
@@ -61,14 +63,15 @@ if __name__ == "__main__":
             print("problem with target video input")
             exit(0)
 
-        # pre processing reduce noise background
-        frameTarget = reduceNoise(frameTarget)
+        if config["target"]["reduceNoise"]:
+            frameTarget = reduceNoise(frameTarget)
 
         if not framesExists(frameTarget):
             print("problem with target video input -reduce noise")
             exit(0)
 
-        # frameTarget = removeRemovalColor(frameTarget)
+        if config["target"]["removeRemovalColor"]:
+            frameTarget = removeRemovalColor(frameTarget)
 
         myTargets = tracking_by_yolo(frameTarget, yolo, isVideo=config["target"]["isVideo"], config=config["target"])
 

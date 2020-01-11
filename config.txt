@@ -1,25 +1,29 @@
 {
   "source" :{
-    "inputVideo" : "dataset/re-id/videos/liran.mp4",
+    "inputVideo" : "dataset/re-id/videos/liran_head1.mp4",
     "isVideo" : true,
     "skipRateFrameFromBeginning" : 1,
-    "videoFrameLength" : 300,
-    "frameRate" : 5,
-    "WaitKeySecond" : 10
+    "videoFrameLength" : 20,
+    "frameRate" : 1,
+    "WaitKeySecond" : 10,
+     "removeRemovalColor" : false,
+     "reduceNoise" : false
   },
   "target" : {
-      "inputVideo" : "dataset/re-id/videos/liran2.mp4",
+      "inputVideo" : "dataset/re-id/videos/liran_head2.mp4",
       "isVideo" : true,
       "skipRateFrameFromBeginning" : 1,
-      "videoFrameLength" : 300,
-      "frameRate" : 5,
+      "videoFrameLength" : 20,
+      "frameRate" : 1,
       "thresholdAppendToHuman" : 0.1,
       "thresholdAppendNewHumanStart" : 0.1,
       "thresholdAppendNewHumanEnd" : 0.2,
       "WaitKeySecond" : 10,
       "showHistory" : false,
       "FlannMatcherThreshold" : 0.5,
-      "max_length_frames" : 3
+      "max_length_frames" : 3,
+      "removeRemovalColor" : false,
+      "reduceNoise" : false
   },
   "output": {
     "max_matches" : 10

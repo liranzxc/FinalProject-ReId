@@ -97,7 +97,7 @@ def drawOnScatter(ax, keyPoints, color, label="none"):
                alpha=0.8, edgecolors='none')
 
 
-def drawFramePair(frameObjectSource, frameObjectTarget, NameAlgo, ax):
+def drawFramePair(frameObjectSource, frameObjectTarget, NameAlgo, ax, options):
     frameObjectSource["frame"] = cv2.cvtColor(frameObjectSource["frame"], cv2.COLOR_BGR2RGB)
     frameObjectTarget["frame"] = cv2.cvtColor(frameObjectTarget["frame"], cv2.COLOR_BGR2RGB)
 
@@ -108,14 +108,23 @@ def drawFramePair(frameObjectSource, frameObjectTarget, NameAlgo, ax):
         matches = flannmatcher(frameObjectSource[NameAlgo]["des"],
                                frameObjectTarget[NameAlgo]["des"])
 
-    print(len(matches))
     out_img = np.array([])
+
+    draw_params = dict(matchColor=(0, 255, 0),
+                       singlePointColor=(255, 0, 0),
+                       flags=0)
+
     out_img = cv2.drawMatchesKnn(frameObjectSource["frame"], frameObjectSource[NameAlgo]["keys"],
                                  frameObjectTarget["frame"]
                                  , frameObjectTarget[NameAlgo]["keys"],
-                                 matches[:10], flags=2, outImg=None)
+                                 matches[:options["max_matches"]], **draw_params, outImg=None)
 
     ax.imshow(out_img)
+
+    ax.set_xlabel("algorithm name  {} \n Number Of matches {}  from {} keys points"
+                  .format(NameAlgo, len(matches),
+                          len(frameObjectTarget[NameAlgo]["keys"])
+                          + len(frameObjectSource[NameAlgo]["keys"])))
 
     ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     ax.grid(True)
@@ -124,20 +133,20 @@ def drawFramePair(frameObjectSource, frameObjectTarget, NameAlgo, ax):
     # plt.show()
 
 
-def drawTargetFinal(acc_targets):
+def drawTargetFinal(acc_targets, options):
     acc_targets = sorted(acc_targets.items(), key=lambda item: item[1]["maxAcc"])
     most_acc_target = acc_targets[0][1]
 
     algoritamDraw = [algo.name for algo in NamesAlgorithms]
 
-    fig, axes = plt.subplots(nrows=len(algoritamDraw),figsize=(15, 15))
+    fig, axes = plt.subplots(nrows=len(algoritamDraw), figsize=(15, 15))
 
     for index, algoName in enumerate(algoritamDraw):
         drawFramePair(most_acc_target["frameSource"],
                       most_acc_target["frameTarget"],
-                      algoName, axes[index])
+                      algoName, axes[index], options)
 
-        axes[index].set_xlabel("# Matches : " + str(most_acc_target["maxAcc"]) +
-                               "\n   algorithm name " + algoName)
+    axes[-1].set_xlabel(str(axes[-1].get_xlabel()) +
+                        "\n \n" + "final matches factor : " + str(most_acc_target["maxAcc"]))
 
     plt.show()

@@ -12,10 +12,16 @@ from finalProject.utils.keyPoints.AlgoritamKeyPoints import KazeDetectKeyPoints
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints
 
 
-def kaze_matcher(desc1, desc2):
+def kaze_matcher(desc1, desc2,threshold=0.8):
     matcher = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
     nn_matches = matcher.knnMatch(desc1, desc2, k=2)
-    return nn_matches
+    # Apply ratio test
+    good = []
+    for m, n in nn_matches:
+        if m.distance < threshold * n.distance:
+            good.append([m])
+
+    return good
 
 
 def find_closes_human(target, myPeople, config: "config file"):

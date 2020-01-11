@@ -1,18 +1,18 @@
 {
   "source" :{
-    "inputVideo" : "dataset/re-id/videos/liran_with_green_1.mp4",
+    "inputVideo" : "dataset/re-id/videos/liran_without_green_1.mp4",
     "isVideo" : true,
     "skipRateFrameFromBeginning" : 1,
-    "videoFrameLength" : 100,
-    "frameRate" : 5,
+    "videoFrameLength" : 5,
+    "frameRate" : 1,
     "WaitKeySecond" : 10
   },
   "target" : {
       "inputVideo" : "dataset/re-id/videos/liran_without_green_1.mp4",
       "isVideo" : true,
       "skipRateFrameFromBeginning" : 1,
-      "videoFrameLength" : 100,
-      "frameRate" : 5,
+      "videoFrameLength" : 5,
+      "frameRate" : 1,
       "thresholdAppendToHuman" : 0.1,
       "thresholdAppendNewHumanStart" : 0.1,
       "thresholdAppendNewHumanEnd" : 0.2,

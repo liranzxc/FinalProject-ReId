@@ -97,7 +97,6 @@ def compare_between_two_frames_object(sourceFrame, targetFrame):
         else:
             matches = kaze_matcher(des_s, des_t)
             acc = len(matches) / (len(des_s))
-            print(acc)
             results.append(min(acc, 1))
 
     for algo in float_algo:
@@ -108,8 +107,6 @@ def compare_between_two_frames_object(sourceFrame, targetFrame):
         else:
             matches = flannmatcher(des_s, des_t)
             acc = len(matches) / (len(des_s))
-            print(acc)
-
             results.append(min(acc, 1))
 
     return np.mean(results)
@@ -123,7 +120,6 @@ def compare_between_two_description(sourceDescriptor, targetDescriptor):
             for index_s, frame_s in enumerate(sourceDescriptor[0]):
                 table_acc[index_t, index_s] = compare_between_two_frames_object(frame_s, frame_t)
 
-        print(table_acc)
         max_acc = np.amax(table_acc)
         ind = np.unravel_index(np.argmax(table_acc, axis=None), table_acc.shape)
         acc_target[_id] = {"maxAcc": max_acc,

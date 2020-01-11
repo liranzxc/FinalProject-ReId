@@ -6,7 +6,7 @@ import json
 import pprint
 import cv2
 from finalProject.classes.yolo import Yolo
-from finalProject.utils.drawing.draw import drawFrameObject, drawTargetFinal
+from finalProject.utils.drawing.draw import drawTargetFinal
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import createDescriptorTarget
 from finalProject.utils.matchers.Matchers import compare_between_two_description
 from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise, \
@@ -37,7 +37,7 @@ if __name__ == "__main__":
             print("problem with reduce noise source video input")
             exit(0)
 
-        frameSource = removeRemovalColor(frameSource)
+        #  frameSource = removeRemovalColor(frameSource)
 
         # for frame in frameSource:
         #     cv2.imshow('removeRemovalColor frame', frame)
@@ -68,7 +68,7 @@ if __name__ == "__main__":
             print("problem with target video input -reduce noise")
             exit(0)
 
-        frameTarget = removeRemovalColor(frameTarget)
+        # frameTarget = removeRemovalColor(frameTarget)
 
         myTargets = tracking_by_yolo(frameTarget, yolo, isVideo=config["target"]["isVideo"], config=config["target"])
 

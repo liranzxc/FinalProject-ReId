@@ -4,6 +4,7 @@ import numpy as np
 
 from finalProject.classes.enumTypeKeyPoints import NamesAlgorithms
 from finalProject.utils.drawing.common import draw_str
+from finalProject.utils.matchers.Matchers import kaze_matcher, flannmatcher
 
 
 def DrawOnFrameMyIds(myids, frame):
@@ -96,41 +97,47 @@ def drawOnScatter(ax, keyPoints, color, label="none"):
                alpha=0.8, edgecolors='none')
 
 
-def drawFrameObject(frameObject, ax):
-    frameObject["frame"] = cv2.cvtColor(frameObject["frame"], cv2.COLOR_BGR2RGB)
+def drawFramePair(frameObjectSource, frameObjectTarget, NameAlgo, ax):
+    frameObjectSource["frame"] = cv2.cvtColor(frameObjectSource["frame"], cv2.COLOR_BGR2RGB)
+    frameObjectTarget["frame"] = cv2.cvtColor(frameObjectTarget["frame"], cv2.COLOR_BGR2RGB)
 
-    ax.imshow(frameObject["frame"])
+    if NameAlgo in ["KAZE", "ORB"]:
+        matches = kaze_matcher(frameObjectSource[NameAlgo]["des"],
+                               frameObjectTarget[NameAlgo]["des"])
+    else:
+        matches = flannmatcher(frameObjectSource[NameAlgo]["des"],
+                               frameObjectTarget[NameAlgo]["des"])
 
-    keys = [
-        (frameObject[NamesAlgorithms.KAZE.name]["keys"], 'tab:blue', NamesAlgorithms.KAZE.name),
-        (frameObject[NamesAlgorithms.ORB.name]["keys"], 'tab:orange', NamesAlgorithms.ORB.name),
-      #  (frameObject[NamesAlgorithms.SURF.name]["keys"], 'tab:green', NamesAlgorithms.SURF.name),
-     #   (frameObject[NamesAlgorithms.SIFT.name]["keys"], 'tab:red', NamesAlgorithms.SIFT.name),
-    ]
+    print(len(matches))
+    out_img = np.array([])
+    out_img = cv2.drawMatchesKnn(frameObjectSource["frame"], frameObjectSource[NameAlgo]["keys"],
+                                 frameObjectTarget["frame"]
+                                 , frameObjectTarget[NameAlgo]["keys"],
+                                 matches[:10], flags=2, outImg=None)
 
-    for key in keys:
-        if len(key[0]) > 0:
-            drawOnScatter(ax, key[0], key[1], label=key[2])
+    ax.imshow(out_img)
 
     ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     ax.grid(True)
 
-    #return ax
+    # return ax
     # plt.show()
 
 
 def drawTargetFinal(acc_targets):
+    acc_targets = sorted(acc_targets.items(), key=lambda item: item[1]["maxAcc"])
+    most_acc_target = acc_targets[0][1]
 
-    cols = len(acc_targets.keys())
-    if len(acc_targets.keys()) == 1:
-        cols += 1
+    algoritamDraw = [algo.name for algo in NamesAlgorithms]
 
-    fig, axes = plt.subplots(nrows=2, ncols=cols, sharex=True, sharey=True)
-    for key, target in acc_targets.items():
-        drawFrameObject(target["frameSource"], axes[0, key])
-        drawFrameObject(target["frameTarget"], axes[1, key])
-        # axes[0, key].imshow(target["frameSource"]["frame"])
-        # axes[1, key].imshow(target["frameTarget"]["frame"])
-        axes[1, key].set_xlabel("# Matches : " + str(target["maxAcc"]))
+    fig, axes = plt.subplots(nrows=len(algoritamDraw),figsize=(15, 15))
+
+    for index, algoName in enumerate(algoritamDraw):
+        drawFramePair(most_acc_target["frameSource"],
+                      most_acc_target["frameTarget"],
+                      algoName, axes[index])
+
+        axes[index].set_xlabel("# Matches : " + str(most_acc_target["maxAcc"]) +
+                               "\n   algorithm name " + algoName)
 
     plt.show()

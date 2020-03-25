@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
+    <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="add config filter + photos">
+      <change afterPath="$PROJECT_DIR$/correlationTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finalProject/utils/drawing/draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/utils/drawing/draw.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -251,21 +252,9 @@
       <workItem from="1578646229477" duration="17000" />
       <workItem from="1578665004228" duration="5180000" />
       <workItem from="1578676531801" duration="3000" />
-      <workItem from="1578759455087" duration="6042000" />
-    </task>
-    <task id="LOCAL-00007" summary="optical flow- yolo">
-      <created>1575136498697</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1575136498697</updated>
-    </task>
-    <task id="LOCAL-00008" summary="optical flow- yolo">
-      <created>1575138047689</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1575138047689</updated>
+      <workItem from="1578759455087" duration="7125000" />
+      <workItem from="1578818218888" duration="73000" />
+      <workItem from="1585126873630" duration="6761000" />
     </task>
     <task id="LOCAL-00009" summary="add project kalman for exmaple">
       <created>1575146913237</created>
@@ -596,7 +585,21 @@
       <option name="project" value="LOCAL" />
       <updated>1578765014935</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="add config filter">
+      <created>1578765512620</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1578765512620</updated>
+    </task>
+    <task id="LOCAL-00057" summary="add config filter + photos">
+      <created>1578765541954</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1578765541954</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -637,7 +640,9 @@
     <MESSAGE value="acc formula" />
     <MESSAGE value="add green color filter" />
     <MESSAGE value="add draw table match" />
-    <option name="LAST_COMMIT_MESSAGE" value="add draw table match" />
+    <MESSAGE value="add config filter" />
+    <MESSAGE value="add config filter + photos" />
+    <option name="LAST_COMMIT_MESSAGE" value="add config filter + photos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

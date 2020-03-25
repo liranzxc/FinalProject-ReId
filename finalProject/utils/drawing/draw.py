@@ -139,7 +139,7 @@ def drawTargetFinal(acc_targets, options):
 
     algoritamDraw = [algo.name for algo in NamesAlgorithms]
 
-    fig, axes = plt.subplots(nrows=len(algoritamDraw), figsize=(15, 15))
+    fig, axes = plt.subplots(ncols=len(algoritamDraw), figsize=(15, 15))
 
     for index, algoName in enumerate(algoritamDraw):
         drawFramePair(most_acc_target["frameSource"],

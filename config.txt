@@ -1,20 +1,20 @@
 {
   "source" :{
-    "inputVideo" : "dataset/re-id/videos/liranWalk/left_outside.mp4",
+    "inputVideo" : "dataset/re-id/videos/liranWalk/right_inside.mp4",
     "isVideo" : true,
     "skipRateFrameFromBeginning" : 1,
-    "videoFrameLength" : 200,
-    "frameRate" : 5,
+    "videoFrameLength" : 100,
+    "frameRate" : 10,
     "WaitKeySecond" : 10,
      "removeRemovalColor" : false,
      "reduceNoise" : false
   },
   "target" : {
-      "inputVideo" : "dataset/re-id/videos/liranWalk/left_inside.mp4",
+      "inputVideo" : "dataset/re-id/videos/liranWalk/left_outside.mp4",
       "isVideo" : true,
       "skipRateFrameFromBeginning" : 1,
-      "videoFrameLength" : 200,
-      "frameRate" : 3,
+      "videoFrameLength" : 100,
+      "frameRate" : 10,
       "thresholdAppendToHuman" : 0.1,
       "thresholdAppendNewHumanStart" : 0.1,
       "thresholdAppendNewHumanEnd" : 0.2,

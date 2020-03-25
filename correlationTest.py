@@ -7,6 +7,7 @@ import pprint
 import cv2
 from finalProject.classes.yolo import Yolo
 from finalProject.utils.drawing.draw import drawTargetFinal
+from finalProject.utils.images.imagesUtils import resizeImage
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import createDescriptorTarget
 from finalProject.utils.matchers.Matchers import compare_between_two_description
 from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise, \
@@ -108,13 +109,38 @@ if __name__ == "__main__":
         source = source[1]
         w, h, d = target.shape
 
-        # Apply template Matching
-        res = cv2.matchTemplate(source, target, cv2.TM_CCOEFF_NORMED)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-        top_left = max_loc
-        source = cv2.circle(source, (top_left[0], top_left[1]), 15, (255, 0, 0), 2)
 
-        cv2.imshow(" target match", target)
+        #
+        # cv2.imshow("target with template match", target)
+        # cv2.imshow("source with template match", source)
+        # cv2.waitKey(0)
+        # Convert it to HSV
+        img1_hsv = cv2.cvtColor(source, cv2.COLOR_BGR2HSV)
+        img2_hsv = cv2.cvtColor(target, cv2.COLOR_BGR2HSV)
 
-        cv2.imshow("source with template match", source)
-        cv2.waitKey(0)
+        # Calculate the histogram and normalize it
+        hist_img1 = cv2.calcHist([img1_hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
+        cv2.normalize(hist_img1, hist_img1, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
+        hist_img2 = cv2.calcHist([img2_hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
+        cv2.normalize(hist_img2, hist_img2, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
+
+        # find the metric value
+        metric_val = cv2.compareHist(hist_img1, hist_img2, cv2.HISTCMP_CORREL)
+        print(metric_val)
+
+
+
+        # cv2.imshow("target with template match", target)
+        # cv2.imshow("source with template match", source)
+        # cv2.waitKey(0)
+        #
+        # # Apply template Matching
+        # res = cv2.matchTemplate(source, target, cv2.TM_CCOEFF_NORMED)
+        # min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        # top_left = max_loc
+
+        # cv2.imshow(" source match", source)
+        #
+        # target = resizeImage(target, fy=2, fx=2)
+        # cv2.imshow("target with template match", target)
+        # cv2.waitKey(0)

@@ -38,14 +38,12 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
                 cropped_image = yolo.forward(frame2)
                 cropped_image = list(filter(lambda crop: crop["frame"].size, cropped_image))
                 for c in cropped_image:
-                    #key, des = SurfDetectKeyPoints(c["frame"])
                     append_human_to_people(my_people, affected_people, counter_id, c)
                     counter_id += 1
 
             elif index > 0:
                 cropped_image = yolo.forward(frame2)
                 cropped_image = list(filter(lambda crop: crop["frame"].size, cropped_image))
-                # print("list of detection", len(cropped_image))
                 for c in cropped_image:
                     if len(my_people) > 0:
                         max_match = find_closes_human(c, my_people, config=config)
@@ -53,10 +51,7 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
                             continue
 
                         max_maximum = max(max_match, key=lambda item: item[1])
-                        # cv2.imshow('targetFromMovie', c["frame"])
-                        # print('scoreHumanFromMyPeople', max_maximum[1])
                         if max_maximum[1] > config["thresholdAppendToHuman"]:  # score match
-                            # cv2.imshow('scoreHumanImageFromMyPeople', max_maximum[0].frames[-1])
                             indexer = my_people.index(max_maximum[0])
                             affected_people.append(indexer)
                             my_people[indexer].frames.append(c["frame"])
@@ -72,10 +67,11 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
 
             DrawHumans(my_people, drawFrame, affected_people)
             # find ids from previous frame
-            cv2.imshow('frame', drawFrame)
-            k = cv2.waitKey(config["WaitKeySecond"]) & 0xff
-            if k == 27:
-                break
+            if config["show"]:
+                cv2.imshow('frame', drawFrame)
+                k = cv2.waitKey(config["WaitKeySecond"]) & 0xff
+                if k == 27:
+                    break
 
     return my_people
 
@@ -130,10 +126,11 @@ def source_detection_by_yolo(sequences: [], yolo, isVideo: bool, config: "file")
             if human is not None:
                 DrawSource(human, drawFrame)
                 # find ids from previous frame
-            cv2.imshow('frame', drawFrame)
-            k = cv2.waitKey(config["WaitKeySecond"]) & 0xff
-            if k == 27:
-                break
+            if config["show"]:
+                cv2.imshow('frame', drawFrame)
+                k = cv2.waitKey(config["WaitKeySecond"]) & 0xff
+                if k == 27:
+                    break
     else:
         print("The number of frames is less than one")
     return human

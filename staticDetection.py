@@ -20,8 +20,8 @@ def sobel(img):
     return sobel_intensity
 
 
-def sobel_keypoints(r):
-    sobelImage = sobel(r)
+def sobel_keypoints(image):
+    sobelImage = sobel(image)
     # norm
     image8bit = cv2.normalize(sobelImage, None, 0, 255, cv2.NORM_MINMAX).astype('uint8')
     k, d = SiftDetectKeyPoints(image8bit)

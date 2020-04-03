@@ -107,28 +107,37 @@ if __name__ == "__main__":
 
         target = target[1]
         source = source[1]
-        w, h, d = target.shape
 
+        cv2.destroyAllWindows()
 
+        cv2.cvtColor(target, cv2.COLOR_RGB2GRAY, target)
+        cv2.cvtColor(source, cv2.COLOR_RGB2GRAY, source)
+
+        plt.subplot(121)
+        plt.imshow(source)
+        # plt.subplot(122)
+        # plt.imshow(target)
+        plt.show()
+
+        # w, h, d = target.shape
         #
-        # cv2.imshow("target with template match", target)
-        # cv2.imshow("source with template match", source)
-        # cv2.waitKey(0)
-        # Convert it to HSV
-        img1_hsv = cv2.cvtColor(source, cv2.COLOR_BGR2HSV)
-        img2_hsv = cv2.cvtColor(target, cv2.COLOR_BGR2HSV)
-
-        # Calculate the histogram and normalize it
-        hist_img1 = cv2.calcHist([img1_hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
-        cv2.normalize(hist_img1, hist_img1, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
-        hist_img2 = cv2.calcHist([img2_hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
-        cv2.normalize(hist_img2, hist_img2, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
-
-        # find the metric value
-        metric_val = cv2.compareHist(hist_img1, hist_img2, cv2.HISTCMP_CORREL)
-        print(metric_val)
-
-
+        #
+        # # cv2.imshow("target with template match", target)
+        # # cv2.imshow("source with template match", source)
+        # # cv2.waitKey(0)
+        # # Convert it to HSV
+        # img1_hsv = cv2.cvtColor(source, cv2.COLOR_BGR2HSV)
+        # img2_hsv = cv2.cvtColor(target, cv2.COLOR_BGR2HSV)
+        #
+        # # Calculate the histogram and normalize it
+        # hist_img1 = cv2.calcHist([img1_hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
+        # cv2.normalize(hist_img1, hist_img1, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
+        # hist_img2 = cv2.calcHist([img2_hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
+        # cv2.normalize(hist_img2, hist_img2, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
+        #
+        # # find the metric value
+        # metric_val = cv2.compareHist(hist_img1, hist_img2, cv2.HISTCMP_CORREL)
+        # print(metric_val)
 
         # cv2.imshow("target with template match", target)
         # cv2.imshow("source with template match", source)

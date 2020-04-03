@@ -47,8 +47,8 @@ def ORBDetectKeyPoints(img, n_features=200):
 
 
 def KazeDetectKeyPoints(img):
-    akaze = cv2.AKAZE_create()
-    kp, des = akaze.detectAndCompute(img, None)
+    kaze = cv2.AKAZE_create()
+    kp, des = kaze.detectAndCompute(img, None)
     return kp, des
 
 

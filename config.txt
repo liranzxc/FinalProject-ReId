@@ -11,7 +11,7 @@
      "reduceNoise" : false
   },
   "target" : {
-      "inputVideo" : "dataset/re-id/videos/liran2.mp4",
+      "inputVideo" : "dataset/re-id/videos/liran.mp4",
       "isVideo" : true,
       "show" : false,
       "skipRateFrameFromBeginning" : 1,

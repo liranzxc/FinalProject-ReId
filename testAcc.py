@@ -4,16 +4,12 @@ pip install opencv-contrib-python==3.4.2.16
 
 import json
 import pprint
-import cv2
 from finalProject.classes.yolo import Yolo
-from finalProject.utils.drawing.draw import drawFrameObject, drawTargetFinal
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import createDescriptorTarget, SurfDetectKeyPoints, \
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints, \
     KazeDetectKeyPoints
-from finalProject.utils.matchers.Matchers import compare_between_two_description, kaze_matcher, flannmatcher
+from finalProject.utils.matchers.Matchers import kaze_matcher, flannmatcher
 from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise
 from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
-import matplotlib.pyplot as plt
-import numpy as np
 
 if __name__ == "__main__":
     """# import images"""

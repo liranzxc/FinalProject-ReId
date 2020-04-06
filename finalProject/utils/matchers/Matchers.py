@@ -25,13 +25,14 @@ def kaze_matcher(desc1, desc2,threshold=0.8):
 
 
 def find_closes_human(target, myPeople, config: "config file"):
+    """returns a list of (person, accuracy) pairs of all people in target video
+    and their accuracy matching to the person in target argument"""
     key_target, description_target = SurfDetectKeyPoints(target["frame"])
     if key_target is None or description_target is None:
-        return None  # dont have key points for this human
+        return None  # don't have key points for this human
     max_match = []
     for p in myPeople:
-        # remove trace frames
-        if len(p.frames) > config["max_length_frames"]:
+        if len(p.frames) > config["max_length_frames"]:  # remove trace frames
             p.history.extend(p.frames[0:len(p.frames) - config["max_length_frames"]])
             p.frames = p.frames[-config["max_length_frames"]:]
 
@@ -120,7 +121,7 @@ def compare_between_two_frames_object(sourceFrame, targetFrame):
 
 def compare_between_two_description(sourceDescriptor, targetDescriptor):
     acc_target = {}
-    for _id, target in targetDescriptor.items():
+    for _id, target in targetDescriptor.items():  # loop through both keys and values of dict
         table_acc = np.zeros(shape=[len(target), len(sourceDescriptor[0])])
         for index_t, frame_t in enumerate(target):
             for index_s, frame_s in enumerate(sourceDescriptor[0]):

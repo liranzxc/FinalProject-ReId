@@ -64,6 +64,10 @@ def appendToFrameObject(keys, descriptions, label, frameObject):
 
 
 def createDescriptorTarget(myTarget):
+    """"returns a dictionary<int,[]> of (key,value)=(personId,listOfDescriptors),
+    where listOfDescriptors is a list that its elements are dictionaries -
+    - each dictionary<String,{}> has (key,value)= (algorithmName, dictOfKeysDes),
+    where dictOfKeysDes is a dictionary<String,[]> with two elements: 1=('keys', listOfKeyPoints), 2=('des',listOfDescriptors)"""
     descriptor = {}
 
     for target in myTarget:

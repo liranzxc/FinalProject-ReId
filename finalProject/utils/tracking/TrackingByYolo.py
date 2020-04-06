@@ -9,6 +9,9 @@ import copy
 
 
 def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
+    """this function creates an array containing objects of all people that are in the target video,
+    it assigns each person his frame-boxes from the video and other attributes,
+    (this is regardless of the person in source video)."""
     my_people = []
     counter_id = 0
     frame_rate = config["frameRate"]
@@ -24,44 +27,43 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
     if num_of_frames > 1:
         # start capture
         for index in range(0, num_of_frames, frame_rate):
-            affected_people = []
-
+            affected_people = []  # a list of counterId(int) of all people that are in the current frame
             # print("frame {}".format(index))
+
             if isVideo:
                 frame2 = sequences[index]
             else:
                 frame2 = cv2.imread(sequences[index])
 
-            drawFrame = copy.copy(frame2)
-            if index == 0:
-                # first time
-                cropped_image = yolo.forward(frame2)
-                cropped_image = list(filter(lambda crop: crop["frame"].size, cropped_image))
-                for c in cropped_image:
+            drawFrame = copy.copy(frame2)  # a copy list of the frame2 list
+            if index == 0:  # first frame
+                cropped_image = yolo.forward(frame2)  # returns all frame-boxes of people in the current frame
+                cropped_image = list(filter(lambda crop: crop["frame"].size, cropped_image))  # filters frame-boxes
+                for c in cropped_image:  # loop on frame-boxes
                     append_human_to_people(my_people, affected_people, counter_id, c)
                     counter_id += 1
 
             elif index > 0:
                 cropped_image = yolo.forward(frame2)
                 cropped_image = list(filter(lambda crop: crop["frame"].size, cropped_image))
-                for c in cropped_image:
+                for c in cropped_image:  # determine which frame-box is related to which person
                     if len(my_people) > 0:
-                        max_match = find_closes_human(c, my_people, config=config)
+                        max_match = find_closes_human(c, my_people, config=config)  # returns a list of all people and their accuracy
                         if max_match is None:
-                            continue
+                            continue  # skip iteration and continue on with the next iteration
 
-                        max_maximum = max(max_match, key=lambda item: item[1])
-                        if max_maximum[1] > config["thresholdAppendToHuman"]:  # score match
-                            indexer = my_people.index(max_maximum[0])
-                            affected_people.append(indexer)
-                            my_people[indexer].frames.append(c["frame"])
-                            my_people[indexer].locations.append(c["location"])
+                        max_maximum = max(max_match, key=lambda item: item[1])  # gets the person with max accuracy
+                        if max_maximum[1] > config["thresholdAppendToHuman"]:  # accuracy is good enough to determine it's the same person
+                            indexer = my_people.index(max_maximum[0])  # returns the index of this person with max accuracy in myPeople list
+                            affected_people.append(indexer)  # adds this person to affected_people list
+                            my_people[indexer].frames.append(c["frame"])  # adds the box-frame to this person
+                            my_people[indexer].locations.append(c["location"])  # adds his locations too
 
                         elif config["thresholdAppendNewHumanStart"] < max_maximum[1] \
-                                < config["thresholdAppendNewHumanEnd"]:
+                                < config["thresholdAppendNewHumanEnd"]:  # if accuracy matches the values determine to create a new person
                             append_human_to_people(my_people, affected_people, counter_id, c)
                             counter_id += 1
-                    else:
+                    else:  # creates a new person (this is the first person)
                         append_human_to_people(my_people, affected_people, counter_id, c)
                         counter_id += 1
 
@@ -86,7 +88,7 @@ def append_human_to_people(myPeople, affectedPeople, counterId, c):
 
 # sequences is all frames related to the source
 def source_detection_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
-    counterId = 0
+    human = None
     frameRate = config["frameRate"]
     if config["videoFrameLength"] == -1:
         numOfFrames = len(sequences)
@@ -99,7 +101,6 @@ def source_detection_by_yolo(sequences: [], yolo, isVideo: bool, config: "file")
 
     if numOfFrames > 1:
         # start capture, looping on the frames, skipping the frameRate
-        human = None
         for index in range(0, numOfFrames, frameRate):
             # print("frame {}".format(index))
             if isVideo:
@@ -118,8 +119,7 @@ def source_detection_by_yolo(sequences: [], yolo, isVideo: bool, config: "file")
             # index is the frame number
             for c in croppedImage:
                 if human is None:
-                    human = Human(counterId)
-                    counterId += 1
+                    human = Human(0)
                 human.frames.append(c["frame"])
                 human.locations.append(c["location"])
 
@@ -133,4 +133,5 @@ def source_detection_by_yolo(sequences: [], yolo, isVideo: bool, config: "file")
                     break
     else:
         print("The number of frames is less than one")
+
     return human

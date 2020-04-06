@@ -65,7 +65,6 @@ if __name__ == "__main__":
 
         if config["target"]["reduceNoise"]:
             frameTarget = reduceNoise(frameTarget)
-
         if not framesExists(frameTarget):
             print("problem with target video input -reduce noise")
             exit(0)
@@ -82,11 +81,13 @@ if __name__ == "__main__":
 
         descriptorTarget = createDescriptorTarget(myTargets)
 
-        # frameExampleTarget = descriptorTarget[0][0]
+        frameExampleTarget = descriptorTarget[0][0]
         # frameExampleSource = descriptorSource[0][0]
 
         # drawFrameObject(frameExampleSource)
-        # drawFrameObject(frameExampleTarget)
+        #drawFrameObject(frameExampleTarget)
+        print("frameExampleTarget:")
+        print(frameExampleTarget)
 
         acc_targets = compare_between_two_description(descriptorSource, descriptorTarget)
         """

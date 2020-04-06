@@ -24,7 +24,7 @@ def kaze_matcher(desc1, desc2,threshold=0.8):
     return good
 
 
-def find_closes_human(target, myPeople, config: "config file"):
+def find_closest_human(target, myPeople, config: "config file"):
     """returns a list of (person, accuracy) pairs of all people in target video
     and their accuracy matching to the person in target argument"""
     key_target, description_target = SurfDetectKeyPoints(target["frame"])

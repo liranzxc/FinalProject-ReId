@@ -3,7 +3,7 @@ import cv2
 from finalProject.classes.human import Human
 from finalProject.utils.drawing.draw import DrawHumans, ShowPeopleTable, DrawSource
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints
-from finalProject.utils.matchers.Matchers import find_closes_human
+from finalProject.utils.matchers.Matchers import find_closest_human
 
 import copy
 
@@ -48,7 +48,7 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
                 cropped_image = list(filter(lambda crop: crop["frame"].size, cropped_image))
                 for c in cropped_image:  # determine which frame-box is related to which person
                     if len(my_people) > 0:
-                        max_match = find_closes_human(c, my_people, config=config)  # returns a list of all people and their accuracy
+                        max_match = find_closest_human(c, my_people, config=config)  # returns a list of all people and their accuracy
                         if max_match is None:
                             continue  # skip iteration and continue on with the next iteration
 

@@ -3,16 +3,15 @@ import cv2
 from finalProject.classes.enumTypeKeyPoints import NamesAlgorithms
 
 
-def KeyPointsBinary(img, Threshold):
-    kpOrb, desOrb = ORBDetectKeyPoints(img, Threshold)
+def KeyPointsBinary(img, threshold):
+    kpOrb, desOrb = OrbDetectKeyPoints(img, threshold)
     kpKaze, desKaze = KazeDetectKeyPoints(img)
     return [(kpOrb, desOrb), (kpKaze, desKaze)]
 
 
-def KeyPointsFloat(img, Threshold):
-    kpSurf, desSurf = SurfDetectKeyPoints(img, Threshold)
+def KeyPointsFloat(img, threshold):
+    kpSurf, desSurf = SurfDetectKeyPoints(img)
     kpSift, desSift = SiftDetectKeyPoints(img)
-
     return [(kpSurf, desSurf), (kpSift, desSift)]
 
 
@@ -22,19 +21,17 @@ def SiftDetectKeyPoints(img):
     return kp, des
 
 
-"""# Surf Algoritam"""
-
-
+"""# Surf Algorithm"""
 def SurfDetectKeyPoints(img):
     suft = cv2.xfeatures2d.SURF_create()
     kp, des = suft.detectAndCompute(img, None)
     return kp, des
 
 
-"""#orb algoritam"""
+"""# Orb algorithm"""
 
 
-def ORBDetectKeyPoints(img, n_features=200):
+def OrbDetectKeyPoints(img, n_features=200):
     # Initiate STAR detector
     orb = cv2.ORB_create(nfeatures=n_features)  # find the keypoints with ORB
     kp = orb.detect(img, None)
@@ -43,9 +40,7 @@ def ORBDetectKeyPoints(img, n_features=200):
     return kp, des
 
 
-"""# Kaze algoritam"""
-
-
+"""# Kaze algorithm"""
 def KazeDetectKeyPoints(img):
     kaze = cv2.AKAZE_create()
     kp, des = kaze.detectAndCompute(img, None)
@@ -63,18 +58,18 @@ def appendToFrameObject(keys, descriptions, label, frameObject):
         frameObject[label] = {"keys": keys, "des": descriptions}
 
 
-def createDescriptorTarget(myTarget):
-    """"returns a dictionary<int,[]> of (key,value)=(personId,listOfDescriptors),
+def create_key_points_descriptors(people_list):  # people_list is a list of elements of type Person
+    """"returns a dictionary<int,[]> of (key,value)=(person_id,listOfDescriptors),
     where listOfDescriptors is a list that its elements are dictionaries -
     - each dictionary<String,{}> has (key,value)= (algorithmName, dictOfKeysDes),
     where dictOfKeysDes is a dictionary<String,[]> with two elements: 1=('keys', listOfKeyPoints), 2=('des',listOfDescriptors)"""
     descriptor = {}
 
-    for target in myTarget:
-        descriptor[target.indexCount] = []
+    for target in people_list:
+        descriptor[target.personId] = []
 
         for frame in target.frames:
-            kOrb, desOrb = CalculationKeyPoint(frame, ORBDetectKeyPoints)
+            kOrb, desOrb = CalculationKeyPoint(frame, OrbDetectKeyPoints)
             kKaze, desKaze = CalculationKeyPoint(frame, KazeDetectKeyPoints)
             kSift, desSift = CalculationKeyPoint(frame, SiftDetectKeyPoints)
             kSurf, desSurf = CalculationKeyPoint(frame, SurfDetectKeyPoints)
@@ -87,6 +82,6 @@ def createDescriptorTarget(myTarget):
             appendToFrameObject(kSift, desSift, NamesAlgorithms.SIFT.name, frameObject)
             appendToFrameObject(kSurf, desSurf, NamesAlgorithms.SURF.name, frameObject)
 
-            descriptor[target.indexCount].append(frameObject)
+            descriptor[target.personId].append(frameObject)
 
     return descriptor

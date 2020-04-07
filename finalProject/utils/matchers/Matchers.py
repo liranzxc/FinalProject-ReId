@@ -1,22 +1,17 @@
 """ **Matchers**
-#Kaze Matcher for binary classification - orb , kaze ,brief,fast
+#Kaze Matcher for binary classification - orb , kaze
 """
 import cv2
 import numpy as np
 
 from finalProject.classes.enumTypeKeyPoints import NamesAlgorithms
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SiftDetectKeyPoints
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import ORBDetectKeyPoints
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import KazeDetectKeyPoints
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints
 
 
-def kaze_matcher(desc1, desc2,threshold=0.8):
+def kaze_matcher(desc1, desc2, threshold=0.8):
     matcher = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
     nn_matches = matcher.knnMatch(desc1, desc2, k=2)
-    # Apply ratio test
-    good = []
+    good = []  # Apply ratio test
     for m, n in nn_matches:
         if m.distance < threshold * n.distance:
             good.append([m])
@@ -42,7 +37,7 @@ def find_closest_human(target, myPeople, config: "config file"):
             if kp is None or dp is None:
                 continue
             else:
-                good_match = flannmatcher(description_target, dp, config["FlannMatcherThreshold"])
+                good_match = flann_matcher(description_target, dp, config["FlannMatcherThreshold"])
             if len(key_target) == 0:
                 acc = 0
             else:
@@ -72,7 +67,7 @@ def bf_matcher(des1, des2, threshold):
 """#FLANN MATCHER for SURF and SIFT"""
 
 
-def flannmatcher(des1, des2, threshold=0.8):  # threshold is the distance between the points we're comparing
+def flann_matcher(des1, des2, threshold=0.8):  # threshold is the distance between the points we're comparing
     # FLANN parameters
     FLANN_INDEX_KDTREE = 1
     index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
@@ -112,7 +107,7 @@ def compare_between_two_frames_object(sourceFrame, targetFrame):
         if len(des_s) == 0 or len(des_t) == 0:
             results.append(0)
         else:
-            matches = flannmatcher(des_s, des_t)
+            matches = flann_matcher(des_s, des_t)
             acc = len(matches) / (len(des_s))
             results.append(min(acc, 1))
 
@@ -131,6 +126,6 @@ def compare_between_two_description(sourceDescriptor, targetDescriptor):
         ind = np.unravel_index(np.argmax(table_acc, axis=None), table_acc.shape)
         acc_target[_id] = {"maxAcc": max_acc,
                            "target": target,
-                           "frameTarget": target[ind[0]],
-                           "frameSource": sourceDescriptor[0][ind[1]]}
+                           "targetFrames": target[ind[0]],
+                           "sourceFrames": sourceDescriptor[0][ind[1]]}
     return acc_target

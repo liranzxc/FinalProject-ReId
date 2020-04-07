@@ -1,12 +1,9 @@
-import os
 import numpy as np
-import cv2
-import math
 
 
-class Human:
-    def __init__(self, index_count):
-        self.indexCount = index_count
+class Person:
+    def __init__(self, person_id):
+        self.person_id = person_id
         self.frames = []
         self.missingFrames = 0
         self.locations = []

@@ -4,7 +4,7 @@ import numpy as np
 
 from finalProject.classes.enumTypeKeyPoints import NamesAlgorithms
 from finalProject.utils.drawing.common import draw_str
-from finalProject.utils.matchers.Matchers import kaze_matcher, flannmatcher
+from finalProject.utils.matchers.Matchers import kaze_matcher, flann_matcher
 
 
 def DrawOnFrameMyIds(myids, frame):
@@ -105,8 +105,8 @@ def drawFramePair(frameObjectSource, frameObjectTarget, NameAlgo, ax, options):
         matches = kaze_matcher(frameObjectSource[NameAlgo]["des"],
                                frameObjectTarget[NameAlgo]["des"])
     else:
-        matches = flannmatcher(frameObjectSource[NameAlgo]["des"],
-                               frameObjectTarget[NameAlgo]["des"])
+        matches = flann_matcher(frameObjectSource[NameAlgo]["des"],
+                                frameObjectTarget[NameAlgo]["des"])
 
     out_img = np.array([])
 
@@ -142,8 +142,8 @@ def drawTargetFinal(acc_targets, options):
     fig, axes = plt.subplots(ncols=len(algoritamDraw), figsize=(15, 15))
 
     for index, algoName in enumerate(algoritamDraw):
-        drawFramePair(most_acc_target["frameSource"],
-                      most_acc_target["frameTarget"],
+        drawFramePair(most_acc_target["sourceFrames"],
+                      most_acc_target["targetFrames"],
                       algoName, axes[index], options)
 
     axes[-1].set_xlabel(str(axes[-1].get_xlabel()) +

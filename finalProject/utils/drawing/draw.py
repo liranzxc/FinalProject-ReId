@@ -142,8 +142,8 @@ def drawTargetFinal(acc_targets, options):
     fig, axes = plt.subplots(ncols=len(algoritamDraw), figsize=(15, 15))
 
     for index, algoName in enumerate(algoritamDraw):
-        drawFramePair(most_acc_target["sourceFrames"],
-                      most_acc_target["targetFrames"],
+        drawFramePair(most_acc_target["source_frames"],
+                      most_acc_target["target_frames"],
                       algoName, axes[index], options)
 
     axes[-1].set_xlabel(str(axes[-1].get_xlabel()) +

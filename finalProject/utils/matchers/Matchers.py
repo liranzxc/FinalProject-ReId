@@ -126,6 +126,6 @@ def compare_between_two_description(sourceDescriptor, targetDescriptor):
         ind = np.unravel_index(np.argmax(table_acc, axis=None), table_acc.shape)
         acc_target[_id] = {"maxAcc": max_acc,
                            "target": target,
-                           "targetFrames": target[ind[0]],
-                           "sourceFrames": sourceDescriptor[0][ind[1]]}
+                           "target_frames": target[ind[0]],
+                           "source_frames": sourceDescriptor[0][ind[1]]}
     return acc_target

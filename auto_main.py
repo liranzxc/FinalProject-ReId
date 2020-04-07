@@ -85,7 +85,7 @@ if __name__ == "__main__":
             exit(0)
 
         mySource = source_detection_by_yolo(frameSource, yolo,
-                                            isVideo=config["source"]["isVideo"],
+                                            is_video=config["source"]["isVideo"],
                                             config=config["source"])
         if mySource is None:
             print("fail to detect human on source video")

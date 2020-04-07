@@ -39,7 +39,7 @@ def tracking_by_yolo(frames: [], yolo, isVideo: bool, config: "file"):
                 cropped_image = yolo.forward(frame2)  # returns all frame-boxes of people in the current frame
                 cropped_image = list(filter(lambda crop: crop["frame"].size, cropped_image))  # filters frame-boxes
                 for c in cropped_image:  # loop on frame-boxes
-                    append_human_to_people(my_people, affected_people, counter_id, c)
+                    append_person_to_people(my_people, affected_people, counter_id, c)
                     counter_id += 1
 
             elif index > 0:
@@ -60,10 +60,10 @@ def tracking_by_yolo(frames: [], yolo, isVideo: bool, config: "file"):
 
                         elif config["thresholdAppendNewHumanStart"] < max_maximum[1] \
                                 < config["thresholdAppendNewHumanEnd"]:  # if accuracy matches the values determine to create a new person
-                            append_human_to_people(my_people, affected_people, counter_id, c)
+                            append_person_to_people(my_people, affected_people, counter_id, c)
                             counter_id += 1
                     else:  # creates a new person (this is the first person)
-                        append_human_to_people(my_people, affected_people, counter_id, c)
+                        append_person_to_people(my_people, affected_people, counter_id, c)
                         counter_id += 1
 
             DrawHumans(my_people, drawFrame, affected_people)
@@ -77,18 +77,18 @@ def tracking_by_yolo(frames: [], yolo, isVideo: bool, config: "file"):
     return my_people
 
 
-def append_human_to_people(myPeople, affectedPeople, counterId, c):
-    person = Person(counterId)
-    affectedPeople.append(counterId)
+def append_person_to_people(people_list, affected_people_ids, person_id, c):
+    person = Person(person_id)
+    affected_people_ids.append(person_id)
     person.frames.append(c["frame"])
     person.locations.append(c["location"])
-    myPeople.append(person)
+    people_list.append(person)
 
 
-# sourceFrames is all frames related to the source
-def source_detection_by_yolo(sourceFrames: [], yolo, isVideo: bool, config: "file"):
-    person = None
-    frameRate = config["frameRate"]
+# source_frames is all frames related to the source
+def source_detection_by_yolo(sourceFrames: [], yolo, is_video: bool, config: "file"):
+    person = Person(0)
+    frame_rate = config["frameRate"]
     if config["videoFrameLength"] == -1:
         num_of_frames = len(sourceFrames)
     else:
@@ -99,9 +99,9 @@ def source_detection_by_yolo(sourceFrames: [], yolo, isVideo: bool, config: "fil
         num_of_frames = len(sourceFrames)
 
     if num_of_frames > 1:
-        for index in range(0, num_of_frames, frameRate):  # start capture, looping on the frames, skipping the frameRate
+        for index in range(0, num_of_frames, frame_rate):  # start capture, looping on the frames, skipping the frameRate
             # print("frame {}".format(index))
-            if isVideo:
+            if is_video:
                 current_frame = sourceFrames[index]  # index is the frame number
             else:
                 current_frame = cv2.imread(sourceFrames[index])
@@ -111,18 +111,15 @@ def source_detection_by_yolo(sourceFrames: [], yolo, isVideo: bool, config: "fil
             cropped_frames = list(filter(lambda crop: crop["frame"].size, cropped_frames))
 
             if len(cropped_frames) > 1:
-                print("On source found two people , must be one person")
+                print("On source found two people, must be one person")
                 return None
 
             for cropped_frame in cropped_frames:
-                if person is None:
-                    person = Person(0)
                 person.frames.append(cropped_frame["frame"])
                 person.locations.append(cropped_frame["location"])
 
-            if person is not None:
+            if len(person.frames) > 0:
                 DrawSource(person, drawFrame)
-                # find ids from previous frame
             if config["show"]:
                 cv2.imshow('frame', drawFrame)
                 k = cv2.waitKey(config["WaitKeySecond"]) & 0xff

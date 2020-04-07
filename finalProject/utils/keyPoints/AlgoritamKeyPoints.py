@@ -41,9 +41,11 @@ def OrbDetectKeyPoints(img, n_features=200):
 
 
 """# Kaze algorithm"""
-def KazeDetectKeyPoints(img):
+
+
+def KazeDetectKeyPoints(image):
     kaze = cv2.AKAZE_create()
-    kp, des = kaze.detectAndCompute(img, None)
+    kp, des = kaze.detectAndCompute(image, None)
     return kp, des
 
 

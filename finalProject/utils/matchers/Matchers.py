@@ -15,18 +15,17 @@ def kaze_matcher(desc1, desc2, threshold=0.8):
     for m, n in nn_matches:
         if m.distance < threshold * n.distance:
             good.append([m])
-
     return good
 
 
-def find_closest_human(target, myPeople, config: "config file"):
+def find_closest_human(target, people_list, config: "config file"):
     """returns a list of (person, accuracy) pairs of all people in target video
     and their accuracy matching to the person in target argument"""
     key_target, description_target = SurfDetectKeyPoints(target["frame"])
     if key_target is None or description_target is None:
         return None  # don't have key points for this human
     max_match = []
-    for p in myPeople:
+    for p in people_list:
         if len(p.frames) > config["max_length_frames"]:  # remove trace frames
             p.history.extend(p.frames[0:len(p.frames) - config["max_length_frames"]])
             p.frames = p.frames[-config["max_length_frames"]:]
@@ -64,10 +63,8 @@ def bf_matcher(des1, des2, threshold):
     return good
 
 
-"""#FLANN MATCHER for SURF and SIFT"""
-
-
 def flann_matcher(des1, des2, threshold=0.8):  # threshold is the distance between the points we're comparing
+    """#FLANN MATCHER for SURF and SIFT"""
     # FLANN parameters
     FLANN_INDEX_KDTREE = 1
     index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
@@ -87,7 +84,7 @@ def flann_matcher(des1, des2, threshold=0.8):  # threshold is the distance betwe
         return []
 
 
-def compare_between_two_frames_object(sourceFrame, targetFrame):
+def compare_between_descriptors(sourceFrame, targetFrame):
     binary_algo = [NamesAlgorithms.ORB.name, NamesAlgorithms.KAZE.name]
     float_algo = [NamesAlgorithms.SURF.name, NamesAlgorithms.SIFT.name]
     results = []
@@ -114,18 +111,18 @@ def compare_between_two_frames_object(sourceFrame, targetFrame):
     return np.mean(results)
 
 
-def compare_between_two_description(sourceDescriptor, targetDescriptor):
-    acc_target = {}
-    for _id, target in targetDescriptor.items():  # loop through both keys and values of dict
-        table_acc = np.zeros(shape=[len(target), len(sourceDescriptor[0])])
-        for index_t, frame_t in enumerate(target):
-            for index_s, frame_s in enumerate(sourceDescriptor[0]):
-                table_acc[index_t, index_s] = compare_between_two_frames_object(frame_s, frame_t)
+def compute_accuracy_table(source_descriptors, target_descriptors):
+    acc_table = {}
+    for t_id, t_des_list in target_descriptors.items():  # loop through both keys and values of dict
+        frames_table = np.zeros(shape=[len(t_des_list), len(source_descriptors[0])])  # rows=num of people in target, cols=num of src descriptors
+        for t_des_index, t_des in enumerate(t_des_list):
+            for s_des_index, s_des in enumerate(source_descriptors[0]):
+                frames_table[t_des_index, s_des_index] = compare_between_descriptors(s_des, t_des)
 
-        max_acc = np.amax(table_acc)
-        ind = np.unravel_index(np.argmax(table_acc, axis=None), table_acc.shape)
-        acc_target[_id] = {"maxAcc": max_acc,
-                           "target": target,
-                           "target_frames": target[ind[0]],
-                           "source_frames": sourceDescriptor[0][ind[1]]}
-    return acc_target
+        max_acc = np.amax(frames_table)
+        ind = np.unravel_index(np.argmax(frames_table, axis=None), frames_table.shape)
+        acc_table[t_id] = {"maxAcc": max_acc,
+                           "target_des": t_des_list,
+                           "target_frames": t_des_list[ind[0]],
+                           "source_frames": source_descriptors[0][ind[1]]}
+    return acc_table

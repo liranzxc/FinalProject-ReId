@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from finalProject.classes.yolo import Yolo
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import SiftDetectKeyPoints
 from finalProject.utils.matchers.Matchers import flann_matcher
-from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists
+from finalProject.utils.preprocessing.preprocess import read_frames_from_video, is_frames_exists
 from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
 
 
@@ -79,8 +79,8 @@ if __name__ == "__main__":
         config = json.load(file_json)
 
         # source
-        frameSource = readFromInputVideoFrames(config["source"])
-        if not framesExists(frameSource):
+        frameSource = read_frames_from_video(config["source"])
+        if not is_frames_exists(frameSource):
             print("problem with source video input")
             exit(0)
 
@@ -92,16 +92,16 @@ if __name__ == "__main__":
             exit(0)
 
         # target
-        frameTarget = readFromInputVideoFrames(config["target"])
-        if not framesExists(frameTarget):
+        frameTarget = read_frames_from_video(config["target"])
+        if not is_frames_exists(frameTarget):
             print("problem with target video input")
             exit(0)
 
-        if not framesExists(frameTarget):
+        if not is_frames_exists(frameTarget):
             print("problem with target video input -reduce noise")
             exit(0)
 
-        myTargets = tracking_by_yolo(frameTarget, yolo, isVideo=config["target"]["isVideo"],
+        myTargets = tracking_by_yolo(frameTarget, yolo, is_video=config["target"]["isVideo"],
                                      config=config["target"])
 
         # source

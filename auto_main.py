@@ -4,16 +4,15 @@ pip install opencv-contrib-python==3.4.2.16
 
 import json
 import pprint
+
 import cv2
-from finalProject.classes.yolo import Yolo
-from finalProject.utils.drawing.draw import drawTargetFinal
-from finalProject.utils.images.imagesUtils import Image
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import createDescriptorTarget, SiftDetectKeyPoints
-from finalProject.utils.matchers.Matchers import compare_between_two_description, flannmatcher
-from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise, \
-    removeRemovalColor
-from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
 import matplotlib.pyplot as plt
+
+from finalProject.classes.yolo import Yolo
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import SiftDetectKeyPoints
+from finalProject.utils.matchers.Matchers import flann_matcher
+from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists
+from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
 
 
 def sobel(img):
@@ -46,7 +45,7 @@ def forward(frames):
 def cross_correction(key_des_image_source, key_des_image_target, threshold=0.5):
     (k1, d1, img1) = key_des_image_source
     (k2, d2, img2) = key_des_image_target
-    match = flannmatcher(d1, d2, threshold=threshold)
+    match = flann_matcher(d1, d2, threshold=threshold)
     output = cv2.drawMatchesKnn(img1, k1, img2, k2, match, outImg=None)
     return output
 

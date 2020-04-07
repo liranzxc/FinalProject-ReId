@@ -1,14 +1,13 @@
-import cv2
-
-from finalProject.classes.human import Human
-from finalProject.utils.drawing.draw import DrawHumans, ShowPeopleTable, DrawSource
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints
-from finalProject.utils.matchers.Matchers import find_closest_human
-
 import copy
 
+import cv2
 
-def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
+from finalProject.classes.person import Person
+from finalProject.utils.drawing.draw import DrawHumans, DrawSource
+from finalProject.utils.matchers.Matchers import find_closest_human
+
+
+def tracking_by_yolo(frames: [], yolo, isVideo: bool, config: "file"):
     """this function creates an array containing objects of all people that are in the target video,
     it assigns each person his frame-boxes from the video and other attributes,
     (this is regardless of the person in source video)."""
@@ -16,13 +15,13 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
     counter_id = 0
     frame_rate = config["frameRate"]
     if config["videoFrameLength"] == -1:
-        num_of_frames = len(sequences)
+        num_of_frames = len(frames)
     else:
         num_of_frames = config["videoFrameLength"]
 
-    if config["videoFrameLength"] > len(sequences):
+    if config["videoFrameLength"] > len(frames):
         print("videoFrameLength larger then video")
-        num_of_frames = len(sequences)
+        num_of_frames = len(frames)
 
     if num_of_frames > 1:
         # start capture
@@ -31,9 +30,9 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
             # print("frame {}".format(index))
 
             if isVideo:
-                frame2 = sequences[index]
+                frame2 = frames[index]
             else:
-                frame2 = cv2.imread(sequences[index])
+                frame2 = cv2.imread(frames[index])
 
             drawFrame = copy.copy(frame2)  # a copy list of the frame2 list
             if index == 0:  # first frame
@@ -79,52 +78,50 @@ def tracking_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
 
 
 def append_human_to_people(myPeople, affectedPeople, counterId, c):
-    human = Human(counterId)
+    person = Person(counterId)
     affectedPeople.append(counterId)
-    human.frames.append(c["frame"])
-    human.locations.append(c["location"])
-    myPeople.append(human)
+    person.frames.append(c["frame"])
+    person.locations.append(c["location"])
+    myPeople.append(person)
 
 
-# sequences is all frames related to the source
-def source_detection_by_yolo(sequences: [], yolo, isVideo: bool, config: "file"):
-    human = None
+# sourceFrames is all frames related to the source
+def source_detection_by_yolo(sourceFrames: [], yolo, isVideo: bool, config: "file"):
+    person = None
     frameRate = config["frameRate"]
     if config["videoFrameLength"] == -1:
-        numOfFrames = len(sequences)
+        num_of_frames = len(sourceFrames)
     else:
-        numOfFrames = config["videoFrameLength"]
+        num_of_frames = config["videoFrameLength"]
 
-    if config["videoFrameLength"] > len(sequences):
+    if config["videoFrameLength"] > len(sourceFrames):
         print("videoFrameLength larger then video")
-        numOfFrames = len(sequences)
+        num_of_frames = len(sourceFrames)
 
-    if numOfFrames > 1:
-        # start capture, looping on the frames, skipping the frameRate
-        for index in range(0, numOfFrames, frameRate):
+    if num_of_frames > 1:
+        for index in range(0, num_of_frames, frameRate):  # start capture, looping on the frames, skipping the frameRate
             # print("frame {}".format(index))
             if isVideo:
-                frame2 = sequences[index]
+                current_frame = sourceFrames[index]  # index is the frame number
             else:
-                frame2 = cv2.imread(sequences[index])
+                current_frame = cv2.imread(sourceFrames[index])
 
-            drawFrame = copy.copy(frame2)
-            croppedImage = yolo.forward(frame2)
-            croppedImage = list(filter(lambda crop: crop["frame"].size, croppedImage))
+            drawFrame = copy.copy(current_frame)
+            cropped_frames = yolo.forward(current_frame)
+            cropped_frames = list(filter(lambda crop: crop["frame"].size, cropped_frames))
 
-            if len(croppedImage) > 1:
+            if len(cropped_frames) > 1:
                 print("On source found two people , must be one person")
                 return None
 
-            # index is the frame number
-            for c in croppedImage:
-                if human is None:
-                    human = Human(0)
-                human.frames.append(c["frame"])
-                human.locations.append(c["location"])
+            for cropped_frame in cropped_frames:
+                if person is None:
+                    person = Person(0)
+                person.frames.append(cropped_frame["frame"])
+                person.locations.append(cropped_frame["location"])
 
-            if human is not None:
-                DrawSource(human, drawFrame)
+            if person is not None:
+                DrawSource(person, drawFrame)
                 # find ids from previous frame
             if config["show"]:
                 cv2.imshow('frame', drawFrame)
@@ -134,4 +131,4 @@ def source_detection_by_yolo(sequences: [], yolo, isVideo: bool, config: "file")
     else:
         print("The number of frames is less than one")
 
-    return human
+    return person

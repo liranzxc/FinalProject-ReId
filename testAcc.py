@@ -4,10 +4,11 @@ pip install opencv-contrib-python==3.4.2.16
 
 import json
 import pprint
+
 from finalProject.classes.yolo import Yolo
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints, \
     KazeDetectKeyPoints
-from finalProject.utils.matchers.Matchers import kaze_matcher, flannmatcher
+from finalProject.utils.matchers.Matchers import kaze_matcher, flann_matcher
 from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise
 from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
 
@@ -34,7 +35,7 @@ if __name__ == "__main__":
             print("problem with reduce noise source video input")
             exit(0)
 
-        # for frame in frameSource:
+        # for frame in sourceFrames:
         #     cv2.imshow('extracted frame', frame)
         #     keyboard = cv2.waitKey(30)
         #     if keyboard == 'q' or keyboard == 27:
@@ -81,7 +82,7 @@ if __name__ == "__main__":
 
         ks, ds = SurfDetectKeyPoints(mySource.frames[0])
         kt, dt = SurfDetectKeyPoints(myTargets[0].frames[2])
-        matches = flannmatcher(ds, dt)
+        matches = flann_matcher(ds, dt)
         acc = len(matches) / min(len(ds), len(dt))
         print(len(ds))
         print(len(dt))

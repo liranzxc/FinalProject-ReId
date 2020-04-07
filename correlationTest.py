@@ -42,14 +42,14 @@ if __name__ == "__main__":
         if config["source"]["removeRemovalColor"]:
             frameSource = removeRemovalColor(frameSource)
 
-        # for frame in sourceFrames:
+        # for frame in source_frames:
         #     cv2.imshow('removeRemovalColor frame', frame)
         #     keyboard = cv2.waitKey(30)
         #     if keyboard == 'q' or keyboard == 27:
         #         break
 
         mySource = source_detection_by_yolo(frameSource, yolo,
-                                            isVideo=config["source"]["isVideo"],
+                                            is_video=config["source"]["isVideo"],
                                             config=config["source"])
         if mySource is None:
             print("fail to detect human on source video")
@@ -84,7 +84,7 @@ if __name__ == "__main__":
         descriptorTarget = create_key_points_descriptors(myTargets)
 
         # frameExampleTarget = target_descriptors[0][0]
-        # frameExampleSource = sourceDescriptors[0][0]
+        # frameExampleSource = source_descriptors[0][0]
 
         # drawFrameObject(frameExampleSource)
         # drawFrameObject(frameExampleTarget)
@@ -96,13 +96,13 @@ if __name__ == "__main__":
            id_0 : {
            maxAcc : double,
            target : [arrayOfFrameObject]
-           targetFrames : FrameObject
-           sourceFrames : FrameObject
+           target_frames : FrameObject
+           source_frames : FrameObject
            }
          }
         """
-        target = "target", acc_targets[0]["targetFrames"]["frame"]
-        source = "source", acc_targets[0]["sourceFrames"]["frame"]
+        target = "target", acc_targets[0]["target_frames"]["frame"]
+        source = "source", acc_targets[0]["source_frames"]["frame"]
 
         target = target[1]
         source = source[1]

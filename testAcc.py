@@ -35,14 +35,14 @@ if __name__ == "__main__":
             print("problem with reduce noise source video input")
             exit(0)
 
-        # for frame in sourceFrames:
+        # for frame in source_frames:
         #     cv2.imshow('extracted frame', frame)
         #     keyboard = cv2.waitKey(30)
         #     if keyboard == 'q' or keyboard == 27:
         #         break
 
         mySource = source_detection_by_yolo(frameSource, yolo,
-                                            isVideo=config["source"]["isVideo"],
+                                            is_video=config["source"]["isVideo"],
                                             config=config["source"])
         if mySource is None:
             print("fail to detect human on source video")

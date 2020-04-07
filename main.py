@@ -9,13 +9,11 @@ from finalProject.classes.yolo import Yolo
 from finalProject.utils.drawing.draw import drawTargetFinal
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import create_key_points_descriptors
 from finalProject.utils.matchers.Matchers import compare_between_two_description
-from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise, \
-    removeRemovalColor
+from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise, removeRemovalColor
 from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
 
 if __name__ == "__main__":
     """# import images"""
-
     # init yolo
     yolo = Yolo()
     yolo.initYolo()
@@ -24,79 +22,75 @@ if __name__ == "__main__":
     with open('./config.txt') as file_json:
         config = json.load(file_json)
 
-        sourceFrames = readFromInputVideoFrames(config["source"])  # a list of all frames extracted from source video
-        if not framesExists(sourceFrames):  # if not len(sourceFrames) > 0
+        """ source video """
+        source_frames = readFromInputVideoFrames(config["source"])  # a list of all frames extracted from source video
+        if not framesExists(source_frames):  # if not len(source_frames) > 0
             print("problem with source video input")
             exit(0)
 
         # pre processing reduce noise background
         if config["source"]["reduceNoise"]:
-            sourceFrames = reduceNoise(sourceFrames)
-        if not framesExists(sourceFrames):
+            source_frames = reduceNoise(source_frames)
+        if not framesExists(source_frames):
             print("problem with reduce noise source video input")
             exit(0)
 
         if config["source"]["removeRemovalColor"]:
-            sourceFrames = removeRemovalColor(sourceFrames)
+            source_frames = removeRemovalColor(source_frames)
 
-        # for frame in sourceFrames:
+        # for frame in source_frames:
         #     cv2.imshow('removeRemovalColor frame', frame)
         #     keyboard = cv2.waitKey(30)
         #     if keyboard == 'q' or keyboard == 27:
         #         break
 
-        """mySource is an object of type Person"""
-        mySource = source_detection_by_yolo(sourceFrames, yolo,
-                                            isVideo=config["source"]["isVideo"],
-                                            config=config["source"])
-        if mySource is None:
+        source_person = source_detection_by_yolo(source_frames, yolo, is_video=config["source"]["isVideo"], config=config["source"])
+        if source_person is None:
             print("fail to detect human on source video")
             exit(0)
 
-        sourceDescriptors = create_key_points_descriptors([mySource])  # gets source descriptors
+        source_descriptors = create_key_points_descriptors([source_person])  # gets source descriptors
 
-        # target
-        targetFrames = readFromInputVideoFrames(config["target"])
-        if not framesExists(targetFrames):
+        """ target video """
+        target_frames = readFromInputVideoFrames(config["target"])
+        if not framesExists(target_frames):
             print("problem with target video input")
             exit(0)
 
         if config["target"]["reduceNoise"]:
-            targetFrames = reduceNoise(targetFrames)
-        if not framesExists(targetFrames):
+            target_frames = reduceNoise(target_frames)
+        if not framesExists(target_frames):
             print("problem with target video input -reduce noise")
             exit(0)
 
         if config["target"]["removeRemovalColor"]:
-            targetFrames = removeRemovalColor(targetFrames)
+            target_frames = removeRemovalColor(target_frames)
 
-        people_in_target = tracking_by_yolo(targetFrames, yolo, isVideo=config["target"]["isVideo"],
-                                            config=config["target"])
-
-        if not framesExists(people_in_target):
+        target_people = tracking_by_yolo(target_frames, yolo, isVideo=config["target"]["isVideo"], config=config["target"])
+        if not framesExists(target_people):
             print("fail to detect humans on target video")
             exit(0)
-        # target descriptor
 
-        target_descriptors = create_key_points_descriptors(people_in_target)
+        target_descriptors = create_key_points_descriptors(target_people)
 
         frameExampleTarget = target_descriptors[0][0]
-        # frameExampleSource = sourceDescriptors[0][0]
+        # frameExampleSource = source_descriptors[0][0]
 
         # drawFrameObject(frameExampleSource)
-        #drawFrameObject(frameExampleTarget)
+        # drawFrameObject(frameExampleTarget)
+
         print("frameExampleTarget:")
         print(frameExampleTarget)
 
-        acc_targets = compare_between_two_description(sourceDescriptors, target_descriptors)
+        acc_targets = compare_between_two_description(source_descriptors, target_descriptors)
         """
         acc_target look like :
          {
            id_0 : {
            maxAcc : double,
            target : [arrayOfFrameObject]
-           targetFrames : FrameObject
-           sourceFrames : FrameObject
+           target_frames : FrameObject
+           source_frames : FrameObject
            }
          }
         """

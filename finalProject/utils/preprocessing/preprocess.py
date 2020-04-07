@@ -4,11 +4,11 @@ import cv2
 import numpy as np
 
 
-def framesExists(frames):
+def is_frames_exists(frames):
     return len(frames) > 0
 
 
-def readFromInputVideoFrames(config):
+def read_frames_from_video(config):
     frames = []
 
     if config["isVideo"]:
@@ -23,18 +23,20 @@ def readFromInputVideoFrames(config):
             frames.append(frame)
             ret, frame = cap.read()  # grabs, decodes and returns the next video frame.
             i += 1
+
     else:
         path = config["inputVideo"]
         for (dirpath, dirnames, filenames) in os.walk(path):
             frames.extend(filenames)
             break
+
         frames.sort()
         frames = list(map(lambda file: path + "/" + file, frames))
 
     return frames
 
 
-def reduceNoise(frames):
+def reduce_noise(frames):
     framesMask = []
     backSub = cv2.createBackgroundSubtractorMOG2(varThreshold=100)
 

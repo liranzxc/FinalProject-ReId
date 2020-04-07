@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 
 from finalProject.classes.yolo import Yolo
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import create_key_points_descriptors
-from finalProject.utils.matchers.Matchers import compare_between_two_description
-from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise, \
+from finalProject.utils.matchers.Matchers import compute_accuracy_table
+from finalProject.utils.preprocessing.preprocess import read_frames_from_video, is_frames_exists, reduce_noise, \
     removeRemovalColor
 from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
 
@@ -27,15 +27,15 @@ if __name__ == "__main__":
         config = json.load(file_json)
 
         # source
-        frameSource = readFromInputVideoFrames(config["source"])
-        if not framesExists(frameSource):
+        frameSource = read_frames_from_video(config["source"])
+        if not is_frames_exists(frameSource):
             print("problem with source video input")
             exit(0)
 
         # pre processing reduce noise background
-        if config["source"]["reduceNoise"]:
-            frameSource = reduceNoise(frameSource)
-        if not framesExists(frameSource):
+        if config["source"]["reduce_noise"]:
+            frameSource = reduce_noise(frameSource)
+        if not is_frames_exists(frameSource):
             print("problem with reduce noise source video input")
             exit(0)
 
@@ -59,24 +59,24 @@ if __name__ == "__main__":
         descriptorSource = create_key_points_descriptors([mySource])
 
         # target
-        frameTarget = readFromInputVideoFrames(config["target"])
-        if not framesExists(frameTarget):
+        frameTarget = read_frames_from_video(config["target"])
+        if not is_frames_exists(frameTarget):
             print("problem with target video input")
             exit(0)
 
-        if config["target"]["reduceNoise"]:
-            frameTarget = reduceNoise(frameTarget)
+        if config["target"]["reduce_noise"]:
+            frameTarget = reduce_noise(frameTarget)
 
-        if not framesExists(frameTarget):
+        if not is_frames_exists(frameTarget):
             print("problem with target video input -reduce noise")
             exit(0)
 
         if config["target"]["removeRemovalColor"]:
             frameTarget = removeRemovalColor(frameTarget)
 
-        myTargets = tracking_by_yolo(frameTarget, yolo, isVideo=config["target"]["isVideo"], config=config["target"])
+        myTargets = tracking_by_yolo(frameTarget, yolo, is_video=config["target"]["isVideo"], config=config["target"])
 
-        if not framesExists(myTargets):
+        if not is_frames_exists(myTargets):
             print("fail to detect humans on target video")
             exit(0)
         # target descriptor
@@ -89,7 +89,7 @@ if __name__ == "__main__":
         # drawFrameObject(frameExampleSource)
         # drawFrameObject(frameExampleTarget)
 
-        acc_targets = compare_between_two_description(descriptorSource, descriptorTarget)
+        acc_targets = compute_accuracy_table(descriptorSource, descriptorTarget)
         """
         acc_target look like :
          {

@@ -31,9 +31,9 @@ def DrawOnFrameMyIds(myids, frame):
     return frame
 
 
-def DrawHumans(MyPeople, frame, affectedPeople):
+def DrawHumans(MyPeople, frame, affected_people):
     thicknessRec = 2
-    for index in affectedPeople:
+    for index in affected_people:
         color = MyPeople[index].colorIndex
         # print(color)
         cv2.rectangle(frame, MyPeople[index].locations[-1][0], MyPeople[index].locations[-1][1],

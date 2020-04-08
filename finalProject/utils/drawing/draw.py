@@ -31,14 +31,14 @@ def DrawOnFrameMyIds(myids, frame):
     return frame
 
 
-def DrawHumans(MyPeople, frame, affected_people):
+def DrawHumans(my_people, frame, affected_people):
     thicknessRec = 2
     for index in affected_people:
-        color = MyPeople[index].colorIndex
+        color = my_people[index].colorIndex
         # print(color)
-        cv2.rectangle(frame, MyPeople[index].locations[-1][0], MyPeople[index].locations[-1][1],
+        cv2.rectangle(frame, my_people[index].locations[-1][0], my_people[index].locations[-1][1],
                       color, thicknessRec)
-        draw_str(frame, MyPeople[index].locations[-1][0], "id " + str(MyPeople[index].indexCount))
+        draw_str(frame, my_people[index].locations[-1][0], "id " + str(my_people[index].person_id))
 
 
 def DrawSource(mySource, frame):
@@ -46,11 +46,11 @@ def DrawSource(mySource, frame):
     color = (255, 100, 150)
     cv2.rectangle(frame, mySource.locations[-1][0], mySource.locations[-1][1],
                   color, thicknessRec)
-    draw_str(frame, mySource.locations[-1][0], "id " + str(mySource.indexCount))
+    draw_str(frame, mySource.locations[-1][0], "id " + str(mySource.person_id))
 
 
-def ShowPeopleTable(MyPeople, config: "configFile"):
-    if len(MyPeople) == 0:
+def ShowPeopleTable(my_people, config: "configFile"):
+    if len(my_people) == 0:
         print("no people were found!")
     else:
         if config["showHistory"]:
@@ -58,9 +58,9 @@ def ShowPeopleTable(MyPeople, config: "configFile"):
         else:
             photos = "frames"
 
-        maxFramesHuman = max(MyPeople, key=lambda human: len(human.__getattribute__(photos)))
+        maxFramesHuman = max(my_people, key=lambda human: len(human.__getattribute__(photos)))
 
-        rows = len(list(filter(lambda human: len(human.__getattribute__(photos)) > 0, MyPeople))) + 1
+        rows = len(list(filter(lambda human: len(human.__getattribute__(photos)) > 0, my_people))) + 1
 
         cols = len(maxFramesHuman.__getattribute__(photos)) + 1
 
@@ -69,7 +69,7 @@ def ShowPeopleTable(MyPeople, config: "configFile"):
 
         if rows > 0 and cols > 0:
             fig, ax = plt.subplots(nrows=rows, ncols=cols, sharex=True, sharey=True)
-            for idx, human in enumerate(MyPeople):
+            for idx, human in enumerate(my_people):
                 for jdx, frame in enumerate(human.__getattribute__(photos)):
                     print(idx, jdx)
                     ax[idx, jdx].imshow(frame)
@@ -97,16 +97,16 @@ def drawOnScatter(ax, keyPoints, color, label="none"):
                alpha=0.8, edgecolors='none')
 
 
-def drawFramePair(frameObjectSource, frameObjectTarget, NameAlgo, ax, options):
-    frameObjectSource["frame"] = cv2.cvtColor(frameObjectSource["frame"], cv2.COLOR_BGR2RGB)
-    frameObjectTarget["frame"] = cv2.cvtColor(frameObjectTarget["frame"], cv2.COLOR_BGR2RGB)
+def draw_frame_pair(source_frame, target_frame, NameAlgo, ax, options):
+    source_frame.frame_image = cv2.cvtColor(source_frame.frame_image, cv2.COLOR_BGR2RGB)
+    target_frame.frame_image = cv2.cvtColor(target_frame.frame_image, cv2.COLOR_BGR2RGB)
 
     if NameAlgo in ["KAZE", "ORB"]:
-        matches = kaze_matcher(frameObjectSource[NameAlgo]["des"],
-                               frameObjectTarget[NameAlgo]["des"])
+        matches = kaze_matcher(source_frame.frame_des[NameAlgo],
+                               target_frame.frame_des[NameAlgo])
     else:
-        matches = flann_matcher(frameObjectSource[NameAlgo]["des"],
-                                frameObjectTarget[NameAlgo]["des"])
+        matches = flann_matcher(source_frame.frame_des[NameAlgo],
+                                target_frame.frame_des[NameAlgo])
 
     out_img = np.array([])
 
@@ -114,17 +114,16 @@ def drawFramePair(frameObjectSource, frameObjectTarget, NameAlgo, ax, options):
                        singlePointColor=(255, 0, 0),
                        flags=0)
 
-    out_img = cv2.drawMatchesKnn(frameObjectSource["frame"], frameObjectSource[NameAlgo]["keys"],
-                                 frameObjectTarget["frame"]
-                                 , frameObjectTarget[NameAlgo]["keys"],
+    out_img = cv2.drawMatchesKnn(source_frame.frame_image, source_frame.frame_keypoints[NameAlgo],
+                                 target_frame.frame_image, target_frame.frame_keypoints[NameAlgo],
                                  matches[:options["max_matches"]], **draw_params, outImg=None)
 
     ax.imshow(out_img)
 
     ax.set_xlabel("algorithm name  {} \n Number Of matches {}  from {} keys points"
                   .format(NameAlgo, len(matches),
-                          len(frameObjectTarget[NameAlgo]["keys"])
-                          + len(frameObjectSource[NameAlgo]["keys"])))
+                          len(target_frame.frame_keypoints[NameAlgo])
+                          + len(source_frame.frame_keypoints[NameAlgo])))
 
     ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     ax.grid(True)
@@ -133,18 +132,18 @@ def drawFramePair(frameObjectSource, frameObjectTarget, NameAlgo, ax, options):
     # plt.show()
 
 
-def drawTargetFinal(acc_targets, options):
+def draw_final_results(acc_targets, options):
     acc_targets = sorted(acc_targets.items(), key=lambda item: item[1]["maxAcc"])
     most_acc_target = acc_targets[0][1]
 
-    algoritamDraw = [algo.name for algo in NamesAlgorithms]
+    algorithm_draw = [algo.name for algo in NamesAlgorithms]
 
-    fig, axes = plt.subplots(ncols=len(algoritamDraw), figsize=(15, 15))
+    fig, axes = plt.subplots(ncols=len(algorithm_draw), figsize=(15, 15))
 
-    for index, algoName in enumerate(algoritamDraw):
-        drawFramePair(most_acc_target["source_frames"],
-                      most_acc_target["target_frames"],
-                      algoName, axes[index], options)
+    for index, algoName in enumerate(algorithm_draw):
+        draw_frame_pair(most_acc_target["source_frame"],
+                        most_acc_target["target_frame"],
+                        algoName, axes[index], options)
 
     axes[-1].set_xlabel(str(axes[-1].get_xlabel()) +
                         "\n \n" + "final matches factor : " + str(most_acc_target["maxAcc"]))

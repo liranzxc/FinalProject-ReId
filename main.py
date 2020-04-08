@@ -6,8 +6,8 @@ import json
 import pprint
 
 from finalProject.classes.yolo import Yolo
-from finalProject.utils.drawing.draw import drawTargetFinal
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import create_key_points_descriptors
+from finalProject.utils.drawing.draw import draw_final_results
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import create_keypoints_descriptors
 from finalProject.utils.matchers.Matchers import compute_accuracy_table
 from finalProject.utils.preprocessing.preprocess import read_frames_from_video, is_frames_exists, reduce_noise, removeRemovalColor
 from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
@@ -29,7 +29,7 @@ if __name__ == "__main__":
             exit(0)
 
         # pre processing reduce noise background
-        if config["source"]["reduce_noise"]:
+        if config["source"]["reduceNoise"]:
             source_frames = reduce_noise(source_frames)
         if not is_frames_exists(source_frames):
             print("problem with reduce noise source video input")
@@ -49,7 +49,8 @@ if __name__ == "__main__":
             print("fail to detect human on source video")
             exit(0)
 
-        source_descriptors = create_key_points_descriptors([source_person])  # gets source descriptors to each frame
+        # source_descriptors = create_keypoints_descriptors([source_person])  # gets source descriptors to each frame
+        create_keypoints_descriptors([source_person])  # gets source descriptors to each frame
 
         """ target video """
         target_frames = read_frames_from_video(config["target"])
@@ -57,7 +58,7 @@ if __name__ == "__main__":
             print("problem with target video input")
             exit(0)
 
-        if config["target"]["reduce_noise"]:
+        if config["target"]["reduceNoise"]:
             target_frames = reduce_noise(target_frames)
         if not is_frames_exists(target_frames):
             print("problem with target video input -reduce noise")
@@ -71,9 +72,11 @@ if __name__ == "__main__":
             print("fail to detect humans on target video")
             exit(0)
 
-        target_descriptors = create_key_points_descriptors(target_people)
+        # target_descriptors = create_keypoints_descriptors(target_people)
 
-        frameExampleTarget = target_descriptors[0][0]
+        create_keypoints_descriptors(target_people)
+
+        frameExampleTarget = target_people[0].frames[0].frame_image
         # frameExampleSource = source_descriptors[0][0]
 
         # drawFrameObject(frameExampleSource)
@@ -82,17 +85,18 @@ if __name__ == "__main__":
         print("frameExampleTarget:")
         print(frameExampleTarget)
 
-        acc_targets = compute_accuracy_table(source_descriptors, target_descriptors)
+        # acc_targets = compute_accuracy_table(source_descriptors, target_descriptors)
+        acc_targets = compute_accuracy_table(source_person, target_people)
         """
         acc_target look like :
          {
            id_0 : {
            maxAcc : double,
-           target : [arrayOfFrameObject]
+           # target : [arrayOfFrameObject]
            target_frames : FrameObject
            source_frames : FrameObject
            }
          }
         """
 
-        drawTargetFinal(acc_targets, options=config["output"])
+        draw_final_results(acc_targets, options=config["output"])

@@ -9,7 +9,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 from finalProject.classes.yolo import Yolo
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import create_key_points_descriptors
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import create_keypoints_descriptors
 from finalProject.utils.matchers.Matchers import compute_accuracy_table
 from finalProject.utils.preprocessing.preprocess import read_frames_from_video, is_frames_exists, reduce_noise, \
     removeRemovalColor
@@ -56,7 +56,7 @@ if __name__ == "__main__":
             exit(0)
 
         # source descriptor
-        descriptorSource = create_key_points_descriptors([mySource])
+        descriptorSource = create_keypoints_descriptors([mySource])
 
         # target
         frameTarget = read_frames_from_video(config["target"])
@@ -81,7 +81,7 @@ if __name__ == "__main__":
             exit(0)
         # target descriptor
 
-        descriptorTarget = create_key_points_descriptors(myTargets)
+        descriptorTarget = create_keypoints_descriptors(myTargets)
 
         # frameExampleTarget = target_descriptors[0][0]
         # frameExampleSource = source_descriptors[0][0]
@@ -95,7 +95,7 @@ if __name__ == "__main__":
          {
            id_0 : {
            maxAcc : double,
-           target : [arrayOfFrameObject]
+           # target : [arrayOfFrameObject]
            target_frames : FrameObject
            source_frames : FrameObject
            }

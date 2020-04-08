@@ -32,7 +32,7 @@ def find_closest_human(target, people_list, config: "config file"):
 
         match_p = []
         for index, frame in enumerate(p.frames):
-            kp, dp = SurfDetectKeyPoints(frame)
+            kp, dp = SurfDetectKeyPoints(frame.frame_image)
             if kp is None or dp is None:
                 continue
             else:

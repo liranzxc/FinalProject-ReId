@@ -2,6 +2,7 @@ import copy
 
 import cv2
 
+from finalProject.classes.frame_box import FrameBox
 from finalProject.classes.person import Person
 from finalProject.utils.drawing.draw import DrawHumans, DrawSource
 from finalProject.utils.matchers.Matchers import find_closest_human
@@ -55,7 +56,7 @@ def tracking_by_yolo(frames: [], yolo, is_video: bool, config: "file"):
                         if max_maximum[1] > config["thresholdAppendToHuman"]:  # accuracy is good enough to determine it's the same person
                             indexer = people_list.index(max_maximum[0])  # returns the index of this person with max accuracy in myPeople list
                             affected_people.append(indexer)  # adds this person to affected_people list
-                            people_list[indexer].frames.append(cropped_image["frame"])  # adds the box-frame to this person
+                            people_list[indexer].frames.append(FrameBox(cropped_image["frame"]))  # adds the box-frame to this person
                             people_list[indexer].locations.append(cropped_image["location"])  # adds his locations too
 
                         elif config["thresholdAppendNewHumanStart"] < max_maximum[1] \
@@ -77,11 +78,11 @@ def tracking_by_yolo(frames: [], yolo, is_video: bool, config: "file"):
     return people_list
 
 
-def append_person_to_people(people_list, affected_people_ids, person_id, c):
+def append_person_to_people(people_list, affected_people_ids, person_id, frame_box):
     person = Person(person_id)
     affected_people_ids.append(person_id)
-    person.frames.append(c["frame"])
-    person.locations.append(c["location"])
+    person.frames.append(FrameBox(frame_box["frame"]))
+    person.locations.append(frame_box["location"])
     people_list.append(person)
 
 
@@ -115,7 +116,7 @@ def source_detection_by_yolo(source_frames: [], yolo, is_video: bool, config: "f
                 return None
 
             for cropped_frame in cropped_frames:
-                person.frames.append(cropped_frame["frame"])
+                person.frames.append(FrameBox(cropped_frame["frame"]))
                 person.locations.append(cropped_frame["location"])
 
             if len(person.frames) > 0:

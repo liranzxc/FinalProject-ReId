@@ -49,7 +49,7 @@ if __name__ == "__main__":
             print("fail to detect human on source video")
             exit(0)
 
-        source_descriptors = create_key_points_descriptors([source_person])  # gets source descriptors
+        source_descriptors = create_key_points_descriptors([source_person])  # gets source descriptors to each frame
 
         """ target video """
         target_frames = read_frames_from_video(config["target"])

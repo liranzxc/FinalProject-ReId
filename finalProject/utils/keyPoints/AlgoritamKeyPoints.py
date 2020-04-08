@@ -21,14 +21,10 @@ def SiftDetectKeyPoints(img):
     return kp, des
 
 
-"""# Surf Algorithm"""
 def SurfDetectKeyPoints(img):
-    suft = cv2.xfeatures2d.SURF_create()
-    kp, des = suft.detectAndCompute(img, None)
+    surf = cv2.xfeatures2d.SURF_create()
+    kp, des = surf.detectAndCompute(img, None)
     return kp, des
-
-
-"""# Orb algorithm"""
 
 
 def OrbDetectKeyPoints(img, n_features=200):
@@ -40,24 +36,23 @@ def OrbDetectKeyPoints(img, n_features=200):
     return kp, des
 
 
-"""# Kaze algorithm"""
-
-
 def KazeDetectKeyPoints(image):
     kaze = cv2.AKAZE_create()
     kp, des = kaze.detectAndCompute(image, None)
     return kp, des
 
 
-def CalculationKeyPoint(image, keyPointFunction):
+def calculate_key_points(image, keyPointFunction):
     return keyPointFunction(image)
 
 
-def appendToFrameObject(keys, descriptions, label, frameObject):
+def append_descriptors_to_frame(keys, descriptions, algo, frame):
     if keys is None or descriptions is None or len(keys) == 0 or len(descriptions) == 0:
-        frameObject[label] = {"keys": [], "des": []}
+        frame.frame_keypoints[algo] = []
+        frame.frame_des[algo] = []
     else:
-        frameObject[label] = {"keys": keys, "des": descriptions}
+        frame.frame_keypoints[algo] = keys
+        frame.frame_des[algo] = descriptions
 
 
 def create_key_points_descriptors(people_list):  # people_list is a list of elements of type Person
@@ -67,23 +62,20 @@ def create_key_points_descriptors(people_list):  # people_list is a list of elem
     where dictOfKeysDes is a dictionary<String,[]> with two elements: 1=('keys', listOfKeyPoints), 2=('des',listOfDescriptors)"""
     descriptor = {}
 
-    for target in people_list:
-        descriptor[target.personId] = []
+    for person in people_list:
+        descriptor[person.person_id] = []
 
-        for frame in target.frames:
-            kOrb, desOrb = CalculationKeyPoint(frame, OrbDetectKeyPoints)
-            kKaze, desKaze = CalculationKeyPoint(frame, KazeDetectKeyPoints)
-            kSift, desSift = CalculationKeyPoint(frame, SiftDetectKeyPoints)
-            kSurf, desSurf = CalculationKeyPoint(frame, SurfDetectKeyPoints)
+        for frame in person.frames:
+            kOrb, desOrb = calculate_key_points(frame.frame_image, OrbDetectKeyPoints)
+            kKaze, desKaze = calculate_key_points(frame.frame_image, KazeDetectKeyPoints)
+            kSift, desSift = calculate_key_points(frame.frame_image, SiftDetectKeyPoints)
+            kSurf, desSurf = calculate_key_points(frame.frame_image, SurfDetectKeyPoints)
 
-            frameObject = {
-                "frame": frame,
-            }
-            appendToFrameObject(kOrb, desOrb, NamesAlgorithms.ORB.name, frameObject)
-            appendToFrameObject(kKaze, desKaze, NamesAlgorithms.KAZE.name, frameObject)
-            appendToFrameObject(kSift, desSift, NamesAlgorithms.SIFT.name, frameObject)
-            appendToFrameObject(kSurf, desSurf, NamesAlgorithms.SURF.name, frameObject)
+            append_descriptors_to_frame(kOrb, desOrb, NamesAlgorithms.ORB.name, frame)
+            append_descriptors_to_frame(kKaze, desKaze, NamesAlgorithms.KAZE.name, frame)
+            append_descriptors_to_frame(kSift, desSift, NamesAlgorithms.SIFT.name, frame)
+            append_descriptors_to_frame(kSurf, desSurf, NamesAlgorithms.SURF.name, frame)
 
-            descriptor[target.personId].append(frameObject)
+            descriptor[person.personId].append(frame)
 
     return descriptor

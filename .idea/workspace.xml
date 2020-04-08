@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/auto_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auto_main_jupyter.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/finalProject/utils/tracking/TrackingByYolo.py" beforeDir="false" afterPath="$PROJECT_DIR$/finalProject/utils/tracking/TrackingByYolo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticDetection.py" beforeDir="false" afterPath="$PROJECT_DIR$/staticDetection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/auto_main_jupyter-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/auto_main_jupyter-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_main_jupyter.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/auto_main_jupyter.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/report1.xls" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +37,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="liran_merge_source_plus_target" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -264,6 +262,7 @@
       <workItem from="1585748193638" duration="2403000" />
       <workItem from="1585750730964" duration="886000" />
       <workItem from="1585915373268" duration="10161000" />
+      <workItem from="1586354235926" duration="1294000" />
     </task>
     <task id="LOCAL-00012" summary="add project kalman for exmaple">
       <created>1575194119730</created>

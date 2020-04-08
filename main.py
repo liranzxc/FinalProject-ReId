@@ -76,15 +76,6 @@ if __name__ == "__main__":
 
         create_keypoints_descriptors(target_people)
 
-        frameExampleTarget = target_people[0].frames[0].frame_image
-        # frameExampleSource = source_descriptors[0][0]
-
-        # drawFrameObject(frameExampleSource)
-        # drawFrameObject(frameExampleTarget)
-
-        print("frameExampleTarget:")
-        print(frameExampleTarget)
-
         # acc_targets = compute_accuracy_table(source_descriptors, target_descriptors)
         acc_targets = compute_accuracy_table(source_person, target_people)
         """

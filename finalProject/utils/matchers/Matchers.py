@@ -121,25 +121,7 @@ def compute_accuracy_table(source_person, target_people):
 
         max_acc = np.amax(frames_table)
         ind = np.unravel_index(np.argmax(frames_table, axis=None), frames_table.shape)
-        print("ind:")
-        print(ind)
         acc_table[t_id] = {"maxAcc": max_acc,
                            "target_frame": t_person.frames[ind[0]],
                            "source_frame": source_person.frames[ind[1]]}
     return acc_table
-
-# def compute_accuracy_table(source_person, target_people):
-#     acc_table = {}
-#     for t_id, t_des_list in enumerate(target_people):  # loop through both keys and values of dict
-#         frames_table = np.zeros(shape=[len(t_des_list), len(source_person[0])])  # rows=num of people in target, cols=num of src descriptors
-#         for t_des_index, t_des in enumerate(t_des_list):
-#             for s_des_index, s_des in enumerate(source_person[0]):
-#                 frames_table[t_des_index, s_des_index] = compare_between_descriptors(s_des, t_des)
-#
-#         max_acc = np.amax(frames_table)
-#         ind = np.unravel_index(np.argmax(frames_table, axis=None), frames_table.shape)
-#         acc_table[t_id] = {"maxAcc": max_acc,
-#                            "target_des": t_des_list,
-#                            "target_frames": t_des_list[ind[0]],
-#                            "source_frames": source_person[0][ind[1]]}
-#     return acc_table

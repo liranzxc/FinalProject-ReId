@@ -6,8 +6,8 @@ import json
 import pprint
 
 from finalProject.classes.yolo import Yolo
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints, \
-    KazeDetectKeyPoints
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import surf_keypoints_detection, \
+    kaze_keypoints_detection
 from finalProject.utils.matchers.Matchers import kaze_matcher, flann_matcher
 from finalProject.utils.preprocessing.preprocess import read_frames_from_video, is_frames_exists, reduce_noise
 from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
@@ -68,8 +68,8 @@ if __name__ == "__main__":
             exit(0)
         # target descriptor
 
-        ks, ds = KazeDetectKeyPoints(mySource.frames[0])
-        kt, dt = KazeDetectKeyPoints(myTargets[0].frames[2])
+        ks, ds = kaze_keypoints_detection(mySource.frames[0])
+        kt, dt = kaze_keypoints_detection(myTargets[0].frames[2])
         matches = kaze_matcher(ds, dt)
         print(len(ds))
         print(len(dt))
@@ -80,8 +80,8 @@ if __name__ == "__main__":
         acc = len(matches) / min(len(ds), len(dt))
         print(acc)
 
-        ks, ds = SurfDetectKeyPoints(mySource.frames[0])
-        kt, dt = SurfDetectKeyPoints(myTargets[0].frames[2])
+        ks, ds = surf_keypoints_detection(mySource.frames[0])
+        kt, dt = surf_keypoints_detection(myTargets[0].frames[2])
         matches = flann_matcher(ds, dt)
         acc = len(matches) / min(len(ds), len(dt))
         print(len(ds))

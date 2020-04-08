@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 from finalProject.classes.enumTypeKeyPoints import NamesAlgorithms
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import surf_keypoints_detection
 
 
 def kaze_matcher(desc1, desc2, threshold=0.8):
@@ -21,7 +21,7 @@ def kaze_matcher(desc1, desc2, threshold=0.8):
 def find_closest_human(target, people_list, config: "config file"):
     """returns a list of (person, accuracy) pairs of all people in target video
     and their accuracy matching to the person in target argument"""
-    key_target, description_target = SurfDetectKeyPoints(target["frame"])
+    key_target, description_target = surf_keypoints_detection(target["frame"])
     if key_target is None or description_target is None:
         return None  # don't have key points for this human
     max_match = []
@@ -32,7 +32,7 @@ def find_closest_human(target, people_list, config: "config file"):
 
         match_p = []
         for index, frame in enumerate(p.frames):
-            kp, dp = SurfDetectKeyPoints(frame.frame_image)
+            kp, dp = surf_keypoints_detection(frame.frame_image)
             if kp is None or dp is None:
                 continue
             else:

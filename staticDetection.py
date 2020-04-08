@@ -2,7 +2,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 from finalProject.utils.images.imagesUtils import Image
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SiftDetectKeyPoints
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import sift_keypoints_detection
 from finalProject.utils.matchers.Matchers import flann_matcher
 
 
@@ -24,7 +24,7 @@ def sobel_keypoints(image):
     sobelImage = sobel(image)
     # norm
     image8bit = cv2.normalize(sobelImage, None, 0, 255, cv2.NORM_MINMAX).astype('uint8')
-    k, d = SiftDetectKeyPoints(image8bit)
+    k, d = sift_keypoints_detection(image8bit)
     return k, d, image8bit
 
 

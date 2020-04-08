@@ -1,6 +1,6 @@
 {
   "source" :{
-    "inputVideo" : "dataset/re-id/videos/oneWomanWhiteBG.mp4",
+    "inputVideo" : "dataset/re-id/videos/onePersonWhiteBG.mp4",
     "isVideo" : true,
     "skipRateFrameFromBeginning" : 1,
     "videoFrameLength" : 30,
@@ -8,24 +8,24 @@
     "show" : false,
     "WaitKeySecond" : 10,
      "removeRemovalColor" : false,
-     "reduce_noise" : false
+     "reduceNoise" : false
   },
   "target" : {
-      "inputVideo" : "dataset/re-id/videos/twoPeopleWhiteBG_Trim.mp4",
+      "inputVideo" : "dataset/re-id/videos/onePersonWhiteBG.mp4",
       "isVideo" : true,
-      "show" : true,
+      "show" : false,
       "skipRateFrameFromBeginning" : 1,
       "videoFrameLength" : 30,
       "frameRate" : 5,
-      "thresholdAppendToHuman" : 0.3,
+      "thresholdAppendToHuman" : 0.1,
       "thresholdAppendNewHumanStart" : 0.1,
-      "thresholdAppendNewHumanEnd" : 0.3,
+      "thresholdAppendNewHumanEnd" : 0.2,
       "WaitKeySecond" : 10,
-      "showHistory" : true,
-      "FlannMatcherThreshold" : 0.9,
-      "max_length_frames" : 5,
+      "showHistory" : false,
+      "FlannMatcherThreshold" : 0.5,
+      "max_length_frames" : 3,
       "removeRemovalColor" : false,
-      "reduce_noise" : false
+      "reduceNoise" : false
   },
   "output": {
     "max_matches" : 10

@@ -1,7 +1,7 @@
 # TODO consider adding the locations too
 
 
-class FrameBox:
+class CroppedFrame:
     def __init__(self, frame_image):
         self.frame_image = frame_image
         self.frame_keypoints = {}

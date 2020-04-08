@@ -9,7 +9,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 from finalProject.classes.yolo import Yolo
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SiftDetectKeyPoints
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import sift_keypoints_detection
 from finalProject.utils.matchers.Matchers import flann_matcher
 from finalProject.utils.preprocessing.preprocess import read_frames_from_video, is_frames_exists
 from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
@@ -27,7 +27,7 @@ def sobel_keypoints(image):
     sobelImage = sobel(image)
     # norm
     image8bit = cv2.normalize(sobelImage, None, 0, 255, cv2.NORM_MINMAX).astype('uint8')
-    k, d = SiftDetectKeyPoints(image8bit)
+    k, d = sift_keypoints_detection(image8bit)
     return k, d, image8bit
 
 

@@ -55,11 +55,9 @@ def save_descriptors_to_frame(keypoints, descriptors, algo, frame):
         frame.frame_des[algo] = descriptors
 
 
-def create_key_points_descriptors(people_list):  # people_list is a list of elements of type Person
-    """"returns a dictionary<int,[]> of (key,value)=(person_id,listOfDescriptors),
-    where listOfDescriptors is a list that its elements are dictionaries -
-    - each dictionary<String,{}> has (key,value)= (algorithmName, dictOfKeysDes),
-    where dictOfKeysDes is a dictionary<String,[]> with two elements: 1=('keys', listOfKeyPoints), 2=('des',listOfDescriptors)"""
+def create_keypoints_descriptors(people_list):  # people_list is a list of elements of type Person
+    """"returns a dictionary<int,[]> of (key,value)=(person_id,frames_list),
+    where frames_list is a list that its elements are CroppedFrames with their keypoints and descriptors"""
     descriptor = {}
 
     for person in people_list:
@@ -76,6 +74,6 @@ def create_key_points_descriptors(people_list):  # people_list is a list of elem
             save_descriptors_to_frame(kp_sift, des_sift, NamesAlgorithms.SIFT.name, frame)
             save_descriptors_to_frame(kp_surf, des_surf, NamesAlgorithms.SURF.name, frame)
 
-            descriptor[person.personId].append(frame)
+            descriptor[person.person_id].append(frame)
 
     return descriptor

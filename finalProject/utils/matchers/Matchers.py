@@ -84,45 +84,62 @@ def flann_matcher(des1, des2, threshold=0.8):  # threshold is the distance betwe
         return []
 
 
-def compare_between_descriptors(sourceFrame, targetFrame):
+def compare_between_descriptors(source_descriptor, target_descriptor):
     binary_algo = [NamesAlgorithms.ORB.name, NamesAlgorithms.KAZE.name]
     float_algo = [NamesAlgorithms.SURF.name, NamesAlgorithms.SIFT.name]
     results = []
     for algo in binary_algo:
-        des_s = sourceFrame[algo]["des"]
-        des_t = targetFrame[algo]["des"]
+        des_s = source_descriptor[algo]
+        des_t = target_descriptor[algo]
         if len(des_s) == 0 or len(des_t) == 0:
             results.append(0)
         else:
-            matches = kaze_matcher(des_s, des_t)
-            acc = len(matches) / (len(des_s))
-            results.append(min(acc, 1))
+            b_matches = kaze_matcher(des_s, des_t)
+            b_acc = len(b_matches) / (len(des_s))
+            results.append(min(b_acc, 1))
 
     for algo in float_algo:
-        des_s = sourceFrame[algo]["des"]
-        des_t = targetFrame[algo]["des"]
+        des_s = source_descriptor[algo]
+        des_t = target_descriptor[algo]
         if len(des_s) == 0 or len(des_t) == 0:
             results.append(0)
         else:
-            matches = flann_matcher(des_s, des_t)
-            acc = len(matches) / (len(des_s))
-            results.append(min(acc, 1))
+            f_matches = flann_matcher(des_s, des_t)
+            f_acc = len(f_matches) / (len(des_s))
+            results.append(min(f_acc, 1))
 
     return np.mean(results)
 
 
-def compute_accuracy_table(source_descriptors, target_descriptors):
+def compute_accuracy_table(source_person, target_people):
     acc_table = {}
-    for t_id, t_des_list in target_descriptors.items():  # loop through both keys and values of dict
-        frames_table = np.zeros(shape=[len(t_des_list), len(source_descriptors[0])])  # rows=num of people in target, cols=num of src descriptors
-        for t_des_index, t_des in enumerate(t_des_list):
-            for s_des_index, s_des in enumerate(source_descriptors[0]):
-                frames_table[t_des_index, s_des_index] = compare_between_descriptors(s_des, t_des)
+    for t_id, t_person in enumerate(target_people):  # loop through both keys and values of dict
+        frames_table = np.zeros(shape=[len(t_person.frames), len(source_person.frames)])  # rows=num of t_frames, cols=num of s_frames
+        for t_frame_index, t_frame in enumerate(t_person.frames):
+            for s_frame_index, s_frame in enumerate(source_person.frames):
+                frames_table[t_frame_index, s_frame_index] = compare_between_descriptors(s_frame.frame_des, t_frame.frame_des)
 
         max_acc = np.amax(frames_table)
         ind = np.unravel_index(np.argmax(frames_table, axis=None), frames_table.shape)
+        print("ind:")
+        print(ind)
         acc_table[t_id] = {"maxAcc": max_acc,
-                           "target_des": t_des_list,
-                           "target_frames": t_des_list[ind[0]],
-                           "source_frames": source_descriptors[0][ind[1]]}
+                           "target_frame": t_person.frames[ind[0]],
+                           "source_frame": source_person.frames[ind[1]]}
     return acc_table
+
+# def compute_accuracy_table(source_person, target_people):
+#     acc_table = {}
+#     for t_id, t_des_list in enumerate(target_people):  # loop through both keys and values of dict
+#         frames_table = np.zeros(shape=[len(t_des_list), len(source_person[0])])  # rows=num of people in target, cols=num of src descriptors
+#         for t_des_index, t_des in enumerate(t_des_list):
+#             for s_des_index, s_des in enumerate(source_person[0]):
+#                 frames_table[t_des_index, s_des_index] = compare_between_descriptors(s_des, t_des)
+#
+#         max_acc = np.amax(frames_table)
+#         ind = np.unravel_index(np.argmax(frames_table, axis=None), frames_table.shape)
+#         acc_table[t_id] = {"maxAcc": max_acc,
+#                            "target_des": t_des_list,
+#                            "target_frames": t_des_list[ind[0]],
+#                            "source_frames": source_person[0][ind[1]]}
+#     return acc_table

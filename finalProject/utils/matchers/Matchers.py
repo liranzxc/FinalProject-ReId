@@ -1,47 +1,42 @@
 """ **Matchers**
-#Kaze Matcher for binary classification - orb , kaze ,brief,fast
+#Kaze Matcher for binary classification - orb , kaze
 """
 import cv2
 import numpy as np
 
 from finalProject.classes.enumTypeKeyPoints import NamesAlgorithms
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SiftDetectKeyPoints
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import ORBDetectKeyPoints
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import KazeDetectKeyPoints
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SurfDetectKeyPoints
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import surf_keypoints_detection
 
 
-def kaze_matcher(desc1, desc2,threshold=0.8):
+def kaze_matcher(desc1, desc2, threshold=0.8):
     matcher = cv2.DescriptorMatcher_create(cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
     nn_matches = matcher.knnMatch(desc1, desc2, k=2)
-    # Apply ratio test
-    good = []
+    good = []  # Apply ratio test
     for m, n in nn_matches:
         if m.distance < threshold * n.distance:
             good.append([m])
-
     return good
 
 
-def find_closes_human(target, myPeople, config: "config file"):
-    key_target, description_target = SurfDetectKeyPoints(target["frame"])
+def find_closest_human(target, people_list, config: "config file"):
+    """returns a list of (person, accuracy) pairs of all people in target video
+    and their accuracy matching to the person in target argument"""
+    key_target, description_target = surf_keypoints_detection(target["frame"])
     if key_target is None or description_target is None:
-        return None  # dont have key points for this human
+        return None  # don't have key points for this human
     max_match = []
-    for p in myPeople:
-        # remove trace frames
-        if len(p.frames) > config["max_length_frames"]:
+    for p in people_list:
+        if len(p.frames) > config["max_length_frames"]:  # remove trace frames
             p.history.extend(p.frames[0:len(p.frames) - config["max_length_frames"]])
             p.frames = p.frames[-config["max_length_frames"]:]
 
         match_p = []
         for index, frame in enumerate(p.frames):
-            kp, dp = SurfDetectKeyPoints(frame)
+            kp, dp = surf_keypoints_detection(frame.frame_image)
             if kp is None or dp is None:
                 continue
             else:
-                good_match = flannmatcher(description_target, dp, config["FlannMatcherThreshold"])
+                good_match = flann_matcher(description_target, dp, config["FlannMatcherThreshold"])
             if len(key_target) == 0:
                 acc = 0
             else:
@@ -68,10 +63,8 @@ def bf_matcher(des1, des2, threshold):
     return good
 
 
-"""#FLANN MATCHER for SURF and SIFT"""
-
-
-def flannmatcher(des1, des2, threshold=0.8):  # threshold is the distance between the points we're comparing
+def flann_matcher(des1, des2, threshold=0.8):  # threshold is the distance between the points we're comparing
+    """#FLANN MATCHER for SURF and SIFT"""
     # FLANN parameters
     FLANN_INDEX_KDTREE = 1
     index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
@@ -91,45 +84,44 @@ def flannmatcher(des1, des2, threshold=0.8):  # threshold is the distance betwee
         return []
 
 
-def compare_between_two_frames_object(sourceFrame, targetFrame):
+def compare_between_descriptors(source_descriptor, target_descriptor):
     binary_algo = [NamesAlgorithms.ORB.name, NamesAlgorithms.KAZE.name]
     float_algo = [NamesAlgorithms.SURF.name, NamesAlgorithms.SIFT.name]
     results = []
     for algo in binary_algo:
-        des_s = sourceFrame[algo]["des"]
-        des_t = targetFrame[algo]["des"]
+        des_s = source_descriptor[algo]
+        des_t = target_descriptor[algo]
         if len(des_s) == 0 or len(des_t) == 0:
             results.append(0)
         else:
-            matches = kaze_matcher(des_s, des_t)
-            acc = len(matches) / (len(des_s))
-            results.append(min(acc, 1))
+            b_matches = kaze_matcher(des_s, des_t)
+            b_acc = len(b_matches) / (len(des_s))
+            results.append(min(b_acc, 1))
 
     for algo in float_algo:
-        des_s = sourceFrame[algo]["des"]
-        des_t = targetFrame[algo]["des"]
+        des_s = source_descriptor[algo]
+        des_t = target_descriptor[algo]
         if len(des_s) == 0 or len(des_t) == 0:
             results.append(0)
         else:
-            matches = flannmatcher(des_s, des_t)
-            acc = len(matches) / (len(des_s))
-            results.append(min(acc, 1))
+            f_matches = flann_matcher(des_s, des_t)
+            f_acc = len(f_matches) / (len(des_s))
+            results.append(min(f_acc, 1))
 
     return np.mean(results)
 
 
-def compare_between_two_description(sourceDescriptor, targetDescriptor):
-    acc_target = {}
-    for _id, target in targetDescriptor.items():
-        table_acc = np.zeros(shape=[len(target), len(sourceDescriptor[0])])
-        for index_t, frame_t in enumerate(target):
-            for index_s, frame_s in enumerate(sourceDescriptor[0]):
-                table_acc[index_t, index_s] = compare_between_two_frames_object(frame_s, frame_t)
+def compute_accuracy_table(source_person, target_people):
+    acc_table = {}
+    for t_id, t_person in enumerate(target_people):  # loop through both keys and values of dict
+        frames_table = np.zeros(shape=[len(t_person.frames), len(source_person.frames)])  # rows=num of t_frames, cols=num of s_frames
+        for t_frame_index, t_frame in enumerate(t_person.frames):
+            for s_frame_index, s_frame in enumerate(source_person.frames):
+                frames_table[t_frame_index, s_frame_index] = compare_between_descriptors(s_frame.frame_des, t_frame.frame_des)
 
-        max_acc = np.amax(table_acc)
-        ind = np.unravel_index(np.argmax(table_acc, axis=None), table_acc.shape)
-        acc_target[_id] = {"maxAcc": max_acc,
-                           "target": target,
-                           "frameTarget": target[ind[0]],
-                           "frameSource": sourceDescriptor[0][ind[1]]}
-    return acc_target
+        max_acc = np.amax(frames_table)
+        ind = np.unravel_index(np.argmax(frames_table, axis=None), frames_table.shape)
+        acc_table[t_id] = {"maxAcc": max_acc,
+                           "target_frame": t_person.frames[ind[0]],
+                           "source_frame": source_person.frames[ind[1]]}
+    return acc_table

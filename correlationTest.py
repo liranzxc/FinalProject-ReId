@@ -4,17 +4,16 @@ pip install opencv-contrib-python==3.4.2.16
 
 import json
 import pprint
+
 import cv2
+import matplotlib.pyplot as plt
+
 from finalProject.classes.yolo import Yolo
-from finalProject.utils.drawing.draw import drawTargetFinal
-from finalProject.utils.images.imagesUtils import resizeImage
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import createDescriptorTarget
-from finalProject.utils.matchers.Matchers import compare_between_two_description
-from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise, \
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import create_keypoints_descriptors
+from finalProject.utils.matchers.Matchers import compute_accuracy_table
+from finalProject.utils.preprocessing.preprocess import read_frames_from_video, is_frames_exists, reduce_noise, \
     removeRemovalColor
 from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
-import matplotlib.pyplot as plt
-import numpy as np
 
 if __name__ == "__main__":
     """# import images"""
@@ -28,82 +27,82 @@ if __name__ == "__main__":
         config = json.load(file_json)
 
         # source
-        frameSource = readFromInputVideoFrames(config["source"])
-        if not framesExists(frameSource):
+        frameSource = read_frames_from_video(config["source"])
+        if not is_frames_exists(frameSource):
             print("problem with source video input")
             exit(0)
 
         # pre processing reduce noise background
-        if config["source"]["reduceNoise"]:
-            frameSource = reduceNoise(frameSource)
-        if not framesExists(frameSource):
+        if config["source"]["reduce_noise"]:
+            frameSource = reduce_noise(frameSource)
+        if not is_frames_exists(frameSource):
             print("problem with reduce noise source video input")
             exit(0)
 
         if config["source"]["removeRemovalColor"]:
             frameSource = removeRemovalColor(frameSource)
 
-        # for frame in frameSource:
+        # for frame in source_frames:
         #     cv2.imshow('removeRemovalColor frame', frame)
         #     keyboard = cv2.waitKey(30)
         #     if keyboard == 'q' or keyboard == 27:
         #         break
 
         mySource = source_detection_by_yolo(frameSource, yolo,
-                                            isVideo=config["source"]["isVideo"],
+                                            is_video=config["source"]["isVideo"],
                                             config=config["source"])
         if mySource is None:
             print("fail to detect human on source video")
             exit(0)
 
         # source descriptor
-        descriptorSource = createDescriptorTarget([mySource])
+        descriptorSource = create_keypoints_descriptors([mySource])
 
         # target
-        frameTarget = readFromInputVideoFrames(config["target"])
-        if not framesExists(frameTarget):
+        frameTarget = read_frames_from_video(config["target"])
+        if not is_frames_exists(frameTarget):
             print("problem with target video input")
             exit(0)
 
-        if config["target"]["reduceNoise"]:
-            frameTarget = reduceNoise(frameTarget)
+        if config["target"]["reduce_noise"]:
+            frameTarget = reduce_noise(frameTarget)
 
-        if not framesExists(frameTarget):
+        if not is_frames_exists(frameTarget):
             print("problem with target video input -reduce noise")
             exit(0)
 
         if config["target"]["removeRemovalColor"]:
             frameTarget = removeRemovalColor(frameTarget)
 
-        myTargets = tracking_by_yolo(frameTarget, yolo, isVideo=config["target"]["isVideo"], config=config["target"])
+        myTargets = tracking_by_yolo(frameTarget, yolo, is_video=config["target"]["isVideo"], config=config["target"])
 
-        if not framesExists(myTargets):
+        if not is_frames_exists(myTargets):
             print("fail to detect humans on target video")
             exit(0)
         # target descriptor
 
-        descriptorTarget = createDescriptorTarget(myTargets)
+        descriptorTarget = create_keypoints_descriptors(myTargets)
 
-        # frameExampleTarget = descriptorTarget[0][0]
-        # frameExampleSource = descriptorSource[0][0]
+        # frameExampleTarget = target_descriptors[0][0]
+        # frameExampleSource = source_descriptors[0][0]
 
         # drawFrameObject(frameExampleSource)
         # drawFrameObject(frameExampleTarget)
 
-        acc_targets = compare_between_two_description(descriptorSource, descriptorTarget)
+        acc_targets = compute_accuracy_table(descriptorSource, descriptorTarget)
         """
         acc_target look like :
          {
            id_0 : {
            maxAcc : double,
-           target : [arrayOfFrameObject]
-           frameTarget : FrameObject
-           frameSource : FrameObject
+           # target : [arrayOfFrameObject]
+           target_frames : FrameObject
+           source_frames : FrameObject
            }
          }
         """
-        target = "target", acc_targets[0]["frameTarget"]["frame"]
-        source = "source", acc_targets[0]["frameSource"]["frame"]
+        target = "target", acc_targets[0]["target_frames"]["frame"]
+        source = "source", acc_targets[0]["source_frames"]["frame"]
 
         target = target[1]
         source = source[1]

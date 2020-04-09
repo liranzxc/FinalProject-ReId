@@ -1,5 +1,4 @@
 import cv2
-# TODO consider adding the locations too
 
 
 class CroppedFrame:

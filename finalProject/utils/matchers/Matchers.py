@@ -18,30 +18,36 @@ def kaze_matcher(desc1, desc2, threshold=0.8):
     return good
 
 
-def find_closest_human(target, people_list, config: "config file"):
-    """returns a list of (person, accuracy) pairs of all people in target video
+def find_closest_person(target, people_list, config: "config file"):
+    """Returns a list of (person, accuracy) pairs of all people in target video
     and their accuracy matching to the person in target argument"""
-    key_target, description_target = surf_keypoints_detection(target["frame"])
-    if key_target is None or description_target is None:
+
+    target_keypoints, target_descriptors = surf_keypoints_detection(target["frame"])
+    if target_keypoints is None or target_descriptors is None:
         return None  # don't have key points for this human
+
     max_match = []
+    match_p = []
+
     for p in people_list:
         if len(p.frames) > config["max_length_frames"]:  # remove trace frames
             p.history.extend(p.frames[0:len(p.frames) - config["max_length_frames"]])
             p.frames = p.frames[-config["max_length_frames"]:]
 
-        match_p = []
         for index, frame in enumerate(p.frames):
             kp, dp = surf_keypoints_detection(frame.frame_image)
             if kp is None or dp is None:
                 continue
             else:
-                good_match = flann_matcher(description_target, dp, config["FlannMatcherThreshold"])
-            if len(key_target) == 0:
+                good_match = flann_matcher(target_descriptors, dp, config["FlannMatcherThreshold"])
+
+            if len(target_keypoints) == 0:
                 acc = 0
             else:
-                acc = len(good_match) / (len(dp))
+                acc = len(good_match) / (len(target_descriptors))
+
             match_p.append(min(acc, 1))
+
         if len(match_p) > 0:
             mean_acc = np.amax(match_p)
         else:

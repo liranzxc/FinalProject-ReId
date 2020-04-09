@@ -5,16 +5,18 @@ import cv2
 from finalProject.classes.cropped_frame import CroppedFrame
 from finalProject.classes.person import Person
 from finalProject.utils.drawing.draw import DrawHumans, DrawSource
-from finalProject.utils.matchers.Matchers import find_closest_human
+from finalProject.utils.matchers.Matchers import find_closest_person
 
 
 def tracking_by_yolo(frames: [], yolo, is_video: bool, config: "file"):
-    """this function creates an array containing objects of all people that are in the target video,
+    """This function creates an array containing objects of all people that are in the target video,
     it assigns each person his frame-boxes from the video and other attributes,
     (this is regardless of the person in source video)."""
+
     people_list = []
     counter_id = 0
     frame_rate = config["frameRate"]
+
     if config["videoFrameLength"] == -1:
         num_of_frames = len(frames)
     else:
@@ -24,10 +26,9 @@ def tracking_by_yolo(frames: [], yolo, is_video: bool, config: "file"):
         print("videoFrameLength larger then video")
         num_of_frames = len(frames)
 
-    if num_of_frames > 1:
-        # start capture
+    if num_of_frames > 1:  # start capture
         for index in range(0, num_of_frames, frame_rate):
-            affected_people = []  # a list of counterId(int) of all people that are in the current frame
+            affected_people = []  # a list of person_ids of all people that are in the current frame
             # print("frame {}".format(index))
 
             if is_video:
@@ -48,7 +49,7 @@ def tracking_by_yolo(frames: [], yolo, is_video: bool, config: "file"):
                 cropped_images = list(filter(lambda crop: crop["frame"].size, cropped_images))
                 for cropped_image in cropped_images:  # determine which frame-box is related to which person
                     if len(people_list) > 0:
-                        max_match = find_closest_human(cropped_image, people_list, config=config)  # returns a list of all people and their accuracy
+                        max_match = find_closest_person(cropped_image, people_list, config=config)  # returns a list of all people and their accuracy
                         if max_match is None:
                             continue  # skip iteration and continue on with the next iteration
 
@@ -59,8 +60,9 @@ def tracking_by_yolo(frames: [], yolo, is_video: bool, config: "file"):
                             people_list[indexer].frames.append(CroppedFrame(cropped_image["frame"]))  # adds the box-frame to this person
                             people_list[indexer].locations.append(cropped_image["location"])  # adds his locations too
 
-                        elif config["thresholdAppendNewHumanStart"] < max_maximum[1] \
-                                < config["thresholdAppendNewHumanEnd"]:  # if accuracy matches the values determine to create a new person
+                        # TODO: consider calculating the thresholds according to the number of keypoints (of the person we're looking for)
+
+                        elif config["thresholdAppendNewHumanStart"] < max_maximum[1] < config["thresholdAppendNewHumanEnd"]:  # if accuracy matches the values determine to create a new person
                             append_person_to_people(people_list, affected_people, counter_id, cropped_image)
                             counter_id += 1
                     else:  # creates a new person (this is the first person)
@@ -77,11 +79,11 @@ def tracking_by_yolo(frames: [], yolo, is_video: bool, config: "file"):
     return people_list
 
 
-def append_person_to_people(people_list, affected_people_ids, person_id, frame_box):
+def append_person_to_people(people_list, affected_people_ids, person_id, cropped_image):
     person = Person(person_id)
     affected_people_ids.append(person_id)
-    person.frames.append(CroppedFrame(frame_box["frame"]))
-    person.locations.append(frame_box["location"])
+    person.frames.append(CroppedFrame(cropped_image["frame"]))
+    person.locations.append(cropped_image["location"])
     people_list.append(person)
 
 
@@ -119,6 +121,7 @@ def source_detection_by_yolo(source_frames: [], yolo, is_video: bool, config: "f
 
             if len(person.frames) > 0:
                 DrawSource(person, drawFrame)
+
             if config["show"]:
                 cv2.imshow('frame', drawFrame)
                 k = cv2.waitKey(config["WaitKeySecond"]) & 0xff

@@ -35,7 +35,6 @@ def DrawHumans(my_people, frame, affected_people):
     thicknessRec = 2
     for index in affected_people:
         color = my_people[index].colorIndex
-        # print(color)
         cv2.rectangle(frame, my_people[index].locations[-1][0], my_people[index].locations[-1][1],
                       color, thicknessRec)
         draw_str(frame, my_people[index].locations[-1][0], "id " + str(my_people[index].person_id))

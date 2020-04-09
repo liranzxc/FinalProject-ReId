@@ -46,6 +46,20 @@ def calculate_key_points(image, keyPointFunction):
     return keyPointFunction(image)
 
 
+def body_part_by_haarcascade(frame):
+    objects_list = ['lowerbody', 'upperbody', 'face']
+
+    for part_index, part in enumerate(objects_list):
+        object_cascade = cv2.CascadeClassifier('haarcascades/' + objects_list[part_index] + '.xml')
+
+        faces = object_cascade.detectMultiScale(frame.gray_image, 1.3, 5)
+        for (x, y, w, h) in faces:
+            cv2.rectangle(frame.frame_image, (x, y), (x + w, y + h), (255, 0, 0), 2)  # draw rect around face (img, starting point, ending point, color, line width)
+            roi_gray = frame.gray_image[y:y + h, x:x + w]  # [starting point:ending point, starting point: ending point]
+            roi_color = frame.gray_image[y:y + h, x:x + w]  # reimpose color
+            frame.frame_parts[part].append()
+
+
 def save_descriptors_to_frame(keypoints, descriptors, algo, frame):
     if keypoints is None or descriptors is None or len(keypoints) == 0 or len(descriptors) == 0:
         frame.frame_keypoints[algo] = []
@@ -64,6 +78,8 @@ def create_keypoints_descriptors(people_list):  # people_list is a list of eleme
         descriptor[person.person_id] = []
 
         for frame in person.frames:
+            # body_part_by_haarcascade(frame)
+
             kp_orb, des_orb = calculate_key_points(frame.frame_image, orb_keypoints_detection)
             kp_kaze, des_kaze = calculate_key_points(frame.frame_image, kaze_keypoints_detection)
             kp_sift, des_sift = calculate_key_points(frame.frame_image, sift_keypoints_detection)

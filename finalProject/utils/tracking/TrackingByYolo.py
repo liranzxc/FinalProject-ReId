@@ -74,7 +74,6 @@ def tracking_by_yolo(frames: [], yolo, is_video: bool, config: "file"):
                 k = cv2.waitKey(config["WaitKeySecond"]) & 0xff
                 if k == 27:
                     break
-
     return people_list
 
 
@@ -86,7 +85,6 @@ def append_person_to_people(people_list, affected_people_ids, person_id, frame_b
     people_list.append(person)
 
 
-# source_frames is all frames related to the source
 def source_detection_by_yolo(source_frames: [], yolo, is_video: bool, config: "file"):
     person = Person(0)
     frame_rate = config["frameRate"]

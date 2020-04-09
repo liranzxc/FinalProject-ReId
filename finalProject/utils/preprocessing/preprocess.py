@@ -1,40 +1,42 @@
-import cv2
 import os
+
+import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 
 
-def framesExists(frames):
+def is_frames_exists(frames):
     return len(frames) > 0
 
 
-def readFromInputVideoFrames(config):
+def read_frames_from_video(config):
     frames = []
 
     if config["isVideo"]:
         cap = cv2.VideoCapture(config["inputVideo"])
         i = 0
         while i < config["skipRateFrameFromBeginning"]:
-            ret, frame = cap.read() #cap.read() returns a bool. If read correctly - True. You can check end of the video by it.
+            ret, frame = cap.read()  # cap.read() returns a bool. If read correctly - True. You can check end of the video by it.
             i += 1
 
         i = 0
         while ret and i < config["videoFrameLength"]:
             frames.append(frame)
-            ret, frame = cap.read() #Grabs, decodes and returns the next video frame.
+            ret, frame = cap.read()  # grabs, decodes and returns the next video frame.
             i += 1
+
     else:
         path = config["inputVideo"]
         for (dirpath, dirnames, filenames) in os.walk(path):
             frames.extend(filenames)
             break
+
         frames.sort()
         frames = list(map(lambda file: path + "/" + file, frames))
 
     return frames
 
 
-def reduceNoise(frames):
+def reduce_noise(frames):
     framesMask = []
     backSub = cv2.createBackgroundSubtractorMOG2(varThreshold=100)
 

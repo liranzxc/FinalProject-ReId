@@ -4,16 +4,15 @@ pip install opencv-contrib-python==3.4.2.16
 
 import json
 import pprint
+
 import cv2
-from finalProject.classes.yolo import Yolo
-from finalProject.utils.drawing.draw import drawTargetFinal
-from finalProject.utils.images.imagesUtils import Image
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import createDescriptorTarget, SiftDetectKeyPoints
-from finalProject.utils.matchers.Matchers import compare_between_two_description, flannmatcher
-from finalProject.utils.preprocessing.preprocess import readFromInputVideoFrames, framesExists, reduceNoise, \
-    removeRemovalColor
-from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
 import matplotlib.pyplot as plt
+
+from finalProject.classes.yolo import Yolo
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import sift_keypoints_detection
+from finalProject.utils.matchers.Matchers import flann_matcher
+from finalProject.utils.preprocessing.preprocess import read_frames_from_video, is_frames_exists
+from finalProject.utils.tracking.TrackingByYolo import source_detection_by_yolo, tracking_by_yolo
 
 
 def sobel(img):
@@ -28,7 +27,7 @@ def sobel_keypoints(image):
     sobelImage = sobel(image)
     # norm
     image8bit = cv2.normalize(sobelImage, None, 0, 255, cv2.NORM_MINMAX).astype('uint8')
-    k, d = SiftDetectKeyPoints(image8bit)
+    k, d = sift_keypoints_detection(image8bit)
     return k, d, image8bit
 
 
@@ -46,7 +45,7 @@ def forward(frames):
 def cross_correction(key_des_image_source, key_des_image_target, threshold=0.5):
     (k1, d1, img1) = key_des_image_source
     (k2, d2, img2) = key_des_image_target
-    match = flannmatcher(d1, d2, threshold=threshold)
+    match = flann_matcher(d1, d2, threshold=threshold)
     output = cv2.drawMatchesKnn(img1, k1, img2, k2, match, outImg=None)
     return output
 
@@ -80,29 +79,29 @@ if __name__ == "__main__":
         config = json.load(file_json)
 
         # source
-        frameSource = readFromInputVideoFrames(config["source"])
-        if not framesExists(frameSource):
+        frameSource = read_frames_from_video(config["source"])
+        if not is_frames_exists(frameSource):
             print("problem with source video input")
             exit(0)
 
         mySource = source_detection_by_yolo(frameSource, yolo,
-                                            isVideo=config["source"]["isVideo"],
+                                            is_video=config["source"]["isVideo"],
                                             config=config["source"])
         if mySource is None:
             print("fail to detect human on source video")
             exit(0)
 
         # target
-        frameTarget = readFromInputVideoFrames(config["target"])
-        if not framesExists(frameTarget):
+        frameTarget = read_frames_from_video(config["target"])
+        if not is_frames_exists(frameTarget):
             print("problem with target video input")
             exit(0)
 
-        if not framesExists(frameTarget):
+        if not is_frames_exists(frameTarget):
             print("problem with target video input -reduce noise")
             exit(0)
 
-        myTargets = tracking_by_yolo(frameTarget, yolo, isVideo=config["target"]["isVideo"],
+        myTargets = tracking_by_yolo(frameTarget, yolo, is_video=config["target"]["isVideo"],
                                      config=config["target"])
 
         # source

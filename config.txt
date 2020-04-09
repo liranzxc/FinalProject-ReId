@@ -1,9 +1,9 @@
 {
   "source" :{
-    "inputVideo" : "dataset/re-id/videos/liran.mp4",
+    "inputVideo" : "dataset/re-id/videos/onePersonWhiteBG.mp4",
     "isVideo" : true,
     "skipRateFrameFromBeginning" : 1,
-    "videoFrameLength" : 100,
+    "videoFrameLength" : 30,
     "frameRate" : 5,
     "show" : false,
     "WaitKeySecond" : 10,
@@ -11,11 +11,11 @@
      "reduceNoise" : false
   },
   "target" : {
-      "inputVideo" : "dataset/re-id/videos/liran.mp4",
+      "inputVideo" : "dataset/re-id/videos/onePersonWhiteBG.mp4",
       "isVideo" : true,
       "show" : false,
       "skipRateFrameFromBeginning" : 1,
-      "videoFrameLength" : 100,
+      "videoFrameLength" : 30,
       "frameRate" : 5,
       "thresholdAppendToHuman" : 0.1,
       "thresholdAppendNewHumanStart" : 0.1,

@@ -1,9 +1,9 @@
 import cv2
 from matplotlib import pyplot as plt
-from finalProject.utils.keyPoints.AlgoritamKeyPoints import SiftDetectKeyPoints
-from finalProject.utils.matchers.Matchers import flannmatcher
+
 from finalProject.utils.images.imagesUtils import Image
-import numpy as np
+from finalProject.utils.keyPoints.AlgoritamKeyPoints import sift_keypoints_detection
+from finalProject.utils.matchers.Matchers import flann_matcher
 
 
 def gray(path):
@@ -24,7 +24,7 @@ def sobel_keypoints(image):
     sobelImage = sobel(image)
     # norm
     image8bit = cv2.normalize(sobelImage, None, 0, 255, cv2.NORM_MINMAX).astype('uint8')
-    k, d = SiftDetectKeyPoints(image8bit)
+    k, d = sift_keypoints_detection(image8bit)
     return k, d, image8bit
 
 
@@ -46,7 +46,7 @@ k1, d1, image1 = sobel_keypoints(image1)
 
 k2, d2, image2 = sobel_keypoints(image2)
 
-match = flannmatcher(d1, d2,threshold=0.5)
+match = flann_matcher(d1, d2, threshold=0.5)
 
 output = cv2.drawMatchesKnn(image1, k1, image2, k2, match, outImg=None)
 

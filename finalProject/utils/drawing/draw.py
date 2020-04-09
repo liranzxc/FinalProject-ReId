@@ -110,9 +110,7 @@ def draw_frame_pair(source_frame, target_frame, NameAlgo, ax, options):
 
     out_img = np.array([])
 
-    draw_params = dict(matchColor=(0, 255, 0),
-                       singlePointColor=(255, 0, 0),
-                       flags=0)
+    draw_params = dict(matchColor=(0, 255, 0), singlePointColor=(255, 0, 0), flags=0)
 
     out_img = cv2.drawMatchesKnn(source_frame.frame_image, source_frame.frame_keypoints[NameAlgo],
                                  target_frame.frame_image, target_frame.frame_keypoints[NameAlgo],

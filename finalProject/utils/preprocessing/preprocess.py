@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 
 
-def is_frames_exists(frames):
+def check_frames_exist(frames):
     return len(frames) > 0
 
 

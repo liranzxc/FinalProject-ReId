@@ -46,7 +46,7 @@ def calculate_key_points(image, keyPointFunction):
     return keyPointFunction(image)
 
 
-def body_part_by_haarcascade(frame):
+def haarcascade_body_parts(frame):
     objects_list = ['lowerbody', 'upperbody', 'face']
 
     for part_index, part in enumerate(objects_list):
@@ -78,7 +78,7 @@ def create_keypoints_descriptors(people_list):  # people_list is a list of eleme
         descriptor[person.person_id] = []
 
         for frame in person.frames:
-            # body_part_by_haarcascade(frame)
+            # haarcascade(frame)
 
             kp_orb, des_orb = calculate_key_points(frame.frame_image, orb_keypoints_detection)
             kp_kaze, des_kaze = calculate_key_points(frame.frame_image, kaze_keypoints_detection)

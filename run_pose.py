@@ -59,8 +59,7 @@ while cv.waitKey(1) < 0:
         heatMap = out[0, i, :, :]
 
         # Originally, we try to find all the local maximums. To simplify a sample
-        # we just find a global one. However only a single pose at the same time
-        # could be detected this way.
+        # we just find a global one. However only a single pose at the same time could be detected this way.
         _, conf, _, point = cv.minMaxLoc(heatMap)
         x = (frameWidth * point[0]) / out.shape[3]
         y = (frameHeight * point[1]) / out.shape[2]

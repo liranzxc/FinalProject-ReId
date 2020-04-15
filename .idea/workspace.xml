@@ -34,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="liran_test" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,7 +48,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../final_screen" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AiDock/aidock-monorepo" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -259,13 +259,7 @@
       <workItem from="1585748193638" duration="2403000" />
       <workItem from="1585750730964" duration="886000" />
       <workItem from="1585915373268" duration="10161000" />
-    </task>
-    <task id="LOCAL-00012" summary="add project kalman for exmaple">
-      <created>1575194119730</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1575194119730</updated>
+      <workItem from="1586624217924" duration="11000" />
     </task>
     <task id="LOCAL-00013" summary="add project kalman for exmaple">
       <created>1575195125112</created>
@@ -603,7 +597,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585919670225</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="add liran test">
+      <created>1586615186006</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1586615186006</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -70,6 +70,7 @@ def plotSquare(images, _titles, each_column=5):
 if __name__ == "__main__":
     """# import images"""
 
+    # liran test
     # init yolo
     yolo = Yolo()
     yolo.initYolo()

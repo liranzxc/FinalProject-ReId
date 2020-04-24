@@ -22,6 +22,9 @@ if __name__ == "__main__":
     with open('./config.txt') as file_json:
         config = json.load(file_json)
 
+        src_input_data = ResultsDetails(config["source"])
+        trg_input_data = ResultsDetails(config["target"])
+
         """ source video """
         source_frames = read_frames_from_video(config["source"])  # a list of all frames extracted from source video
         if not check_frames_exist(source_frames):  # if not len(source_frames) > 0
@@ -43,6 +46,8 @@ if __name__ == "__main__":
         #     keyboard = cv2.waitKey(30)
         #     if keyboard == 'q' or keyboard == 27:
         #         break
+
+        src_input_data.num_of_frames = len(source_frames)
 
         source_person = source_detection_by_yolo(source_frames, yolo, is_video=config["source"]["isVideo"], config=config["source"])
         if source_person is None:
@@ -68,6 +73,8 @@ if __name__ == "__main__":
         if not check_frames_exist(target_frames):
             print("problem with target video input - in remove color")
             exit(0)
+
+        trg_input_data.num_of_frames = len(target_frames)
 
         target_people = tracking_by_yolo(target_frames, yolo, is_video=config["target"]["isVideo"], config=config["target"])
         if not check_frames_exist(target_people):

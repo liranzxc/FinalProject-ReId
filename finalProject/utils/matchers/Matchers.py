@@ -3,6 +3,7 @@
 """
 import cv2
 import numpy as np
+from tkinter import *
 
 from finalProject.classes.enumTypeKeyPoints import NamesAlgorithms
 from finalProject.utils.keyPoints.AlgoritamKeyPoints import surf_keypoints_detection
@@ -131,3 +132,30 @@ def compute_accuracy_table(source_person, target_people):
                            "target_frame": t_person.frames[ind[0]],
                            "source_frame": source_person.frames[ind[1]]}
     return acc_table
+
+
+def divide_body_parts(person_frames):
+    # objectToDetect = int(input("Which object?\n0: lowerbody\n1: upperbody\n2: cat face\n3: full body\n"))
+    # objectsList = ['haarcascade_lowerbody.xml', 'haarcascade_upperbody.xml', 'haarcascade_frontalcatface.xml', 'haarcascade_fullbody.xml']
+    objectsList = ['haarcascade_lowerbody.xml', 'haarcascade_upperbody.xml', 'haarcascade_frontalcatface_extended.xml']
+
+    lowerbody_object_cascade = cv2.CascadeClassifier('haarcascades/' + objectsList[0])
+    # upperbody_object_cascade = cv2.CascadeClassifier('haarcascades/' + objectsList[1])
+    # face_object_cascade = cv2.CascadeClassifier('haarcascades/' + objectsList[2])
+
+    for frame in person_frames:
+        lowerbodies = lowerbody_object_cascade.detectMultiScale(frame.gray_image)
+        # upperbodies = upperbody_object_cascade.detectMultiScale(frame.gray_image, 1.3, 5)
+        # faces = face_object_cascade.detectMultiScale(frame.gray_image, 1.3, 5)
+
+        print(lowerbodies)
+        print(len(lowerbodies), type(lowerbodies))
+
+        if len(lowerbodies)>0:
+            for (x,y,w,h) in lowerbodies:
+                cv2.rectangle(frame.frame_image, (x,y), (x+w, y+h), (255,0,0), 2) #draw rect around face (img, starting point, ending point, color, line width)
+                roi_gray = frame.gray_image[y:y+h, x:x+w]  # [starting point:ending point, starting point: ending point]
+                roi_color = frame.gray_image[y:y+h, x:x+w]  # reimpose color
+                frame.frame_parts['lowerbody'].append(roi_gray)
+                frame.frame_parts['lowerbody'].append(roi_color)
+    cv2.destroyAllWindows()

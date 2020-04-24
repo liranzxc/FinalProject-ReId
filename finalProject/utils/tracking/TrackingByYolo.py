@@ -6,6 +6,7 @@ from finalProject.classes.cropped_frame import CroppedFrame
 from finalProject.classes.person import Person
 from finalProject.utils.drawing.draw import DrawHumans, DrawSource
 from finalProject.utils.matchers.Matchers import find_closest_person
+from finalProject.utils.matchers.Matchers import divide_body_parts
 
 
 def tracking_by_yolo(frames: [], yolo, is_video: bool, config: "file"):
@@ -129,5 +130,8 @@ def source_detection_by_yolo(source_frames: [], yolo, is_video: bool, config: "f
                     break
     else:
         print("The number of frames is less than one")
+
+    # if len(person.frames)>0:
+    #     divide_body_parts(person.frames)
 
     return person

@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pytorch/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pytorch/pair_dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pytorch/pytorch_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Final Project Afeka.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Final Project Afeka.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_main_jupyter.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/auto_main_jupyter.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,21 +54,22 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AiDock/aidock-monorepo" />
+    <property name="last_opened_file_path" value="$USER_HOME$/anaconda3/envs/torchreid" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/dataset/re-id/videos" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/classes" />
-      <recent name="$PROJECT_DIR$/re-id/videos" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pytorch" />
       <recent name="$PROJECT_DIR$/screenshots" />
       <recent name="$PROJECT_DIR$/dataset/images/liran" />
       <recent name="$PROJECT_DIR$/final-project" />
       <recent name="$PROJECT_DIR$/datasets" />
-      <recent name="$PROJECT_DIR$/utils/keyPoints" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/dataset/re-id/videos" />
+      <recent name="$PROJECT_DIR$/classes" />
+      <recent name="$PROJECT_DIR$/re-id/videos" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -261,14 +267,9 @@
       <workItem from="1585750730964" duration="886000" />
       <workItem from="1585915373268" duration="10161000" />
       <workItem from="1586624217924" duration="11000" />
-      <workItem from="1586983974598" duration="797000" />
-    </task>
-    <task id="LOCAL-00014" summary="only yolo without ids">
-      <created>1575198488663</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1575198488663</updated>
+      <workItem from="1586983974598" duration="838000" />
+      <workItem from="1587113316879" duration="47000" />
+      <workItem from="1587735625473" duration="6719000" />
     </task>
     <task id="LOCAL-00015" summary="only yolo without ids">
       <created>1575202220460</created>
@@ -606,7 +607,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586984001507</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="add three parts">
+      <created>1586984787348</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1586984787348</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

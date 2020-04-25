@@ -111,14 +111,17 @@ if __name__ == "__main__":
     if cuda:
         net.cuda()
 
-    lr = 0.01  # Learning rate
-    epoch_num = 1
+    lr = 1e-3  # Learning rate
+    epoch_num = 2
     optimizer = optim.SGD(net.parameters(), lr=lr, momentum=0.9)
+    stuck = 0
     loss_log = []
 
     criterion = nn.BCELoss()
-
+    stop = False
     for ep in range(epoch_num):  # epochs loop
+        if stop:
+            break
         running_loss = 0.0
         for batch_id, (img1, img2, yi) in enumerate(train_loader, 0):
 
@@ -133,7 +136,7 @@ if __name__ == "__main__":
 
             # yi if y = 1 are the same pair
             # yi if y = 0 are not the same pair
-            yi = yi[0] # reshape get first element in list
+            yi = yi[0]  # reshape get first element in list
             loss = criterion(pred, yi)
 
             # Backward pass and updates
@@ -143,36 +146,76 @@ if __name__ == "__main__":
 
             if batch_id % 500 == 499:  # print every 500 mini-batches
                 print('[%d, %5d] train loss: %.3f' %
-                      (epoch_num + 1, batch_id + 1, running_loss / 2000))
-                loss_log.append(running_loss)
+                      (ep + 1, batch_id + 1, running_loss / 500))
+
+                if len(loss_log) > 0:
+                    if (running_loss / 500) == loss_log[-1]:
+                        stuck = stuck + 1
+                    else:
+                        stuck = 0
+
+                loss_log.append(running_loss / 500)
+
+                if stuck > 4 :
+                    stop = True
+                    print("stuck")
+                    break
+
+                if (running_loss / 500) < 0.570 and running_loss != 0.0:  # thehold
+                    right = 0
+                    error = 0
+                    n = 0
+                    for _, (img1_val, img2_val, yi_val) in enumerate(val_loader, 1):
+                        if cuda:
+                            img1_val, img2_val, yi_val = Variable(img1_val.cuda()), Variable(img2_val.cuda()), Variable(
+                                yi_val.cuda())
+                        else:
+                            img1_val, img2_val, yi_val = Variable(img1_val), Variable(img2_val), Variable(yi_val)
+
+                        pred = net.forward(img1_val, img2_val).cpu().detach().numpy()
+                        yi_val = yi_val.cpu().detach().numpy()
+                        yi_val = yi_val[0]
+                        if np.round_(pred) == yi_val:
+                            right += 1
+                        else:
+                            error += 1
+                        n += 1
+
+                    print("acc {}".format(right / n))
+                    print("error {}".format(error / n))
+                    print("*" * 70)
+
+                    stop = True
+                    break
                 running_loss = 0.0
 
-                # check acc
-                right = 0
-                error = 0
-                n = 0
-                for _, (img1_val, img2_val, yi_val) in enumerate(val_loader, 1):
-                    if cuda:
-                        img1_val, img2_val, yi_val = Variable(img1_val.cuda()), Variable(img2_val.cuda()), Variable(
-                            yi_val.cuda())
-                    else:
-                        img1_val, img2_val, yi_val = Variable(img1_val), Variable(img2_val), Variable(yi_val)
-
-                    pred = net.forward(img1_val, img2_val).cpu().detach().numpy()
-                    yi_val = yi_val.cpu().detach().numpy()
-                    yi_val = yi_val[0]
-                    if np.round_(pred) == yi_val:
-                        right += 1
-                    else:
-                        error += 1
-                    n += 1
-
-                print("acc {}".format(right / n))
-                print("error {}".format(error / n))
-                print("*" * 70)
+            # if batch_id % 8000 == 7999:
+            #     # check acc
+            #     right = 0
+            #     error = 0
+            #     n = 0
+            #     for _, (img1_val, img2_val, yi_val) in enumerate(val_loader, 1):
+            #         if cuda:
+            #             img1_val, img2_val, yi_val = Variable(img1_val.cuda()), Variable(img2_val.cuda()), Variable(
+            #                 yi_val.cuda())
+            #         else:
+            #             img1_val, img2_val, yi_val = Variable(img1_val), Variable(img2_val), Variable(yi_val)
+            #
+            #         pred = net.forward(img1_val, img2_val).cpu().detach().numpy()
+            #         yi_val = yi_val.cpu().detach().numpy()
+            #         yi_val = yi_val[0]
+            #         if np.round_(pred) == yi_val:
+            #             right += 1
+            #         else:
+            #             error += 1
+            #         n += 1
+            #
+            #     print("acc {}".format(right / n))
+            #     print("error {}".format(error / n))
+            #     print("*" * 70)
 
     torch.save(net.state_dict(), '../reId/siamese.pth')
 
     plt.plot(loss_log)
-    plt.title('Contrastive Loss')
+    plt.title('Loss')
     plt.show()

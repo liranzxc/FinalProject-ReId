@@ -5,7 +5,6 @@
 from builtins import next, iter
 
 import torch
-import torchreid
 import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn as nn
@@ -57,27 +56,30 @@ net = Siamese()
 # In[3]:
 
 # functions to show an image
+import os
+import sys
+module_path = os.path.abspath(os.path.join('..'))
+if module_path not in sys.path:
+    sys.path.append(module_path)
 
 def imshow(img):
+    img = img.mean(0)
     npimg = img.numpy()
     plt.imshow(np.transpose(npimg, (1, 2, 0)))
     plt.show()
 
 
 # In[4]:
+#
+# datamanager = torchreid.data.ImageDataManager(
+#     root='reid-data',
+#     sources='market1501',
+#     height=96,
+#     width=96,
+#     batch_size_train=1,
+#     transforms=['random_flip', 'random_crop']
+#)
 
-datamanager = torchreid.data.ImageDataManager(
-    root='reid-data',
-    sources='market1501',
-    targets='market1501',
-    height=96,
-    width=96,
-    batch_size_train=32,
-    batch_size_test=100,
-    transforms=['random_flip', 'random_crop']
-)
-
-
-db_new = PairDataset(datamanager)
-
-
+path = './dataset/re-id/campus/*'
+db_new = PairDataset(path, train="train")
+db_new.details()

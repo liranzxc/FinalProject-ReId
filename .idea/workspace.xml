@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Final Project Afeka.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Final Project Afeka.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pytorch/pair_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch/pair_dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pytorch/pytorch_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch/pytorch_test.py" afterDir="false" />
@@ -52,7 +50,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/anaconda3/envs/torchreid" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pairs" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -270,14 +268,10 @@
       <workItem from="1587735625473" duration="15515000" />
       <workItem from="1587807646643" duration="289000" />
       <workItem from="1587808574349" duration="11000" />
-      <workItem from="1587808617073" duration="212000" />
-    </task>
-    <task id="LOCAL-00016" summary="only yolo without ids">
-      <created>1575205965194</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1575205965194</updated>
+      <workItem from="1587808617073" duration="20106000" />
+      <workItem from="1587834306853" duration="23000" />
+      <workItem from="1587834684270" duration="4000" />
+      <workItem from="1587834708156" duration="7456000" />
     </task>
     <task id="LOCAL-00017" summary="only yolo without ids-works">
       <created>1575207216981</created>
@@ -615,7 +609,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587742418907</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="add pytorch">
+      <created>1587808836805</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1587808836805</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -663,7 +664,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="add pytorch" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Final_Project_Afeka$pytorch_test.coverage" NAME="pytorch_test Coverage Results" MODIFIED="1587808802578" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pytorch" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$pytorch_test.coverage" NAME="pytorch_test Coverage Results" MODIFIED="1587842167270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pytorch" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$bg_sub.coverage" NAME="bg_sub Coverage Results" MODIFIED="1577001115912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$KalmanFilter.coverage" NAME="KalmanFilter Coverage Results" MODIFIED="1575295812179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$kalman.coverage" NAME="kalman Coverage Results" MODIFIED="1575190906662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

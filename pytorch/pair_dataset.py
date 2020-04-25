@@ -1,8 +1,11 @@
 import itertools
 
+import torch
 from torch.utils.data import Dataset
 import numpy as np
 from glob import glob
+from PIL import Image
+from torchvision.transforms import transforms
 
 
 class PairDataset(Dataset):
@@ -47,7 +50,6 @@ class PairDataset(Dataset):
             self.same_labels = self.same_labels + len(combinations)
 
         # create different pairs
-
         for key in ids.keys():
             list_ids = list(ids.keys())
             list_ids.remove(key)
@@ -63,6 +65,7 @@ class PairDataset(Dataset):
         # split the data 70% train , 10% valid , 20% test
 
         train_pair = pairs_same[: int(len(pairs_same) * 0.7)] + pairs_odd[: int(len(pairs_odd) * 0.7)]
+
         train_label = labels_same[: int(len(labels_same) * 0.7)] + labels_odd[: int(len(labels_odd) * 0.7)]
 
         val_pair = pairs_same[int(len(pairs_same) * 0.7): int(len(pairs_same) * 0.8)] \
@@ -98,10 +101,22 @@ class PairDataset(Dataset):
 
     def __getitem__(self, index):
         if self.mode is "train":
-            imgs, target = self.train_data[index], self.train_labels[index]
+            imgs, label = self.train_data[index], self.train_label[index]
         elif self.mode is "test":
-            imgs, target = self.test_data[index], self.test_label[index]
+            imgs, label = self.test_data[index], self.test_label[index]
         else:
-            imgs, target = self.val_data[index], self.val_label[index]
+            imgs, label = self.val_data[index], self.val_label[index]
 
-        return imgs, target
+        imgs_arr = []
+
+        for path in imgs:
+            img = Image.open(path)
+            if self.transform is not None:
+                img = self.transform(img)
+                pil_to_tensor = img
+            else:
+                pil_to_tensor = transforms.ToTensor()(img).unsqueeze_(0)
+
+            imgs_arr.append(pil_to_tensor)
+
+        return imgs_arr[0], imgs_arr[1], torch.from_numpy(np.array([label], dtype=np.float32))

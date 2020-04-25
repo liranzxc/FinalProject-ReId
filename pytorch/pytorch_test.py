@@ -1,85 +1,178 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-from builtins import next, iter
+import os
+import pickle
+import sys
+import time
+from collections import deque
 
 import torch
 import numpy as np
-import matplotlib.pyplot as plt
 import torch.nn as nn
-import torch.nn.functional as F
-
-
-# In[2]:
+import torchvision
 from pair_dataset import PairDataset
+from pytorch_metric_learning.losses import CosFaceLoss, ContrastiveLoss
+from torch import optim
+from torch.autograd import Variable
+from torch.utils.data import DataLoader
+from torchvision.transforms import transforms
+import torch.nn.functional as F
+import matplotlib.pyplot as plt
+
+# load folder parent
+module_path = os.path.abspath(os.path.join('..'))
+if module_path not in sys.path:
+    sys.path.append(module_path)
 
 
 class Siamese(nn.Module):
     def __init__(self):
         super(Siamese, self).__init__()
-        self.conv = nn.Sequential(
-            nn.Conv2d(1, 64, 10),  # 64@96*96
+        self.cnn = nn.Sequential(
+            nn.Conv2d(3, 32, 5, stride=1, padding=2),
             nn.ReLU(inplace=True),
-            nn.MaxPool2d(2),  # 64@48*48
-            nn.Conv2d(64, 128, 7),
-            nn.ReLU(),  # 128@42*42
-            nn.MaxPool2d(2),  # 128@21*21
-            nn.Conv2d(128, 128, 4),
-            nn.ReLU(),  # 128@18*18
-            nn.MaxPool2d(2),  # 128@9*9
-            nn.Conv2d(128, 256, 4),
-            nn.ReLU(),  # 256@4*4
+            nn.Conv2d(32, 32, 5, stride=1, padding=2),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(32, 16, 5, stride=1, padding=2),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(16, 8, 5, stride=1, padding=2),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(8, 64, 7, stride=1, padding=0),
+            nn.ReLU(inplace=True)
+        )
+        self.out = nn.Sequential(
+            nn.Linear(41472, 1),
+            nn.Sigmoid()  # 0 ~ 1
         )
 
-        self.out = nn.Linear(4096, 1)
-
-    def forward_one(self, x):
-        x = self.conv(x)
-        x = x.view(-1, 4 * 4 * 256)
-        x = torch.sigmoid(x)
-        return x
-
-    def forward(self, x1, x2):
-        out1 = self.forward_one(x1)
-        out2 = self.forward_one(x2)
-        dis = torch.abs(out1 - out2)
-        out = self.out(dis)
-        #  return self.sigmoid(out)
+    def forward(self, x, y):
+        x = self.cnn(x)
+        x = x.view(-1, 64)
+        y = self.cnn(y)
+        y = y.view(-1, 64)
+        B = torch.cat((x, y))
+        B = B.view(-1)
+        out = self.out(B)
         return out
 
 
-# for test
-net = Siamese()
-
-
-# In[3]:
-
-# functions to show an image
-import os
-import sys
-module_path = os.path.abspath(os.path.join('..'))
-if module_path not in sys.path:
-    sys.path.append(module_path)
-
-def imshow(img):
-    img = img.mean(0)
+def imshow(imgs: [], label):
+    plt.subplot(1, 2, 1)
+    img = imgs[0] / 2 + 0.5  # unnormalize
     npimg = img.numpy()
-    plt.imshow(np.transpose(npimg, (1, 2, 0)))
+    t1 = np.transpose(npimg, (1, 2, 0))
+
+    plt.imshow(t1)
+
+    plt.subplot(1, 2, 2)
+    img = imgs[1] / 2 + 0.5  # unnormalize
+    npimg = img.numpy()
+    t2 = np.transpose(npimg, (1, 2, 0))
+    plt.imshow(t2)
+
+    plt.xlabel("match ?  " + str(label))
     plt.show()
 
 
-# In[4]:
-#
-# datamanager = torchreid.data.ImageDataManager(
-#     root='reid-data',
-#     sources='market1501',
-#     height=96,
-#     width=96,
-#     batch_size_train=1,
-#     transforms=['random_flip', 'random_crop']
-#)
+if __name__ == "__main__":
+    path = '../dataset/re-id/campus/*'
 
-path = './dataset/re-id/campus/*'
-db_new = PairDataset(path, train="train")
-db_new.details()
+    # create transform
+    transform = transforms.Compose([
+        transforms.Resize((96, 96)),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+
+    classes = [0, 1]
+    batch_size = 1
+    train_dataset = PairDataset(path, mode="train", transform=transform)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+
+    test_dataset = PairDataset(path, mode="test", transform=transform)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
+
+    val_dataset = PairDataset(path, mode="valid", transform=transform)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=True)
+
+    # get some random training images
+    #
+    # for batch_id, (imgs1, imgs2, labels) in enumerate(train_loader, 1):
+    #     for img1,img2,label in zip(imgs1,imgs2,labels):
+    #         # show images
+    #         x = torchvision.utils.make_grid(img1)
+    #         y = torchvision.utils.make_grid(img2)
+    #         labelX = int(label.numpy())
+    #         imshow([x, y],labelX)
+    #         print(labelX)
+
+    net = Siamese()
+    cuda = True
+    if cuda:
+        net.cuda()
+
+    lr = 0.01  # Learning rate
+    epoch_num = 1
+    optimizer = optim.SGD(net.parameters(), lr=lr, momentum=0.9)
+    loss_log = []
+
+    criterion = nn.BCELoss()
+
+    for ep in range(epoch_num):  # epochs loop
+        running_loss = 0.0
+        for batch_id, (img1, img2, yi) in enumerate(train_loader, 0):
+
+            optimizer.zero_grad()
+
+            if cuda:
+                img1, img2, yi = Variable(img1.cuda()), Variable(img2.cuda()), Variable(yi.cuda())
+            else:
+                img1, img2, yi = Variable(img1), Variable(img2), Variable(yi)
+
+            pred = net.forward(img1, img2)  # 0 ~ 1
+
+            # yi if y = 1 are the same pair
+            # yi if y = 0 are not the same pair
+            yi = yi[0] # reshape get first element in list
+            loss = criterion(pred, yi)
+
+            # Backward pass and updates
+            loss.backward()  # calculate the gradients (backpropagation)
+            optimizer.step()  # update the weights
+            running_loss += loss.item()
+
+            if batch_id % 500 == 499:  # print every 500 mini-batches
+                print('[%d, %5d] train loss: %.3f' %
+                      (epoch_num + 1, batch_id + 1, running_loss / 2000))
+                loss_log.append(running_loss)
+                running_loss = 0.0
+
+                # check acc
+                right = 0
+                error = 0
+                n = 0
+                for _, (img1_val, img2_val, yi_val) in enumerate(val_loader, 1):
+                    if cuda:
+                        img1_val, img2_val, yi_val = Variable(img1_val.cuda()), Variable(img2_val.cuda()), Variable(
+                            yi_val.cuda())
+                    else:
+                        img1_val, img2_val, yi_val = Variable(img1_val), Variable(img2_val), Variable(yi_val)
+
+                    pred = net.forward(img1_val, img2_val).cpu().detach().numpy()
+                    yi_val = yi_val.cpu().detach().numpy()
+                    yi_val = yi_val[0]
+                    if np.round_(pred) == yi_val:
+                        right += 1
+                    else:
+                        error += 1
+                    n += 1
+
+                print("acc {}".format(right / n))
+                print("error {}".format(error / n))
+                print("*" * 70)
+
+    torch.save(net.state_dict(), '../reId/siamese.pth')
+
+    plt.plot(loss_log)
+    plt.title('Contrastive Loss')
+    plt.show()

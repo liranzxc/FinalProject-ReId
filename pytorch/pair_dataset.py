@@ -119,4 +119,4 @@ class PairDataset(Dataset):
 
             imgs_arr.append(pil_to_tensor)
 
-        return imgs_arr[0], imgs_arr[1], torch.from_numpy(np.array([label], dtype=np.float32))
+        return imgs_arr[0], imgs_arr[1], torch.tensor(label, dtype=torch.float32)

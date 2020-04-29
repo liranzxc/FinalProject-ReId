@@ -41,7 +41,7 @@ class Siamese(nn.Module):
             nn.ReLU(inplace=True)
         )
         self.out = nn.Sequential(
-            nn.Linear(41472, 1),
+            nn.Linear(39168, 1),
             nn.Sigmoid()  # 0 ~ 1
         )
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
     # create transform
     transform = transforms.Compose([
-        transforms.Resize((96, 96)),
+        transforms.Resize((160, 60)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
@@ -107,6 +107,8 @@ if __name__ == "__main__":
     #         print(labelX)
 
     net = Siamese()
+    net.train()
+
     cuda = True
     if cuda:
         net.cuda()
@@ -117,7 +119,7 @@ if __name__ == "__main__":
     stuck = 0
     loss_log = []
 
-    criterion = nn.BCELoss()
+    criterion = nn.MSELoss()
     stop = False
     for ep in range(epoch_num):  # epochs loop
         if stop:
@@ -136,9 +138,12 @@ if __name__ == "__main__":
 
             # yi if y = 1 are the same pair
             # yi if y = 0 are not the same pair
-            yi = yi[0]  # reshape get first element in list
-            loss = criterion(pred, yi)
+            loss = criterion(yi, pred)
 
+            # print("pred", pred)
+            # print("yi actual", yi)
+            # print("loss", loss)
+            # print("*"*70)
             # Backward pass and updates
             loss.backward()  # calculate the gradients (backpropagation)
             optimizer.step()  # update the weights
@@ -161,7 +166,8 @@ if __name__ == "__main__":
                     print("stuck")
                     break
 
-                if (running_loss / 500) < 0.570 and running_loss != 0.0:  # thehold
+              #  if (running_loss / 500) < 0.001 and running_loss != 0.0:  # thehold
+                if batch_id % 4000 == 3999:  # print every 500 mini-batches
                     right = 0
                     error = 0
                     n = 0
@@ -173,8 +179,7 @@ if __name__ == "__main__":
                             img1_val, img2_val, yi_val = Variable(img1_val), Variable(img2_val), Variable(yi_val)
 
                         pred = net.forward(img1_val, img2_val).cpu().detach().numpy()
-                        yi_val = yi_val.cpu().detach().numpy()
-                        yi_val = yi_val[0]
+                        yi_val = yi_val.item()
                         if np.round_(pred) == yi_val:
                             right += 1
                         else:
@@ -185,8 +190,8 @@ if __name__ == "__main__":
                     print("error {}".format(error / n))
                     print("*" * 70)
 
-                    stop = True
-                    break
+                    # stop = True
+                    # break
                 running_loss = 0.0
 
             # if batch_id % 8000 == 7999:
@@ -214,7 +219,7 @@ if __name__ == "__main__":
             #     print("error {}".format(error / n))
             #     print("*" * 70)
 
-    torch.save(net.state_dict(), '../reId/siamese.pth')
+    torch.save(net.state_dict(), '../reId/siamese_60w_160h.pth')
 
     plt.plot(loss_log)
     plt.title('Loss')

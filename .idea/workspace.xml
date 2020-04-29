@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dab990d1-df83-4ba3-95ce-1c2644766d21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pytorch/mnist.siamse.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pytorch/test_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pytorch/siamese.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pytorch/mnist.siamse.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch/mnist_siamse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pytorch/pair_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch/pair_dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pytorch/pytorch_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch/pytorch_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reId/model-inter-41.pt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reId/model-inter-81.pt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +82,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.mnist.siamse">
+  <component name="RunManager" selected="Python.siamese">
     <configuration name="auto_main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Final Project Afeka" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -120,7 +118,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pytorch/mnist.siamse.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pytorch/mnist_siamse.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -151,7 +149,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="staticDetection" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="siamese" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Final Project Afeka" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -159,12 +157,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pytorch" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/staticDetection.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pytorch/siamese.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -197,18 +195,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.auto_main" />
-      <item itemvalue="Python.staticDetection" />
       <item itemvalue="Python.pytorch_test" />
       <item itemvalue="Python.test_model" />
       <item itemvalue="Python.mnist.siamse" />
+      <item itemvalue="Python.siamese" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.siamese" />
+        <item itemvalue="Python.pytorch_test" />
         <item itemvalue="Python.mnist.siamse" />
         <item itemvalue="Python.test_model" />
-        <item itemvalue="Python.pytorch_test" />
         <item itemvalue="Python.auto_main" />
-        <item itemvalue="Python.staticDetection" />
       </list>
     </recent_temporary>
   </component>
@@ -278,14 +276,8 @@
       <workItem from="1587834708156" duration="12625000" />
       <workItem from="1587917228206" duration="14000" />
       <workItem from="1588157574568" duration="184000" />
-      <workItem from="1588157788508" duration="5016000" />
-    </task>
-    <task id="LOCAL-00019" summary="only yolo without ids-works">
-      <created>1575210023690</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1575210023690</updated>
+      <workItem from="1588157788508" duration="5039000" />
+      <workItem from="1588169737082" duration="18713000" />
     </task>
     <task id="LOCAL-00020" summary="only yolo without ids-works">
       <created>1575210256113</created>
@@ -623,7 +615,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587845763533</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="add pytorch">
+      <created>1588163144134</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1588163144135</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -671,8 +670,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="add pytorch" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Final_Project_Afeka$pytorch_test.coverage" NAME="pytorch_test Coverage Results" MODIFIED="1588160684519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pytorch" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$pytorch_test.coverage" NAME="pytorch_test Coverage Results" MODIFIED="1588180742801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pytorch" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$bg_sub.coverage" NAME="bg_sub Coverage Results" MODIFIED="1577001115912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Final_Project_Afeka$siamese.coverage" NAME="siamese Coverage Results" MODIFIED="1588190477475" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pytorch" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$KalmanFilter.coverage" NAME="KalmanFilter Coverage Results" MODIFIED="1575295812179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$kalman.coverage" NAME="kalman Coverage Results" MODIFIED="1575190906662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Final_Project_Afeka$MainProcess.coverage" NAME="MainProcess Coverage Results" MODIFIED="1577005833504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

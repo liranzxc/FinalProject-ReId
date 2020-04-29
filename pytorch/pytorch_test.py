@@ -18,6 +18,8 @@ import torch.nn.functional as F
 import matplotlib.pyplot as plt
 
 # load folder parent
+from pytorch.mnist_siamse import NetXXX
+
 module_path = os.path.abspath(os.path.join('..'))
 if module_path not in sys.path:
     sys.path.append(module_path)
@@ -85,7 +87,7 @@ if __name__ == "__main__":
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
     classes = [0, 1]
-    batch_size = 1
+    batch_size = 3
     train_dataset = PairDataset(path, mode="train", transform=transform)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
@@ -95,104 +97,54 @@ if __name__ == "__main__":
     val_dataset = PairDataset(path, mode="valid", transform=transform)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=True)
 
-    # get some random training images
-    #
-    # for batch_id, (imgs1, imgs2, labels) in enumerate(train_loader, 1):
-    #     for img1,img2,label in zip(imgs1,imgs2,labels):
-    #         # show images
-    #         x = torchvision.utils.make_grid(img1)
-    #         y = torchvision.utils.make_grid(img2)
-    #         labelX = int(label.numpy())
-    #         imshow([x, y],labelX)
-    #         print(labelX)
+    model = NetXXX()
 
-    net = Siamese()
-    net.train()
+    model.train()
 
     cuda = True
     if cuda:
-        net.cuda()
+        model.cuda()
 
-    lr = 1e-3  # Learning rate
-    epoch_num = 2
-    optimizer = optim.SGD(net.parameters(), lr=lr, momentum=0.9)
+    lr = 0.01  # Learning rate
+    epoch_num = 1
+    optimizer = optim.Adam(model.parameters(), lr=lr)
     stuck = 0
     loss_log = []
 
-    criterion = nn.MSELoss()
     stop = False
     for ep in range(epoch_num):  # epochs loop
         if stop:
             break
-        running_loss = 0.0
-        for batch_id, (img1, img2, yi) in enumerate(train_loader, 0):
+        for batch_idx, (data, target) in enumerate(train_loader, 0):
+            for i in range(len(data)):
+                data[i] = Variable(data[i].cuda())
 
             optimizer.zero_grad()
 
-            if cuda:
-                img1, img2, yi = Variable(img1.cuda()), Variable(img2.cuda()), Variable(yi.cuda())
-            else:
-                img1, img2, yi = Variable(img1), Variable(img2), Variable(yi)
+            output_positive = model(data[:2])
+            output_negative = model([data[0], data[2]])
 
-            pred = net.forward(img1, img2)  # 0 ~ 1
+            target = target.type(torch.LongTensor).cuda()
+            target_positive = torch.squeeze(target[:, 0])
+            target_negative = torch.squeeze(target[:, 1])
 
-            # yi if y = 1 are the same pair
-            # yi if y = 0 are not the same pair
-            loss = criterion(yi, pred)
+            loss_positive = F.cross_entropy(output_positive, target_positive)
+            loss_negative = F.cross_entropy(output_negative, target_negative)
 
-            # print("pred", pred)
-            # print("yi actual", yi)
-            # print("loss", loss)
-            # print("*"*70)
-            # Backward pass and updates
-            loss.backward()  # calculate the gradients (backpropagation)
-            optimizer.step()  # update the weights
-            running_loss += loss.item()
+            loss = loss_positive + loss_negative
+            loss.backward()
 
-            if batch_id % 500 == 499:  # print every 500 mini-batches
-                print('[%d, %5d] train loss: %.3f' %
-                      (ep + 1, batch_id + 1, running_loss / 500))
+            optimizer.step()
 
-                if len(loss_log) > 0:
-                    if (running_loss / 500) == loss_log[-1]:
-                        stuck = stuck + 1
-                    else:
-                        stuck = 0
+            if batch_idx % 10 == 0:
+                print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+                    ep, batch_idx * batch_size, len(train_loader.dataset),
+                        100. * batch_idx * batch_size / len(train_loader.dataset),
+                    loss.item()))
 
-                loss_log.append(running_loss / 500)
-
-                if stuck > 4 :
-                    stop = True
-                    print("stuck")
-                    break
-
-              #  if (running_loss / 500) < 0.001 and running_loss != 0.0:  # thehold
-                if batch_id % 4000 == 3999:  # print every 500 mini-batches
-                    right = 0
-                    error = 0
-                    n = 0
-                    for _, (img1_val, img2_val, yi_val) in enumerate(val_loader, 1):
-                        if cuda:
-                            img1_val, img2_val, yi_val = Variable(img1_val.cuda()), Variable(img2_val.cuda()), Variable(
-                                yi_val.cuda())
-                        else:
-                            img1_val, img2_val, yi_val = Variable(img1_val), Variable(img2_val), Variable(yi_val)
-
-                        pred = net.forward(img1_val, img2_val).cpu().detach().numpy()
-                        yi_val = yi_val.item()
-                        if np.round_(pred) == yi_val:
-                            right += 1
-                        else:
-                            error += 1
-                        n += 1
-
-                    print("acc {}".format(right / n))
-                    print("error {}".format(error / n))
-                    print("*" * 70)
-
-                    # stop = True
-                    # break
-                running_loss = 0.0
+            #         # stop = True
+            #         # break
+            #     running_loss = 0.0
 
             # if batch_id % 8000 == 7999:
             #     # check acc
@@ -219,7 +171,7 @@ if __name__ == "__main__":
             #     print("error {}".format(error / n))
             #     print("*" * 70)
 
-    torch.save(net.state_dict(), '../reId/siamese_60w_160h.pth')
+    torch.save(model.state_dict(), '../reId/siamese_triplet.pth')
 
     plt.plot(loss_log)
     plt.title('Loss')

@@ -224,7 +224,7 @@ class BalancedMNISTPair(torch.utils.data.Dataset):
         return fmt_str
 
 
-class Net(nn.Module):
+class NetXXX(nn.Module):
     def __init__(self):
         super().__init__()
 

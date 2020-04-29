@@ -14,10 +14,15 @@ class PairDataset(Dataset):
     def __init__(self, path, mode="train", transform=None):
         self.transform = transform
         self.mode = mode
-        self.same_labels = 0
-        self.odd_labels = 0
         self.path = path
-        self.train_data, self.train_label, self.test_data, self.test_label, self.val_data, self.val_label = self.create_db()
+
+        self.train_data = []
+        self.train_label = []
+
+        self.test_data = []
+        self.test_label = []
+
+        self.create_db()
 
     def change_mode(self, mode):
         self.mode = mode
@@ -26,89 +31,83 @@ class PairDataset(Dataset):
         ids = {}
         paths = glob(self.path)
         paths.sort()
-
         # reduce by id
         for path in paths:
-            name = path.split("/")[-1]
-            _id = name[:4]
+            name = path.split("/")[-1][:4]
+            _id = name.lstrip("0")
             if ids.get(_id, None) is None:
                 ids[_id] = [path]
             else:
                 ids[_id].append(path)
 
-        # create pairs
-        pairs_same = []
-        labels_same = []
-        pairs_odd = []
-        labels_odd = []
-        # create same pairs
+        number_of_ids = len(ids.keys()) - 1
+        # train data
         for key in ids.keys():
-            images = ids[key]
-            combinations = list(itertools.combinations(images, 2))
-            pairs_same.extend(combinations)
-            labels_same.extend([1] * len(combinations))
-            self.same_labels = self.same_labels + len(combinations)
+            for i in range(20):
+                rnd_cls = np.random.randint(1, number_of_ids)  # choose random class that is not the same class
+                if str(rnd_cls) == key:
+                    rnd_cls = rnd_cls + 1
 
-        # create different pairs
+                rnd_cls = str(rnd_cls)
+                images_person_A = ids[key]
+                images_person_B = ids[rnd_cls]
+
+                image_A_1_index = np.random.randint(1, len(images_person_A) - 1)
+                image_A_2_index = np.random.randint(1, len(images_person_A) - 1)
+                image_B_1_index = np.random.randint(1, len(images_person_B) - 1)
+
+                img_a_1_path = images_person_A[image_A_1_index]
+                img_a_2_path = images_person_A[image_A_2_index]
+                img_b_1_path = images_person_B[image_B_1_index]
+
+                data = [img_a_1_path, img_a_2_path]
+                self.train_data.append(data)
+                self.train_label.append(np.array([1], dtype=np.float32))  # similarity
+
+                data = [img_b_1_path, img_a_2_path]
+                self.train_data.append(data)
+                self.train_label.append(np.array([0], dtype=np.float32))
+
+        # test data
         for key in ids.keys():
-            list_ids = list(ids.keys())
-            list_ids.remove(key)
-            selected_index = np.random.choice(list_ids)
-            combinations = list(itertools.product(ids[selected_index], ids[key]))
-            pairs_odd.extend(combinations)
-            labels_odd.extend([0] * len(combinations))
-            self.odd_labels = self.odd_labels + len(combinations)
+            for i in range(20):
+                rnd_cls = np.random.randint(1, number_of_ids)  # choose random class that is not the same class
+                if str(rnd_cls) == key:
+                    rnd_cls = rnd_cls + 1
 
-            if self.odd_labels > self.same_labels:
-                break
+                rnd_cls = str(rnd_cls)
+                images_person_A = ids[key]
+                images_person_B = ids[rnd_cls]
 
-        # split the data 70% train , 10% valid , 20% test
+                image_A_1_index = np.random.randint(1, len(images_person_A) - 1)
+                image_A_2_index = np.random.randint(1, len(images_person_A) - 1)
+                image_B_1_index = np.random.randint(1, len(images_person_B) - 1)
 
-        train_pair = pairs_same[: int(len(pairs_same) * 0.7)] + pairs_odd[: int(len(pairs_odd) * 0.7)]
+                img_a_1_path = images_person_A[image_A_1_index]
+                img_a_2_path = images_person_A[image_A_2_index]
+                img_b_1_path = images_person_B[image_B_1_index]
 
-        train_label = labels_same[: int(len(labels_same) * 0.7)] + labels_odd[: int(len(labels_odd) * 0.7)]
+                data = [img_a_1_path, img_a_2_path]
+                self.test_data.append(data)
+                self.test_label.append(np.array([1], dtype=np.float32))  # similarity
 
-        val_pair = pairs_same[int(len(pairs_same) * 0.7): int(len(pairs_same) * 0.8)] \
-                   + pairs_odd[int(len(pairs_odd) * 0.7): int(len(pairs_odd) * 0.8)]
-        val_label = labels_same[int(len(labels_same) * 0.7): int(len(labels_same) * 0.8)] \
-                    + labels_odd[int(len(labels_odd) * 0.7): int(len(labels_odd) * 0.8)]
-
-        test_pair = pairs_same[int(len(pairs_same) * 0.8):] + pairs_odd[int(len(pairs_odd) * 0.8):]
-        test_label = labels_same[int(len(labels_same) * 0.8):] + labels_odd[int(len(labels_odd) * 0.8):]
-
-        return train_pair, train_label, test_pair, test_label, val_pair, val_label
-
-    def details(self):
-        print("# of pair train", len(self.train_data))
-        print("# of labels train", len(self.train_label))
-
-        print("# of pair test", len(self.test_data))
-        print("# of labels test", len(self.test_label))
-
-        print("# of pair val", len(self.val_data))
-        print("# of labels val", len(self.val_label))
-
-        print("# of same pairs in all db", self.same_labels)
-        print("# of diff pairs in all db", self.odd_labels)
+                data = [img_b_1_path, img_a_2_path]
+                self.test_data.append(data)
+                self.test_label.append(np.array([0], dtype=np.float32))
 
     def __len__(self):
         if self.mode is "train":
             return len(self.train_data)
-        elif self.mode is "test":
-            return len(self.test_data)
         else:
-            return len(self.val_data)
+            return len(self.test_data)
 
     def __getitem__(self, index):
         if self.mode is "train":
             imgs, label = self.train_data[index], self.train_label[index]
-        elif self.mode is "test":
-            imgs, label = self.test_data[index], self.test_label[index]
         else:
-            imgs, label = self.val_data[index], self.val_label[index]
+            imgs, label = self.test_data[index], self.test_label[index]
 
         imgs_arr = []
-
         for path in imgs:
             img = Image.open(path)
             if self.transform is not None:
@@ -119,4 +118,4 @@ class PairDataset(Dataset):
 
             imgs_arr.append(pil_to_tensor)
 
-        return imgs_arr[0], imgs_arr[1], torch.tensor(label, dtype=torch.float32)
+        return imgs_arr, label

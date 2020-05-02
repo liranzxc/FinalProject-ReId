@@ -62,11 +62,11 @@ class PairDataset(Dataset):
 
                 data = [img_a_1_path, img_a_2_path]
                 self.train_data.append(data)
-                self.train_label.append(np.array([1], dtype=np.float32))  # similarity
+                self.train_label.append(np.array([0], dtype=np.float32))  # similarity
 
                 data = [img_b_1_path, img_a_2_path]
                 self.train_data.append(data)
-                self.train_label.append(np.array([0], dtype=np.float32))
+                self.train_label.append(np.array([1], dtype=np.float32))
 
         # test data
         for key in ids.keys():
@@ -89,11 +89,11 @@ class PairDataset(Dataset):
 
                 data = [img_a_1_path, img_a_2_path]
                 self.test_data.append(data)
-                self.test_label.append(np.array([1], dtype=np.float32))  # similarity
+                self.test_label.append(np.array([0], dtype=np.float32))  # similarity
 
                 data = [img_b_1_path, img_a_2_path]
                 self.test_data.append(data)
-                self.test_label.append(np.array([0], dtype=np.float32))
+                self.test_label.append(np.array([1], dtype=np.float32))
 
     def __len__(self):
         if self.mode is "train":

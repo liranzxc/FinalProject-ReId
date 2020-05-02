@@ -8,3 +8,5 @@ dataset/re-id
 /colors/
 /inspection/
 /figures/
+/weights/*
+/att-database-of-faces/
